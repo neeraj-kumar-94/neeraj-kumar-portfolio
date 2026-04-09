@@ -6,7 +6,7 @@ export const personalInfo = {
   email: "neeraj74530@gmail.com",
   summary:
     "Frontend Developer with 2.3 years of experience building responsive, performance-driven, and visually engaging web interfaces. Specialized in Shopify and WordPress development with strong HTML, CSS, JavaScript, and PHP skills.",
-  linkedin: "https://www.linkedin.com/in/devneerajkumar/",
+  linkedin: "https://www.linkedin.com/in/neerajkumar94/",
   github: "https://github.com/neeraj-kumar-94",
   portfolio:
     "https://neeraj-kumar-94.github.io/Neeraj-kumar-Portfolio/",
