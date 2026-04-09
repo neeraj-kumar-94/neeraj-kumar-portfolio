@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  @apply min-h-full w-full overflow-x-hidden transition-colors duration-300 ease-out;
+  @apply bg-white dark:bg-nkBg;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  @apply bg-white text-slate-600 antialiased dark:bg-nkBg dark:text-slate-300;
+  line-height: 1.65;
+}
+
+#root {
+  @apply min-h-[100dvh] w-full overflow-x-hidden;
+}
+
+.dark body {
+  @apply bg-nkBg text-slate-300;
+}
+
+@layer utilities {
+  .nk-text-primary {
+    @apply text-slate-900 dark:text-white;
+  }
+  .nk-text-secondary {
+    @apply text-slate-600 dark:text-slate-300;
+  }
+  .nk-prose {
+    @apply text-slate-600 dark:text-slate-300;
+  }
+  .nk-prose-muted {
+    @apply text-slate-500 dark:text-slate-400;
+  }
+  .nk-glass {
+    @apply border border-white/10 bg-white/70 shadow-nkCard backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/50 dark:shadow-nkCardDark;
+  }
+  .nk-glass-strong {
+    @apply border border-white/15 bg-white/80 shadow-lg backdrop-blur-2xl dark:border-slate-700/50 dark:bg-slate-900/65;
+  }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #6366f1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #6366f1 !important;
+}
+
+.nk-projects-pagination .swiper-pagination-bullet,
+.nk-testimonials-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #94a3b8;
+  opacity: 1;
+}
+
+.nk-projects-pagination .swiper-pagination-bullet-active,
+.nk-testimonials-pagination .swiper-pagination-bullet-active {
+  background: #6366f1;
+}
+
+.nk-marquee {
+  animation: nk-marquee-scroll 22s linear infinite;
+}
+
+@keyframes nk-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes nk-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.nk-float {
+  animation: nk-float 5s ease-in-out infinite;
+}
+
+@media (pointer: fine) {
+  .nk-app {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nk-marquee,
+  .nk-float {
+    animation: none;
+  }
+
+  .nk-cursor-layer {
+    display: none !important;
+  }
+
+  @media (pointer: fine) {
+    .nk-app {
+      cursor: auto;
+    }
+  }
+}
