@@ -1,0 +1,62 @@
+{
+  "name": "Neeraj Kumar Portfolio",
+  "short_name": "Neeraj",
+  "description": "Portfolio of Neeraj Kumar, a frontend, WordPress, and Shopify developer.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#020407",
+  "theme_color": "#020407",
+  "orientation": "portrait-primary",
+  "dir": "ltr",
+  "lang": "en-US",
+  "categories": [
+    "portfolio",
+    "developer",
+    "technology",
+    "education",
+    "business"
+  ],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Projects",
+      "short_name": "Projects",
+      "description": "Browse my portfolio projects",
+      "url": "/#projects",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Contact Me",
+      "short_name": "Contact",
+      "description": "Get in touch with me",
+      "url": "/#contact",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "View Skills",
+      "short_name": "Skills",
+      "description": "See my technical skills",
+      "url": "/#skills",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "iarc_rating_id": "",
+  "offline_enabled": true
+}
