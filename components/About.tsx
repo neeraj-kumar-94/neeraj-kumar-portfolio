@@ -1,0 +1,53 @@
+import { profile } from "@/lib/data";
+import Reveal from "./Reveal";
+import SectionHeading from "./SectionHeading";
+
+export default function About() {
+  return (
+    <section id="about" className="scroll-mt-20 py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal>
+          <SectionHeading eyebrow="Introduction" title="About Me" />
+        </Reveal>
+
+        <div className="grid items-center gap-12 lg:grid-cols-5">
+          <Reveal className="lg:col-span-2">
+            <div className="relative mx-auto aspect-square w-full max-w-sm">
+              <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl border-2 border-accent" />
+              <div className="relative flex h-full w-full items-center justify-center rounded-2xl bg-card shadow-xl">
+                <span className="font-serif text-8xl font-semibold text-accent">
+                  {profile.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
+                </span>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={100} className="lg:col-span-3">
+            <div className="space-y-5 text-lg leading-relaxed text-muted">
+              {profile.about.map((paragraph) => (
+                <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+              ))}
+            </div>
+
+            <div className="mt-10 grid grid-cols-3 gap-6">
+              {profile.stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-xl border border-border bg-card p-5 text-center shadow-sm"
+                >
+                  <p className="font-serif text-3xl font-semibold text-accent">{stat.value}</p>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
