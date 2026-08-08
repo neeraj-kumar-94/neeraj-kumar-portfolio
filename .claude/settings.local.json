@@ -21,7 +21,11 @@
       "Bash(git remote *)",
       "Bash(git ls-remote *)",
       "Bash(git push *)",
-      "Bash(git commit -m 'Replace favicon with SVG monogram icon *)"
+      "Bash(git commit -m 'Replace favicon with SVG monogram icon *)",
+      "mcp__757a0883-5020-4b86-ba63-5f9288bcccd2__deploy_to_vercel",
+      "mcp__757a0883-5020-4b86-ba63-5f9288bcccd2__list_teams",
+      "mcp__757a0883-5020-4b86-ba63-5f9288bcccd2__list_projects",
+      "Bash(git commit -m 'Add Resume link to mobile menu *)"
     ]
   }
 }

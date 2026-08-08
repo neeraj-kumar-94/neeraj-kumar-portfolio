@@ -98,6 +98,15 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href={profile.resumeUrl}
+              onClick={() => setOpen(false)}
+              className="block py-3 text-sm font-medium text-accent"
+            >
+              Resume
+            </a>
+          </li>
         </ul>
       )}
     </header>
