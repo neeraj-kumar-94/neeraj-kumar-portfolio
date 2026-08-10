@@ -61,7 +61,7 @@ export const projects = [
       "Custom Shopify storefront for a premium pet food brand with subscription plans and customizable meal options. Built interactive forms and custom product variant selectors, and integrated discount codes, HubSpot, and secure payment gateways.",
     tech: ["Shopify", "Custom Theme", "HubSpot", "Payment Gateway"],
     liveUrl: "https://www.brunswickfurfood.com/",
-    image: "/projects/brunswick.png",
+    image: "/projects/brunswick.jpg",
   },
   {
     title: "Pride and Justice",
@@ -70,7 +70,7 @@ export const projects = [
       "Professional website for a law firm focused on establishing credibility and client trust. Implemented responsive layouts, custom Elementor sections, and a structured blog, with performance optimizations for a smooth experience across devices.",
     tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
     liveUrl: "https://prideandjustice.in/",
-    image: "/projects/pride-justice.png",
+    image: "/projects/pride-justice.jpg",
   },
   {
     title: "BNPS International",
@@ -79,7 +79,7 @@ export const projects = [
       "Responsive website for an education consultancy, built for lead generation. Customized the WordPress theme with custom animations and layouts, integrated LeadSquared CRM with automated email workflows, and optimized for performance and SEO.",
     tech: ["WordPress", "Elementor", "LeadSquared", "Email Automation"],
     liveUrl: "https://bnpsinternational.com/",
-    image: "/projects/bnps.png",
+    image: "/projects/bnps.jpg",
   },
   {
     title: "Vivekanand Vidya Niketan",
@@ -88,7 +88,7 @@ export const projects = [
       "Full-featured school website with academics, admissions, and achievements sections. Implemented custom multimedia sections — video banners, achievement galleries, and social media feeds — optimized for a smooth, mobile-friendly experience.",
     tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
     liveUrl: "https://vvnassandh.com/",
-    image: "/projects/vvn.png",
+    image: "/projects/vvn.jpg",
   },
   {
     title: "Enviro Guru Consultancy",
@@ -97,7 +97,7 @@ export const projects = [
       "WordPress website for an environmental consultancy firm showcasing services and compliance expertise, with a clean, professional layout that highlights client success stories to build credibility and trust.",
     tech: ["WordPress", "Elementor", "Custom CSS"],
     liveUrl: "https://enviroguru.in/",
-    image: "/projects/enviro.png",
+    image: "/projects/enviro.jpg",
   },
 ];
 

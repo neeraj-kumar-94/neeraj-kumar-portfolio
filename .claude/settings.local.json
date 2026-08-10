@@ -44,7 +44,14 @@
       "Bash(sips -Z 800 shakti.jpg tanmay.jpg)",
       "Bash(git commit -m 'Revamp: hero & about illustrations, stacked project cards with images, timeline experience, mentor slider with photos *)",
       "Bash(git commit -m 'Mobile responsiveness fixes + replace skill percentages with services checklist *)",
-      "Bash(git commit -m 'Add directional entrance animations + upgrade Skills, Education, Contact sections *)"
+      "Bash(git commit -m 'Add directional entrance animations + upgrade Skills, Education, Contact sections *)",
+      "Bash(ls -lat ~/Desktop 2>/dev/null | head -15; echo ---; ls -lat ~/Downloads 2>/dev/null | head -15)",
+      "Bash(rm -f brunswick.png pride-justice.png bnps.png vvn.png enviro.png)",
+      "Bash(sips -s format jpeg -s formatOptions 85 -Z 1400 ~/Downloads/bff-project.png --out brunswick.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 85 -Z 1400 '/Users/neeraj/Downloads/pride&justice.png' --out pride-justice.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 85 -Z 1400 ~/Downloads/bnps-project.png --out bnps.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 85 -Z 1400 ~/Downloads/vvn-project.png --out vvn.jpg)",
+      "Bash(git commit -m 'Use device mockup images for project cards *)"
     ]
   }
 }
