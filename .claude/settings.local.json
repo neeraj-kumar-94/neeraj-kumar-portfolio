@@ -25,7 +25,24 @@
       "mcp__757a0883-5020-4b86-ba63-5f9288bcccd2__deploy_to_vercel",
       "mcp__757a0883-5020-4b86-ba63-5f9288bcccd2__list_teams",
       "mcp__757a0883-5020-4b86-ba63-5f9288bcccd2__list_projects",
-      "Bash(git commit -m 'Add Resume link to mobile menu *)"
+      "Bash(git commit -m 'Add Resume link to mobile menu *)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --screenshot=\"bnps.png\" --window-size=1280,800 --hide-scrollbars --virtual-time-budget=8000 \"https://bnpsinternational.com/\")",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --screenshot=\"vvn.png\" --window-size=1280,800 --hide-scrollbars --virtual-time-budget=8000 \"https://vvnassandh.com/\")",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --screenshot=\"enviro.png\" --window-size=1280,800 --hide-scrollbars --virtual-time-budget=8000 \"https://enviroguru.in/\")",
+      "Bash(curl -s https://portfolio-shahad-hassan.vercel.app/ -o /tmp/shahad.html)",
+      "Read(//private/tmp/claude-502/**)",
+      "Bash(curl -s https://portfolio-shahad-hassan.vercel.app/)",
+      "Bash(curl -sL https://portfolio-shahad-hassan.vercel.app/)",
+      "Bash(mkdir -p public/mentors)",
+      "Bash(curl -sO https://res.cloudinary.com/shahad-hassan/image/upload/v1735023882/Mentors/fcpt8tjjm7r3ityrocd5.jpg)",
+      "Bash(curl -sO https://res.cloudinary.com/shahad-hassan/image/upload/v1735023894/Mentors/mw7oicjmqckypcgarwky.jpg)",
+      "Bash(curl -sO https://res.cloudinary.com/shahad-hassan/image/upload/v1735023906/Mentors/kbwmhcvjrntqo3yrdhdh.png)",
+      "Bash(mv fcpt8tjjm7r3ityrocd5.jpg shakti.jpg)",
+      "Bash(mv mw7oicjmqckypcgarwky.jpg tanmay.jpg)",
+      "Bash(sips -s format jpeg -Z 800 kbwmhcvjrntqo3yrdhdh.png --out manish.jpg)",
+      "Bash(rm kbwmhcvjrntqo3yrdhdh.png)",
+      "Bash(sips -Z 800 shakti.jpg tanmay.jpg)",
+      "Bash(git commit -m 'Revamp: hero & about illustrations, stacked project cards with images, timeline experience, mentor slider with photos *)"
     ]
   }
 }

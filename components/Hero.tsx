@@ -1,4 +1,5 @@
 import { profile } from "@/lib/data";
+import HeroIllustration from "./HeroIllustration";
 import TypedRoles from "./TypedRoles";
 
 export default function Hero() {
@@ -13,7 +14,7 @@ export default function Hero() {
         style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
       />
 
-      <div className="mx-auto w-full max-w-6xl px-6 pt-24">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 pt-24 lg:grid-cols-[1.15fr_1fr]">
         <div className="max-w-3xl">
           <p className="animate-fade-up mb-4 text-sm font-medium uppercase tracking-[0.3em] text-accent">
             WordPress · Shopify · React.js · Next.js
@@ -55,6 +56,10 @@ export default function Hero() {
               Get in Touch
             </a>
           </div>
+        </div>
+
+        <div className="animate-fade-up" style={{ animationDelay: "300ms" }}>
+          <HeroIllustration />
         </div>
       </div>
 

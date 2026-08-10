@@ -61,6 +61,7 @@ export const projects = [
       "Custom Shopify storefront for a premium pet food brand with subscription plans and customizable meal options. Built interactive forms and custom product variant selectors, and integrated discount codes, HubSpot, and secure payment gateways.",
     tech: ["Shopify", "Custom Theme", "HubSpot", "Payment Gateway"],
     liveUrl: "https://www.brunswickfurfood.com/",
+    image: "/projects/brunswick.png",
   },
   {
     title: "Pride and Justice",
@@ -69,6 +70,7 @@ export const projects = [
       "Professional website for a law firm focused on establishing credibility and client trust. Implemented responsive layouts, custom Elementor sections, and a structured blog, with performance optimizations for a smooth experience across devices.",
     tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
     liveUrl: "https://prideandjustice.in/",
+    image: "/projects/pride-justice.png",
   },
   {
     title: "BNPS International",
@@ -77,6 +79,7 @@ export const projects = [
       "Responsive website for an education consultancy, built for lead generation. Customized the WordPress theme with custom animations and layouts, integrated LeadSquared CRM with automated email workflows, and optimized for performance and SEO.",
     tech: ["WordPress", "Elementor", "LeadSquared", "Email Automation"],
     liveUrl: "https://bnpsinternational.com/",
+    image: "/projects/bnps.png",
   },
   {
     title: "Vivekanand Vidya Niketan",
@@ -85,6 +88,7 @@ export const projects = [
       "Full-featured school website with academics, admissions, and achievements sections. Implemented custom multimedia sections — video banners, achievement galleries, and social media feeds — optimized for a smooth, mobile-friendly experience.",
     tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
     liveUrl: "https://vvnassandh.com/",
+    image: "/projects/vvn.png",
   },
   {
     title: "Enviro Guru Consultancy",
@@ -93,6 +97,7 @@ export const projects = [
       "WordPress website for an environmental consultancy firm showcasing services and compliance expertise, with a clean, professional layout that highlights client success stories to build credibility and trust.",
     tech: ["WordPress", "Elementor", "Custom CSS"],
     liveUrl: "https://enviroguru.in/",
+    image: "/projects/enviro.png",
   },
 ];
 
@@ -147,27 +152,30 @@ export const highlights = [
   "Continuously exploring modern frontend frameworks",
 ];
 
-// "What Mentors Say" — update names/titles if needed; quotes are editable.
+// "What Mentors Say" — shown in the testimonial slider.
 export const mentors = [
   {
-    name: "Manish Kumar",
-    title: "Visual Designer & UI Specialist, RecoBee",
-    linkedin: "https://www.linkedin.com/in/mymkrana/",
-    quote:
-      "Neeraj has a rare eye for detail among developers. Hand him a design and he returns a pixel-perfect build — with the spacing, typography, and micro-interactions exactly as intended. Working with him as a designer is effortless.",
-  },
-  {
-    name: "Tanmay",
-    title: "Mentor",
-    linkedin: "https://www.linkedin.com/in/tanmaybummlers/",
-    quote:
-      "What sets Neeraj apart is ownership. Whether it's a Shopify storefront or a complex WordPress build, he takes a requirement, asks the right questions, and delivers a complete, polished solution — on time, every time.",
-  },
-  {
-    name: "Shakti Gurjar",
-    title: "Mentor",
+    name: "Shakti Singh",
+    title: "Consulting Specialist – UX/UI",
     linkedin: "https://www.linkedin.com/in/gurjarshakti/",
+    image: "/mentors/shakti.jpg",
     quote:
-      "I've watched Neeraj grow from a WordPress developer into a well-rounded frontend engineer. His hunger to learn — picking up React and Next.js while delivering client work — and his clean, maintainable code make him a developer any team would want.",
+      "Guiding Neeraj through the nuances of frontend development has been a rewarding experience. His ability to quickly grasp new concepts and apply them creatively to projects is truly impressive. Not only does he possess strong technical skills, but his collaborative nature and effective communication make him a valuable asset.",
+  },
+  {
+    name: "Tanmay Sharma",
+    title: "SaaS Sales Professional",
+    linkedin: "https://www.linkedin.com/in/tanmaybummlers/",
+    image: "/mentors/tanmay.jpg",
+    quote:
+      "Neeraj is not just proficient in coding, he also possesses a strong design sense, which greatly enhances the visual appeal and functionality of his projects. His collaborative approach and strong problem-solving skills make him an excellent addition to any project. His dedication and passion for his craft are admirable.",
+  },
+  {
+    name: "Manish Gurjar",
+    title: "Senior UI/UX Designer | Product Design Expert",
+    linkedin: "https://www.linkedin.com/in/mymkrana/",
+    image: "/mentors/manish.jpg",
+    quote:
+      "Neeraj has consistently demonstrated a high level of proficiency in frontend development. His code is not just functional but also elegant, reflecting a deep understanding of design principles. He possesses a strong command of WordPress, Shopify, and modern frontend technologies, and his ability to adapt to evolving industry standards is impressive.",
   },
 ];

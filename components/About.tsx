@@ -1,4 +1,5 @@
 import { profile } from "@/lib/data";
+import AboutIllustration from "./AboutIllustration";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
@@ -12,17 +13,7 @@ export default function About() {
 
         <div className="grid items-center gap-12 lg:grid-cols-5">
           <Reveal className="lg:col-span-2">
-            <div className="relative mx-auto aspect-square w-full max-w-sm">
-              <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl border-2 border-accent" />
-              <div className="relative flex h-full w-full items-center justify-center rounded-2xl bg-card shadow-xl">
-                <span className="font-serif text-8xl font-semibold text-accent">
-                  {profile.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </span>
-              </div>
-            </div>
+            <AboutIllustration />
           </Reveal>
 
           <Reveal delay={100} className="lg:col-span-3">
