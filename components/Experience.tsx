@@ -6,7 +6,7 @@ export default function Experience() {
   return (
     <section id="experience" className="scroll-mt-20 bg-card py-24">
       <div className="mx-auto max-w-5xl px-6">
-        <Reveal>
+        <Reveal variant="zoom">
           <SectionHeading eyebrow="Career" title="Work Experience" />
         </Reveal>
 
@@ -18,7 +18,11 @@ export default function Experience() {
             {experience.map((job, i) => {
               const left = i % 2 === 0;
               return (
-                <Reveal key={`${job.role}-${job.company}`} delay={i * 100}>
+                <Reveal
+                  key={`${job.role}-${job.company}`}
+                  delay={i * 100}
+                  variant={left ? "left" : "right"}
+                >
                   <div className="relative md:grid md:grid-cols-2 md:gap-16">
                     {/* Dot */}
                     <span className="timeline-dot absolute left-0 top-2 h-4 w-4 rounded-full border-[3px] border-accent bg-card md:left-1/2 md:-translate-x-1/2" />

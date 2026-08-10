@@ -43,7 +43,8 @@
       "Bash(rm kbwmhcvjrntqo3yrdhdh.png)",
       "Bash(sips -Z 800 shakti.jpg tanmay.jpg)",
       "Bash(git commit -m 'Revamp: hero & about illustrations, stacked project cards with images, timeline experience, mentor slider with photos *)",
-      "Bash(git commit -m 'Mobile responsiveness fixes + replace skill percentages with services checklist *)"
+      "Bash(git commit -m 'Mobile responsiveness fixes + replace skill percentages with services checklist *)",
+      "Bash(git commit -m 'Add directional entrance animations + upgrade Skills, Education, Contact sections *)"
     ]
   }
 }

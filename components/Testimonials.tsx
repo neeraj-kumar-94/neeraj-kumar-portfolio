@@ -26,11 +26,11 @@ export default function Testimonials() {
   return (
     <section id="mentors" className="scroll-mt-20 py-24">
       <div className="mx-auto max-w-5xl px-6">
-        <Reveal>
+        <Reveal variant="zoom">
           <SectionHeading eyebrow="Testimonials" title="What Mentors Say" />
         </Reveal>
 
-        <Reveal delay={80}>
+        <Reveal delay={100} variant="up">
           <div
             className="relative overflow-hidden"
             onMouseEnter={() => setPaused(true)}

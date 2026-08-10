@@ -7,7 +7,7 @@ export default function Projects() {
   return (
     <section id="projects" className="scroll-mt-20 py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <Reveal>
+        <Reveal variant="zoom">
           <SectionHeading eyebrow="Portfolio" title="Featured Projects" />
         </Reveal>
 

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { profile } from "@/lib/data";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -36,13 +37,23 @@ const socials = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="scroll-mt-20 py-24">
-      <div className="mx-auto max-w-3xl px-6 text-center">
-        <Reveal>
+    <section id="contact" className="relative scroll-mt-20 overflow-hidden py-24">
+      {/* Animated background orbs */}
+      <div
+        className="animate-float pointer-events-none absolute -left-32 top-10 h-72 w-72 rounded-full opacity-[0.08]"
+        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
+      />
+      <div
+        className="animate-float-delayed pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full opacity-[0.08]"
+        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
+      />
+
+      <div className="relative mx-auto max-w-3xl px-6 text-center">
+        <Reveal variant="zoom">
           <SectionHeading eyebrow="Contact" title="Let's Work Together" />
         </Reveal>
 
-        <Reveal delay={80}>
+        <Reveal delay={100} variant="up">
           <p className="mx-auto mb-10 max-w-xl text-lg leading-relaxed text-muted">
             I&apos;m currently open to full-time and remote opportunities. Whether you have a
             project in mind or just want to say hello — my inbox is always open.
@@ -51,27 +62,42 @@ export default function Contact() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-block rounded-full bg-accent px-10 py-4 font-medium text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:bg-accent-dark hover:shadow-xl"
+              className="animate-pulse-ring inline-flex items-center gap-2.5 rounded-full bg-accent px-10 py-4 font-medium text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-1 hover:bg-accent-dark hover:shadow-xl"
             >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                />
+              </svg>
               {profile.email}
             </a>
             <a
               href={`tel:${profile.phone.replace(/\s/g, "")}`}
-              className="inline-block rounded-full border border-border bg-card px-10 py-4 font-medium text-foreground transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+              className="inline-flex items-center gap-2.5 rounded-full border border-border bg-card px-10 py-4 font-medium text-foreground transition-all hover:-translate-y-1 hover:border-accent hover:text-accent hover:shadow-lg"
             >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                />
+              </svg>
               {profile.phone}
             </a>
           </div>
 
           <div className="mt-12 flex items-center justify-center gap-6">
-            {socials.map((social) => (
+            {socials.map((social, i) => (
               <a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card text-muted transition-all hover:-translate-y-1 hover:border-accent hover:text-accent"
+                className="pop flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card text-muted shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:scale-110 hover:border-accent hover:text-accent hover:shadow-lg"
+                style={{ "--pop-delay": `${0.35 + i * 0.12}s` } as CSSProperties}
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   {social.icon}

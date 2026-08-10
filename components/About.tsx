@@ -7,16 +7,16 @@ export default function About() {
   return (
     <section id="about" className="scroll-mt-20 py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <Reveal>
+        <Reveal variant="zoom">
           <SectionHeading eyebrow="Introduction" title="About Me" />
         </Reveal>
 
         <div className="grid items-center gap-12 lg:grid-cols-5">
-          <Reveal className="lg:col-span-2">
+          <Reveal variant="left" className="lg:col-span-2">
             <AboutIllustration />
           </Reveal>
 
-          <Reveal delay={100} className="lg:col-span-3">
+          <Reveal delay={120} variant="right" className="lg:col-span-3">
             <div className="space-y-5 text-lg leading-relaxed text-muted">
               {profile.about.map((paragraph) => (
                 <p key={paragraph.slice(0, 32)}>{paragraph}</p>
