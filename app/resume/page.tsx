@@ -35,7 +35,7 @@ export default function ResumePage() {
       </div>
 
       {/* A4 sheet */}
-      <div className="resume-sheet mx-auto max-w-[820px] bg-white px-10 py-9 shadow-xl print:max-w-none print:shadow-none">
+      <div className="resume-sheet mx-auto max-w-[820px] bg-white px-5 py-7 shadow-xl sm:px-10 sm:py-9 print:max-w-none print:shadow-none">
         {/* Header */}
         <header className="border-b-2 border-accent pb-5">
           <h1 className="font-serif text-4xl font-semibold tracking-tight text-foreground">
@@ -59,7 +59,7 @@ export default function ResumePage() {
           </div>
         </header>
 
-        <div className="mt-6 grid grid-cols-[1fr_15rem] gap-8 print:grid-cols-[1fr_14rem]">
+        <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-[1fr_15rem] print:grid-cols-[1fr_14rem]">
           {/* Main column */}
           <div className="space-y-6">
             <section>
@@ -81,7 +81,7 @@ export default function ResumePage() {
               <div className="space-y-5">
                 {experience.map((job) => (
                   <div key={job.company}>
-                    <div className="flex items-baseline justify-between gap-4">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
                       <h3 className="text-[14.5px] font-semibold text-foreground">
                         {job.role}
                       </h3>
@@ -113,7 +113,7 @@ export default function ResumePage() {
               <div className="space-y-3">
                 {projects.map((project) => (
                   <div key={project.title}>
-                    <div className="flex items-baseline justify-between gap-4">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
                       <h3 className="text-[13.5px] font-semibold text-foreground">
                         {project.title}
                         <span className="ml-2 font-normal text-muted">
