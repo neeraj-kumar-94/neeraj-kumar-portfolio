@@ -1,4 +1,7 @@
 import Navbar from "@/components/Navbar";
+import SmoothScroll from "@/components/SmoothScroll";
+import ScrollProgress from "@/components/ScrollProgress";
+import Marquee from "@/components/Marquee";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
@@ -12,9 +15,12 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <SmoothScroll />
+      <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
+        <Marquee />
         <About />
         <Skills />
         <Projects />

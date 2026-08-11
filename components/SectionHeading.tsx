@@ -13,7 +13,7 @@ export default function SectionHeading({
       <h2 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
         {title}
       </h2>
-      <div className="mx-auto mt-4 h-px w-16 bg-accent" />
+      <div className="heading-line mx-auto mt-4 h-0.5 w-16 rounded-full bg-gradient-to-r from-accent/40 via-accent to-accent/40" />
     </div>
   );
 }

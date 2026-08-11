@@ -57,7 +57,9 @@
       "Bash(curl -s -o /dev/null -w \"resume-page: %{http_code}\\\\n\" https://neeraj-kumar-portfolio-eight.vercel.app/resume)",
       "Bash(git commit -m 'Draggable animated mentor slider, client-friendly highlights, refine typed roles *)",
       "Bash(git commit -m 'Rewrite Quick Highlights as resume-based career achievements *)",
-      "Bash(git commit -m 'Modern redesign of Education & Highlights section *)"
+      "Bash(git commit -m 'Modern redesign of Education & Highlights section *)",
+      "Bash(npm install *)",
+      "Bash(git commit -m 'Add smooth scrolling \\(Lenis\\), scroll progress, parallax, marquee, count-up stats, button shine *)"
     ]
   }
 }

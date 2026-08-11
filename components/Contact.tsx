@@ -62,7 +62,7 @@ export default function Contact() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href={`mailto:${profile.email}`}
-              className="animate-pulse-ring inline-flex items-center gap-2.5 rounded-full bg-accent px-10 py-4 font-medium text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-1 hover:bg-accent-dark hover:shadow-xl"
+              className="animate-pulse-ring btn-shine inline-flex items-center gap-2.5 rounded-full bg-accent px-10 py-4 font-medium text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-1 hover:bg-accent-dark hover:shadow-xl"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path

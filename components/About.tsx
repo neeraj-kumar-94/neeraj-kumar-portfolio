@@ -1,5 +1,6 @@
 import { profile } from "@/lib/data";
 import AboutIllustration from "./AboutIllustration";
+import CountUp from "./CountUp";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
@@ -29,7 +30,9 @@ export default function About() {
                   key={stat.label}
                   className="rounded-xl border border-border bg-card p-5 text-center shadow-sm"
                 >
-                  <p className="font-serif text-3xl font-semibold text-accent">{stat.value}</p>
+                  <p className="font-serif text-3xl font-semibold text-accent">
+                    <CountUp value={stat.value} />
+                  </p>
                   <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted">
                     {stat.label}
                   </p>

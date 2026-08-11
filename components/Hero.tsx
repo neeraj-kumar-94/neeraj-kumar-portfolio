@@ -1,18 +1,23 @@
 import { profile } from "@/lib/data";
 import HeroIllustration from "./HeroIllustration";
+import Parallax from "./Parallax";
 import TypedRoles from "./TypedRoles";
 
 export default function Hero() {
   return (
     <section id="top" className="relative flex min-h-screen items-center overflow-hidden">
-      <div
-        className="animate-float pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full opacity-[0.08]"
-        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
-      />
-      <div
-        className="animate-float-delayed pointer-events-none absolute -bottom-56 -left-40 h-[500px] w-[500px] rounded-full opacity-[0.07]"
-        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
-      />
+      <Parallax speed={0.25} className="pointer-events-none absolute -right-40 -top-40">
+        <div
+          className="animate-float h-[500px] w-[500px] rounded-full opacity-[0.08]"
+          style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
+        />
+      </Parallax>
+      <Parallax speed={-0.2} className="pointer-events-none absolute -bottom-56 -left-40">
+        <div
+          className="animate-float-delayed h-[500px] w-[500px] rounded-full opacity-[0.07]"
+          style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)" }}
+        />
+      </Parallax>
 
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 pt-24 lg:grid-cols-[1.15fr_1fr]">
         <div className="max-w-3xl">
@@ -45,7 +50,7 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:bg-accent-dark hover:shadow-xl"
+              className="btn-shine rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:bg-accent-dark hover:shadow-xl"
             >
               View My Work
             </a>
@@ -59,7 +64,9 @@ export default function Hero() {
         </div>
 
         <div className="animate-fade-up" style={{ animationDelay: "300ms" }}>
-          <HeroIllustration />
+          <Parallax speed={0.08}>
+            <HeroIllustration />
+          </Parallax>
         </div>
       </div>
 

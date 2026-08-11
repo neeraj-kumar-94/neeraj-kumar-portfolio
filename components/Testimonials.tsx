@@ -35,7 +35,11 @@ export default function Testimonials() {
     pointerId.current = e.pointerId;
     startX.current = e.clientX;
     setDragging(true);
-    trackRef.current?.setPointerCapture(e.pointerId);
+    try {
+      trackRef.current?.setPointerCapture(e.pointerId);
+    } catch {
+      // pointer capture is a nice-to-have; ignore unsupported pointers
+    }
   };
 
   const onPointerMove = (e: React.PointerEvent) => {

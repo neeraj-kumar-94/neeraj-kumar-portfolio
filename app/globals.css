@@ -22,8 +22,23 @@
   --font-sans: var(--font-inter);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+html.lenis {
+  scroll-behavior: auto;
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 html,
@@ -225,6 +240,62 @@ body {
   animation: marquee 30s linear infinite;
 }
 
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  height: 100%;
+  width: 45%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+
+.btn-shine:hover::after {
+  animation: shine 0.9s ease;
+}
+
+@keyframes shine {
+  to {
+    left: 130%;
+  }
+}
+
+.reveal .heading-line {
+  transform: scaleX(0);
+}
+
+.reveal.visible .heading-line {
+  animation: grow-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+@keyframes grow-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -369,8 +440,14 @@ body {
   .animate-nav-in,
   .animate-pulse-ring,
   .slider-progress,
+  .marquee-track,
+  .btn-shine:hover::after,
+  .reveal.visible .heading-line,
   .reveal.visible .pop {
     animation: none;
+  }
+  .reveal .heading-line {
+    transform: none;
   }
   .reveal .pop {
     opacity: 1;
