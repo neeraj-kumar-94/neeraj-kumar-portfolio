@@ -59,7 +59,8 @@
       "Bash(git commit -m 'Rewrite Quick Highlights as resume-based career achievements *)",
       "Bash(git commit -m 'Modern redesign of Education & Highlights section *)",
       "Bash(npm install *)",
-      "Bash(git commit -m 'Add smooth scrolling \\(Lenis\\), scroll progress, parallax, marquee, count-up stats, button shine *)"
+      "Bash(git commit -m 'Add smooth scrolling \\(Lenis\\), scroll progress, parallax, marquee, count-up stats, button shine *)",
+      "Bash(git commit -m 'Remove marquee strip *)"
     ]
   }
 }
