@@ -51,7 +51,11 @@
       "Bash(sips -s format jpeg -s formatOptions 85 -Z 1400 '/Users/neeraj/Downloads/pride&justice.png' --out pride-justice.jpg)",
       "Bash(sips -s format jpeg -s formatOptions 85 -Z 1400 ~/Downloads/bnps-project.png --out bnps.jpg)",
       "Bash(sips -s format jpeg -s formatOptions 85 -Z 1400 ~/Downloads/vvn-project.png --out vvn.jpg)",
-      "Bash(git commit -m 'Use device mockup images for project cards *)"
+      "Bash(git commit -m 'Use device mockup images for project cards *)",
+      "Bash(curl -sL https://neeraj-kumar-portfolio-eight.vercel.app/)",
+      "Bash(curl -s -o /dev/null -w \"resume-pdf: %{http_code}\\\\n\" https://neeraj-kumar-portfolio-eight.vercel.app/Neeraj-Kumar-Resume.pdf)",
+      "Bash(curl -s -o /dev/null -w \"resume-page: %{http_code}\\\\n\" https://neeraj-kumar-portfolio-eight.vercel.app/resume)",
+      "Bash(git commit -m 'Draggable animated mentor slider, client-friendly highlights, refine typed roles *)"
     ]
   }
 }

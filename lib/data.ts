@@ -7,8 +7,8 @@ export const profile = {
   role: "Frontend Developer",
   typedRoles: [
     "Frontend Developer",
-    "WordPress Expert",
-    "Shopify Specialist",
+    "WordPress Developer",
+    "Shopify Developer",
     "React.js / Next.js Developer",
   ],
   tagline:
@@ -148,8 +148,8 @@ export const education = [
 export const highlights = [
   "Available for full-time and remote roles",
   "4+ years of hands-on client project delivery",
-  "Passionate about UI/UX design and micro-interactions",
-  "Continuously exploring modern frontend frameworks",
+  "Clean, modern designs that keep your visitors engaged",
+  "Fast, SEO-friendly websites that help your business grow",
 ];
 
 // "What Mentors Say" — shown in the testimonial slider.

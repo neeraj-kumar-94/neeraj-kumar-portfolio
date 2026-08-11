@@ -142,6 +142,19 @@ body {
   animation: pulse-ring 2.4s ease-out infinite;
 }
 
+@keyframes slider-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.slider-progress {
+  animation: slider-progress 6s linear both;
+}
+
 @keyframes float {
   0%,
   100% {
@@ -355,6 +368,7 @@ body {
   .service-item,
   .animate-nav-in,
   .animate-pulse-ring,
+  .slider-progress,
   .reveal.visible .pop {
     animation: none;
   }
