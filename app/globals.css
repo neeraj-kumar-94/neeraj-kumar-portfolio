@@ -260,27 +260,7 @@ body {
   transform: translateY(0);
 }
 
-/* ── Image curtain reveal ────────────────────────────── */
-.img-reveal::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: linear-gradient(120deg, var(--accent), var(--accent-dark));
-  transform: scaleX(1);
-  transform-origin: right;
-}
-
-.reveal.visible .img-reveal::after {
-  animation: curtain 1s cubic-bezier(0.65, 0, 0.35, 1) 0.15s both;
-}
-
-@keyframes curtain {
-  to {
-    transform: scaleX(0);
-  }
-}
-
+/* ── Image zoom-out reveal ───────────────────────────── */
 .img-zoom {
   transform: scale(1.2);
   transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
@@ -496,7 +476,6 @@ html.cursor-fx button {
   .btn-shine:hover::after,
   .reveal.visible .heading-line,
   .word-hero,
-  .reveal.visible .img-reveal::after,
   .reveal.visible .pop {
     animation: none;
   }
@@ -505,9 +484,6 @@ html.cursor-fx button {
   .img-zoom {
     transform: none;
     transition: none;
-  }
-  .img-reveal::after {
-    display: none;
   }
   .reveal .heading-line {
     transform: none;

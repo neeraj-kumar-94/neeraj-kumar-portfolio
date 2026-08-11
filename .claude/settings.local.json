@@ -63,7 +63,8 @@
       "Bash(git commit -m 'Remove marquee strip *)",
       "Bash(perl -i -pe 's/\\\\{i === 0 \\\\? \"[^\"]*\" : \"\"\\\\}/{i === 0 ? \"\\\\\\\\u00A0\" : \"\"}/' components/Hero.tsx)",
       "Bash(perl -i -pe 's/\\\\{i < title\\\\.split\\\\\\(\" \"\\\\\\)\\\\.length - 1 \\\\? \"[^\"]*\" : \"\"\\\\}/{i < title.split\\(\" \"\\).length - 1 ? \"\\\\\\\\u00A0\" : \"\"}/' components/SectionHeading.tsx)",
-      "Bash(git commit -m 'Add word reveal, custom cursor, magnetic buttons, image curtain reveal, navbar scroll-spy *)"
+      "Bash(git commit -m 'Add word reveal, custom cursor, magnetic buttons, image curtain reveal, navbar scroll-spy *)",
+      "Bash(git commit -m 'Remove gold image overlay, fix mobile stats card overflow *)"
     ]
   }
 }

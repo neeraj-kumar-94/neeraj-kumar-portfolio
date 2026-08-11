@@ -24,16 +24,16 @@ export default function About() {
               ))}
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-6">
+            <div className="mt-10 grid grid-cols-3 gap-2.5 sm:gap-6">
               {profile.stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl border border-border bg-card p-5 text-center shadow-sm"
+                  className="rounded-xl border border-border bg-card px-2 py-4 text-center shadow-sm sm:p-5"
                 >
-                  <p className="font-serif text-3xl font-semibold text-accent">
+                  <p className="font-serif text-2xl font-semibold text-accent sm:text-3xl">
                     <CountUp value={stat.value} />
                   </p>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted">
+                  <p className="mt-1 text-[10px] font-medium uppercase leading-snug tracking-wide text-muted sm:text-xs sm:tracking-wider">
                     {stat.label}
                   </p>
                 </div>

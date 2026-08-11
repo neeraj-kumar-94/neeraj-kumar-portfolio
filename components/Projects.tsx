@@ -29,7 +29,7 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     aria-label={`Visit ${project.title} live site`}
                     data-cursor="view"
-                    className="img-reveal relative block overflow-hidden bg-background max-lg:aspect-[16/10] lg:h-full"
+                    className="relative block overflow-hidden bg-background max-lg:aspect-[16/10] lg:h-full"
                   >
                     <div className="img-zoom absolute inset-0">
                       <Image
