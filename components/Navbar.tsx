@@ -16,12 +16,30 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Scroll spy — highlight the nav link of the section in view
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.querySelector(link.href))
+      .filter((el): el is Element => el !== null);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        }
+      },
+      { rootMargin: "-35% 0px -55% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -43,7 +61,9 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="nav-link text-sm font-medium text-muted transition-colors hover:text-accent"
+                className={`nav-link text-sm font-medium transition-colors hover:text-accent ${
+                  active === link.href ? "nav-link-active text-accent" : "text-muted"
+                }`}
               >
                 {link.label}
               </a>
@@ -92,7 +112,9 @@ export default function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block py-3 text-sm font-medium text-muted transition-colors hover:text-accent"
+                className={`block py-3 text-sm font-medium transition-colors hover:text-accent ${
+                  active === link.href ? "text-accent" : "text-muted"
+                }`}
               >
                 {link.label}
               </a>

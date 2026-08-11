@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
+import CursorFx from "@/components/CursorFx";
+import MagneticFx from "@/components/MagneticFx";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
@@ -16,6 +18,8 @@ export default function Home() {
     <>
       <SmoothScroll />
       <ScrollProgress />
+      <CursorFx />
+      <MagneticFx />
       <Navbar />
       <main>
         <Hero />

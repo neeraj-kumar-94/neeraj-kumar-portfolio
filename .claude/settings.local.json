@@ -60,7 +60,10 @@
       "Bash(git commit -m 'Modern redesign of Education & Highlights section *)",
       "Bash(npm install *)",
       "Bash(git commit -m 'Add smooth scrolling \\(Lenis\\), scroll progress, parallax, marquee, count-up stats, button shine *)",
-      "Bash(git commit -m 'Remove marquee strip *)"
+      "Bash(git commit -m 'Remove marquee strip *)",
+      "Bash(perl -i -pe 's/\\\\{i === 0 \\\\? \"[^\"]*\" : \"\"\\\\}/{i === 0 ? \"\\\\\\\\u00A0\" : \"\"}/' components/Hero.tsx)",
+      "Bash(perl -i -pe 's/\\\\{i < title\\\\.split\\\\\\(\" \"\\\\\\)\\\\.length - 1 \\\\? \"[^\"]*\" : \"\"\\\\}/{i < title.split\\(\" \"\\).length - 1 ? \"\\\\\\\\u00A0\" : \"\"}/' components/SectionHeading.tsx)",
+      "Bash(git commit -m 'Add word reveal, custom cursor, magnetic buttons, image curtain reveal, navbar scroll-spy *)"
     ]
   }
 }

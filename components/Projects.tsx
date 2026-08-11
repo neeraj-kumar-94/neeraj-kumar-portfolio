@@ -20,24 +20,28 @@ export default function Projects() {
               className="lg:sticky"
               style={{ top: `calc(6rem + ${i * 1.25}rem)` }}
             >
-              <article className="group grid overflow-hidden rounded-3xl border border-border bg-card shadow-xl transition-shadow duration-300 hover:shadow-2xl lg:min-h-[420px] lg:grid-cols-[1.15fr_1fr]">
-                {/* Image */}
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit ${project.title} live site`}
-                  className="relative block overflow-hidden bg-background max-lg:aspect-[16/10] lg:h-full"
-                >
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} website screenshot`}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 640px"
-                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <span className="absolute inset-0 bg-gradient-to-t from-foreground/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </a>
+              <Reveal variant="up">
+                <article className="group grid overflow-hidden rounded-3xl border border-border bg-card shadow-xl transition-shadow duration-300 hover:shadow-2xl lg:min-h-[420px] lg:grid-cols-[1.15fr_1fr]">
+                  {/* Image with curtain reveal */}
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${project.title} live site`}
+                    data-cursor="view"
+                    className="img-reveal relative block overflow-hidden bg-background max-lg:aspect-[16/10] lg:h-full"
+                  >
+                    <div className="img-zoom absolute inset-0">
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} website screenshot`}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 640px"
+                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                    </div>
+                    <span className="absolute inset-0 z-[2] bg-gradient-to-t from-foreground/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  </a>
 
                 {/* Content */}
                 <div className="flex flex-col justify-center p-8 lg:p-12">
@@ -79,7 +83,8 @@ export default function Projects() {
                     </svg>
                   </a>
                 </div>
-              </article>
+                </article>
+              </Reveal>
             </div>
           ))}
         </div>

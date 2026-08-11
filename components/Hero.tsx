@@ -24,13 +24,29 @@ export default function Hero() {
           <p className="animate-fade-up mb-4 text-sm font-medium uppercase tracking-[0.3em] text-accent">
             WordPress · Shopify · React.js · Next.js
           </p>
-          <h1
-            className="animate-fade-up font-serif text-5xl font-semibold leading-tight tracking-tight sm:text-6xl lg:text-7xl"
-            style={{ animationDelay: "100ms" }}
-          >
-            Hello, I&apos;m
+          <h1 className="font-serif text-5xl font-semibold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
+            <span className="word-mask">
+              <span className="word-hero" style={{ animationDelay: "0.15s" }}>
+                Hello,&nbsp;
+              </span>
+            </span>
+            <span className="word-mask">
+              <span className="word-hero" style={{ animationDelay: "0.25s" }}>
+                I&apos;m
+              </span>
+            </span>
             <br />
-            <span className="text-accent">{profile.name}</span>
+            {profile.name.split(" ").map((word, i) => (
+              <span key={word} className="word-mask">
+                <span
+                  className="word-hero text-accent"
+                  style={{ animationDelay: `${0.4 + i * 0.12}s` }}
+                >
+                  {word}
+                  {i === 0 ? "\u00A0" : ""}
+                </span>
+              </span>
+            ))}
           </h1>
           <p
             className="animate-fade-up mt-5 h-8 text-xl font-medium sm:text-2xl"
@@ -50,13 +66,13 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="btn-shine rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 hover:bg-accent-dark hover:shadow-xl"
+              className="btn-shine magnetic rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-accent/20 hover:bg-accent-dark hover:shadow-xl"
             >
               View My Work
             </a>
             <a
               href="#contact"
-              className="rounded-full border border-border bg-card px-8 py-3.5 text-sm font-medium text-foreground transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent"
+              className="magnetic rounded-full border border-border bg-card px-8 py-3.5 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
             >
               Get in Touch
             </a>
