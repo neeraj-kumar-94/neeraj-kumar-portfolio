@@ -146,10 +146,10 @@ export const education = [
 ];
 
 export const highlights = [
-  "Available for full-time and remote roles",
-  "4+ years of hands-on client project delivery",
-  "Clean, modern designs that keep your visitors engaged",
-  "Fast, SEO-friendly websites that help your business grow",
+  "4+ years of frontend experience, delivering 20+ production websites for clients across legal, retail, education, and consultancy sectors",
+  "Specialized in WordPress & Shopify — custom themes, complete eCommerce storefronts, subscriptions, and secure payment integration",
+  "Integrated CRM & marketing platforms (HubSpot, LeadSquared) and automated workflows that power lead generation and online sales",
+  "Proven record of performance and SEO optimization — faster load times, stronger search visibility, and pixel-perfect responsive UI",
 ];
 
 // "What Mentors Say" — shown in the testimonial slider.
