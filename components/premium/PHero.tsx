@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { profile } from "@/lib/data";
+import { premiumCopy, profile } from "@/lib/data";
 import Parallax from "../Parallax";
+import PGreeting from "./PGreeting";
 
 const marqueeItems = [...profile.typedRoles, "Based in India", "Available Worldwide"];
 
@@ -26,7 +27,7 @@ export default function PHero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
-              Available for Work — {new Date().getFullYear()}
+              <PGreeting /> · Available for Work
             </p>
 
             <h1 className="font-serif font-semibold uppercase leading-[0.95] tracking-tight">
@@ -52,7 +53,7 @@ export default function PHero() {
               className="animate-fade-up mt-8 flex max-w-xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
               style={{ animationDelay: "0.6s" }}
             >
-              <p className="max-w-md leading-relaxed text-muted">{profile.tagline}</p>
+              <p className="max-w-md leading-relaxed text-muted">{premiumCopy.tagline}</p>
             </div>
 
             <div

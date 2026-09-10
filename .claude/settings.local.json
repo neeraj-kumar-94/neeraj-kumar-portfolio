@@ -70,7 +70,9 @@
       "Bash(git commit -m 'Add Hinglish portfolio documentation *)",
       "Bash(sips -s format jpeg -s formatOptions 85 -Z 1100 ~/Downloads/images/neeraj_kumar.jpg --out public/profile/neeraj-arms-crossed.jpg)",
       "Bash(sips -s format jpeg -s formatOptions 85 -Z 1100 ~/Downloads/images/neeraj-kumar01.jpg --out public/profile/neeraj-smile.jpg)",
-      "Bash(git commit -m 'Add premium dark-luxury portfolio variant at /premium with contact form *)"
+      "Bash(git commit -m 'Add premium dark-luxury portfolio variant at /premium with contact form *)",
+      "Bash(perl -i -pe 's/\\\\{ch === \" \" \\\\? \"[^\"]*\" : ch\\\\}/{ch === \" \" ? \"\\\\\\\\u00A0\" : ch}/' components/premium/PLoader.tsx)",
+      "Bash(git commit -m 'Premium v2: personal copy, asymmetric about, horizontal work slider, scroll-drawn timeline, cursor previews, intro loader, greeting *)"
     ]
   }
 }

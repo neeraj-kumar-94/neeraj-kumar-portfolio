@@ -97,6 +97,25 @@
   );
 }
 
+/* ── Varied animation personalities ──────────────────────
+   Hero type: slow & dramatic. Small items: quick & snappy.
+   Section reveals: medium with stronger spring. */
+.premium .word-hero {
+  animation-duration: 1.15s;
+}
+
+.premium .pop {
+  animation-duration: 0.35s;
+}
+
+.premium .reveal {
+  transition-duration: 1s;
+}
+
+.premium .reveal-zoom {
+  transition-duration: 1.2s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .p-marquee {
     animation: none;

@@ -62,6 +62,7 @@ export const projects = [
     tech: ["Shopify", "Custom Theme", "HubSpot", "Payment Gateway"],
     liveUrl: "https://www.brunswickfurfood.com/",
     image: "/projects/brunswick.jpg",
+    result: "Subscription checkout that turns one-time buyers into repeat customers.",
   },
   {
     title: "Pride and Justice",
@@ -71,6 +72,7 @@ export const projects = [
     tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
     liveUrl: "https://prideandjustice.in/",
     image: "/projects/pride-justice.jpg",
+    result: "A credibility-first design that wins client trust before the first call.",
   },
   {
     title: "BNPS International",
@@ -80,6 +82,7 @@ export const projects = [
     tech: ["WordPress", "Elementor", "LeadSquared", "Email Automation"],
     liveUrl: "https://bnpsinternational.com/",
     image: "/projects/bnps.jpg",
+    result: "CRM-connected forms that turn visitors into a steady stream of qualified leads.",
   },
   {
     title: "Vivekanand Vidya Niketan",
@@ -89,6 +92,7 @@ export const projects = [
     tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
     liveUrl: "https://vvnassandh.com/",
     image: "/projects/vvn.jpg",
+    result: "Gave a small-town school a digital presence parents actually use for admissions.",
   },
   {
     title: "Enviro Guru Consultancy",
@@ -98,6 +102,7 @@ export const projects = [
     tech: ["WordPress", "Elementor", "Custom CSS"],
     liveUrl: "https://enviroguru.in/",
     image: "/projects/enviro.jpg",
+    result: "A clean B2B presence that backs up the firm's compliance expertise.",
   },
 ];
 
@@ -151,6 +156,17 @@ export const highlights = [
   "Integrated CRM & marketing platforms (HubSpot, LeadSquared) and automated workflows that power lead generation and online sales",
   "Proven record of performance and SEO optimization — faster load times, stronger search visibility, and pixel-perfect responsive UI",
 ];
+
+// Premium variant (/premium) — personal-voice copy.
+export const premiumCopy = {
+  tagline:
+    "From WordPress themes to React interfaces — I build websites that load fast, look premium, and turn visitors into customers.",
+  about: [
+    "I'm Neeraj — a frontend developer from Shamli, a small town in Uttar Pradesh. I started with WordPress in 2021, taught myself to code between college classes, and haven't stopped shipping since.",
+    "Today I build eCommerce storefronts on Shopify, business websites on WordPress, and modern interfaces with React and Next.js. My favourite part of the job? That moment when a client sees their business live on the internet for the first time.",
+    "I care about the details most people scroll past — the 40% faster load time, the button that feels just right, the form that actually converts.",
+  ],
+};
 
 // "What Mentors Say" — shown in the testimonial slider.
 export const mentors = [

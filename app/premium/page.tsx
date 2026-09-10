@@ -6,6 +6,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import CursorFx from "@/components/CursorFx";
 import MagneticFx from "@/components/MagneticFx";
 
+import PLoader from "@/components/premium/PLoader";
 import PNav from "@/components/premium/PNav";
 import PHero from "@/components/premium/PHero";
 import PAbout from "@/components/premium/PAbout";
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
 export default function PremiumPage() {
   return (
     <div className="premium p-grain min-h-screen">
+      <PLoader />
       <SmoothScroll />
       <ScrollProgress />
       <CursorFx />
