@@ -3,16 +3,21 @@ import { premiumCopy, profile } from "@/lib/data";
 import Parallax from "../Parallax";
 import PGreeting from "./PGreeting";
 
-const marqueeItems = [...profile.typedRoles, "Based in India", "Available Worldwide"];
+const heroFacts = [
+  { label: "Location", value: "Shamli, UP — India" },
+  { label: "Experience", value: "4+ Years · 20+ Projects" },
+  { label: "Speciality", value: "WordPress · Shopify · React" },
+  { label: "Status", value: "Open to Work" },
+];
 
 export default function PHero() {
   const [first, last] = profile.name.split(" ");
 
   return (
     <section id="top" className="relative flex min-h-screen flex-col overflow-hidden pt-24">
-      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-10">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-12">
         <div className="grid items-center gap-12 lg:grid-cols-[1.45fr_1fr]">
-          {/* Left — elegant editorial type */}
+          {/* Left — editorial type */}
           <div>
             <p
               className="animate-fade-up mb-8 inline-flex items-center gap-3 rounded-full border border-border bg-card/70 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.25em] text-muted backdrop-blur"
@@ -34,6 +39,18 @@ export default function PHero() {
                   {first}
                 </span>
               </span>
+
+              {/* Role rule between the two name lines */}
+              <span
+                className="animate-fade-up my-3 flex items-center gap-4"
+                style={{ animationDelay: "0.55s" }}
+              >
+                <span className="h-px w-14 bg-accent/60 sm:w-24" />
+                <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.4em] text-accent sm:text-xs">
+                  {profile.role}
+                </span>
+              </span>
+
               <span className="word-mask block">
                 <span
                   className="word-hero p-gold block pr-4 text-[clamp(3.2rem,9vw,8rem)] italic"
@@ -46,14 +63,14 @@ export default function PHero() {
 
             <p
               className="animate-fade-up mt-7 max-w-md leading-relaxed text-muted"
-              style={{ animationDelay: "0.65s" }}
+              style={{ animationDelay: "0.68s" }}
             >
               {premiumCopy.tagline}
             </p>
 
             <div
               className="animate-fade-up mt-10 flex flex-wrap items-center gap-5"
-              style={{ animationDelay: "0.8s" }}
+              style={{ animationDelay: "0.82s" }}
             >
               <a
                 href="#work"
@@ -124,21 +141,17 @@ export default function PHero() {
         </div>
       </div>
 
-      {/* Bottom marquee — refined */}
-      <div className="relative border-t border-border/70 py-4">
-        <div className="p-marquee flex w-max items-center gap-10 whitespace-nowrap">
-          {[0, 1].map((copy) => (
-            <div key={copy} className="flex items-center gap-10" aria-hidden={copy === 1}>
-              {marqueeItems.map((item) => (
-                <span key={item} className="flex items-center gap-10">
-                  <span className="text-xs font-medium uppercase tracking-[0.35em] text-muted/80">
-                    {item}
-                  </span>
-                  <svg className="h-2.5 w-2.5 text-accent/70" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" />
-                  </svg>
-                </span>
-              ))}
+      {/* Bottom fact strip — replaces the marquee */}
+      <div className="animate-fade-up border-t border-border/70" style={{ animationDelay: "1s" }}>
+        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-border/70 px-6 max-lg:gap-y-5 max-lg:py-6 lg:grid-cols-4 lg:divide-x">
+          {heroFacts.map((fact, i) => (
+            <div key={fact.label} className={`lg:py-6 ${i === 0 ? "lg:pr-8" : "lg:px-8"}`}>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted">
+                {fact.label}
+              </p>
+              <p className="mt-1.5 font-serif text-sm italic text-foreground sm:text-base">
+                {fact.value}
+              </p>
             </div>
           ))}
         </div>

@@ -75,7 +75,8 @@
       "Bash(git commit -m 'Premium v2: personal copy, asymmetric about, horizontal work slider, scroll-drawn timeline, cursor previews, intro loader, greeting *)",
       "Bash(git commit -m 'Refine premium theme: neutral black base, champagne gradient gold, layered card finish *)",
       "Bash(git commit -m 'Redesign premium variant: ink navy + copper theme, editorial hero with arch portrait and rotating badge, new section titles *)",
-      "Bash(git commit -m 'Swap copper for platinum silver accent *)"
+      "Bash(git commit -m 'Swap copper for platinum silver accent *)",
+      "Bash(git commit -m 'Update premium hero and about UI, remove hero marquee *)"
     ]
   }
 }
