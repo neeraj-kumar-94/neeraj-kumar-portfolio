@@ -2,23 +2,23 @@
 
 .premium {
   --background: #0a111f;
-  --foreground: #f0eee8;
+  --foreground: #f2f4f7;
   --muted: #8c94a6;
-  --accent: #cf8a5c;
-  --accent-dark: #a96b40;
+  --accent: #c6cdda;
+  --accent-dark: #9aa4b8;
   --card: #0f1830;
   --border: #202c47;
 
   background:
-    radial-gradient(1200px 620px at 50% -10%, rgba(207, 138, 92, 0.07), transparent 60%),
+    radial-gradient(1200px 620px at 50% -10%, rgba(198, 205, 218, 0.08), transparent 60%),
     radial-gradient(900px 500px at 100% 30%, rgba(32, 44, 71, 0.5), transparent 65%),
     var(--background);
   color: var(--foreground);
 }
 
-/* Copper-gradient sheen on every accent surface */
+/* Platinum-gradient sheen on every accent surface */
 .premium .bg-accent {
-  background-image: linear-gradient(135deg, #e9b08a 0%, #cf8a5c 45%, #9c6238 100%);
+  background-image: linear-gradient(135deg, #f0f3f8 0%, #c6cdda 45%, #8e99ad 100%);
 }
 
 .premium .bg-accent:hover {
@@ -38,9 +38,9 @@
     0 24px 60px -24px rgba(0, 0, 0, 0.7);
 }
 
-/* Opt-in copper-gradient text for display accents */
+/* Opt-in platinum-gradient text for display accents */
 .p-gold {
-  background: linear-gradient(120deg, #e9b08a, #cf8a5c 60%, #b5744a);
+  background: linear-gradient(120deg, #f2f5f9, #c6cdda 55%, #97a1b6);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
