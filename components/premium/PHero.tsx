@@ -99,8 +99,7 @@ export default function PHero() {
           >
             <Parallax speed={0.06}>
               <div className="group relative">
-                <div className="p-arch absolute -inset-2.5 border border-accent/25" />
-                <div className="p-arch relative aspect-[3/4] overflow-hidden border border-border">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem]">
                   <Image
                     src="/profile/neeraj-arms-crossed.jpg"
                     alt="Neeraj Kumar"
@@ -125,8 +124,8 @@ export default function PHero() {
                     <defs>
                       <path id="circlePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
                     </defs>
-                    <text className="fill-accent" style={{ fontSize: "8.4px", letterSpacing: "2.1px" }}>
-                      <textPath href="#circlePath">
+                    <text className="fill-accent" style={{ fontSize: "8.4px" }}>
+                      <textPath href="#circlePath" textLength="236" lengthAdjust="spacingAndGlyphs">
                         FRONTEND DEVELOPER · WORDPRESS · SHOPIFY ·
                       </textPath>
                     </text>

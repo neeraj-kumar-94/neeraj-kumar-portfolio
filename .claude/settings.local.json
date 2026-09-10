@@ -76,7 +76,8 @@
       "Bash(git commit -m 'Refine premium theme: neutral black base, champagne gradient gold, layered card finish *)",
       "Bash(git commit -m 'Redesign premium variant: ink navy + copper theme, editorial hero with arch portrait and rotating badge, new section titles *)",
       "Bash(git commit -m 'Swap copper for platinum silver accent *)",
-      "Bash(git commit -m 'Update premium hero and about UI, remove hero marquee *)"
+      "Bash(git commit -m 'Update premium hero and about UI, remove hero marquee *)",
+      "Bash(git commit -m 'Remove arch frames, clean photo styling, drop about spec card, fix badge text spacing *)"
     ]
   }
 }
