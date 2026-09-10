@@ -17,7 +17,7 @@ export default function PSectionTitle({
           <p className="mb-2 text-xs font-medium uppercase tracking-[0.3em] text-accent">
             — Section
           </p>
-          <h2 className="font-serif text-3xl font-semibold leading-none text-foreground sm:text-5xl">
+          <h2 className="p-gold font-serif text-3xl font-semibold leading-none sm:text-5xl">
             {label}
           </h2>
         </div>
