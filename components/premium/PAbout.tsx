@@ -16,8 +16,8 @@ export default function PAbout() {
           <Reveal variant="left" className="relative mx-auto w-full max-w-xs lg:max-w-none">
             <Parallax speed={0.07}>
               <div className="group relative rotate-[-2.5deg] transition-transform duration-500 hover:rotate-0 lg:-mt-24">
-                <div className="absolute -inset-3 rounded-3xl border border-accent/20" />
-                <div className="relative overflow-hidden rounded-3xl border border-border">
+                <div className="p-arch absolute -inset-3 border border-accent/20" />
+                <div className="p-arch relative overflow-hidden border border-border">
                   <div className="relative aspect-[4/5]">
                     <Image
                       src="/profile/neeraj-smile.jpg"

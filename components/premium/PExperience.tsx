@@ -66,7 +66,7 @@ export default function PExperience() {
           <span className="absolute left-[7px] top-0 h-full w-px bg-border sm:left-[11px]" />
           <span
             ref={fillRef}
-            className="absolute left-[6.5px] top-0 w-[2px] bg-gradient-to-b from-accent via-accent to-accent/40 shadow-[0_0_12px_rgba(201,161,92,0.6)] sm:left-[10.5px]"
+            className="absolute left-[6.5px] top-0 w-[2px] bg-gradient-to-b from-accent via-accent to-accent/40 shadow-[0_0_12px_rgba(207,138,92,0.55)] sm:left-[10.5px]"
             style={{ height: "0%" }}
           />
 

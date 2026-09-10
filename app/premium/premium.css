@@ -1,27 +1,33 @@
 /* ── Premium variant theme (scoped to .premium wrapper) ── */
 
 .premium {
-  --background: #0a0a0b;
-  --foreground: #f4f1ea;
-  --muted: #8f8b82;
-  --accent: #d4ab63;
-  --accent-dark: #b18b47;
-  --card: #131315;
-  --border: #232325;
+  --background: #0a111f;
+  --foreground: #f0eee8;
+  --muted: #8c94a6;
+  --accent: #cf8a5c;
+  --accent-dark: #a96b40;
+  --card: #0f1830;
+  --border: #202c47;
 
   background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(212, 171, 99, 0.06), transparent 60%),
+    radial-gradient(1200px 620px at 50% -10%, rgba(207, 138, 92, 0.07), transparent 60%),
+    radial-gradient(900px 500px at 100% 30%, rgba(32, 44, 71, 0.5), transparent 65%),
     var(--background);
   color: var(--foreground);
 }
 
-/* Champagne-gradient sheen on every gold surface */
+/* Copper-gradient sheen on every accent surface */
 .premium .bg-accent {
-  background-image: linear-gradient(135deg, #e8cd8a 0%, #d4ab63 45%, #a9813f 100%);
+  background-image: linear-gradient(135deg, #e9b08a 0%, #cf8a5c 45%, #9c6238 100%);
 }
 
 .premium .bg-accent:hover {
   filter: brightness(1.08);
+}
+
+/* Arch-top editorial portrait frame */
+.p-arch {
+  border-radius: 999px 999px 28px 28px;
 }
 
 /* Layered "expensive" card finish: hairline top highlight + deep soft shadow */
@@ -32,12 +38,23 @@
     0 24px 60px -24px rgba(0, 0, 0, 0.7);
 }
 
-/* Opt-in champagne-gradient text for display accents */
+/* Opt-in copper-gradient text for display accents */
 .p-gold {
-  background: linear-gradient(120deg, #e8cd8a, #d4ab63 60%, #c39a52);
+  background: linear-gradient(120deg, #e9b08a, #cf8a5c 60%, #b5744a);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Rotating circular text badge */
+.p-circle-badge {
+  animation: spin-slow 18s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-circle-badge {
+    animation: none;
+  }
 }
 
 .premium ::selection {

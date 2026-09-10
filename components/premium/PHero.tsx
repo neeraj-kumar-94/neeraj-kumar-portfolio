@@ -10,17 +10,12 @@ export default function PHero() {
 
   return (
     <section id="top" className="relative flex min-h-screen flex-col overflow-hidden pt-24">
-      {/* Ambient glow */}
-      <Parallax speed={0.2} className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
-        <div className="p-glow h-[620px] w-[900px] max-w-[100vw]" />
-      </Parallax>
-
-      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.5fr_1fr]">
-          {/* Left — giant type */}
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-10">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.45fr_1fr]">
+          {/* Left — elegant editorial type */}
           <div>
             <p
-              className="animate-fade-up mb-8 inline-flex items-center gap-3 rounded-full border border-border bg-card px-5 py-2.5 text-xs font-medium uppercase tracking-[0.25em] text-muted"
+              className="animate-fade-up mb-8 inline-flex items-center gap-3 rounded-full border border-border bg-card/70 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.25em] text-muted backdrop-blur"
               style={{ animationDelay: "0.1s" }}
             >
               <span className="relative flex h-2 w-2">
@@ -30,10 +25,10 @@ export default function PHero() {
               <PGreeting /> · Available for Work
             </p>
 
-            <h1 className="font-serif font-semibold uppercase leading-[0.95] tracking-tight">
+            <h1 className="font-serif font-medium leading-[1.02] tracking-tight">
               <span className="word-mask block">
                 <span
-                  className="word-hero block text-[clamp(3.5rem,10vw,9rem)] text-foreground"
+                  className="word-hero block text-[clamp(3.2rem,9vw,8rem)] text-foreground"
                   style={{ animationDelay: "0.25s" }}
                 >
                   {first}
@@ -41,84 +36,105 @@ export default function PHero() {
               </span>
               <span className="word-mask block">
                 <span
-                  className="word-hero p-outline block text-[clamp(3.5rem,10vw,9rem)]"
-                  style={{ animationDelay: "0.4s" }}
+                  className="word-hero p-gold block pr-4 text-[clamp(3.2rem,9vw,8rem)] italic"
+                  style={{ animationDelay: "0.42s" }}
                 >
                   {last}
                 </span>
               </span>
             </h1>
 
-            <div
-              className="animate-fade-up mt-8 flex max-w-xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
-              style={{ animationDelay: "0.6s" }}
+            <p
+              className="animate-fade-up mt-7 max-w-md leading-relaxed text-muted"
+              style={{ animationDelay: "0.65s" }}
             >
-              <p className="max-w-md leading-relaxed text-muted">{premiumCopy.tagline}</p>
-            </div>
+              {premiumCopy.tagline}
+            </p>
 
             <div
               className="animate-fade-up mt-10 flex flex-wrap items-center gap-5"
-              style={{ animationDelay: "0.75s" }}
+              style={{ animationDelay: "0.8s" }}
             >
               <a
                 href="#work"
-                className="btn-shine magnetic rounded-full bg-accent px-9 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-background hover:bg-accent-dark"
+                className="group magnetic inline-flex items-center gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-background"
               >
                 Selected Work
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-background/20 transition-transform duration-300 group-hover:translate-x-1">
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </span>
               </a>
               <a
                 href="#contact"
-                className="magnetic rounded-full border border-border px-9 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-foreground hover:border-accent hover:text-accent"
+                className="magnetic rounded-full border border-border px-8 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-foreground transition-colors hover:border-accent hover:text-accent"
               >
                 Contact
               </a>
             </div>
           </div>
 
-          {/* Right — portrait with hover swap */}
-          <div className="animate-fade-up relative mx-auto hidden w-full max-w-sm lg:block" style={{ animationDelay: "0.5s" }}>
+          {/* Right — arch portrait + rotating badge */}
+          <div
+            className="animate-fade-up relative mx-auto hidden w-full max-w-[340px] lg:block"
+            style={{ animationDelay: "0.5s" }}
+          >
             <Parallax speed={0.06}>
               <div className="group relative">
-                <div className="absolute -inset-3 rounded-3xl border border-accent/25" />
-                <div className="absolute -inset-3 translate-x-4 translate-y-4 rounded-3xl bg-accent/10 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2" />
-                <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-border">
+                <div className="p-arch absolute -inset-2.5 border border-accent/25" />
+                <div className="p-arch relative aspect-[3/4] overflow-hidden border border-border">
                   <Image
                     src="/profile/neeraj-arms-crossed.jpg"
                     alt="Neeraj Kumar"
                     fill
                     priority
-                    sizes="384px"
+                    sizes="340px"
                     className="object-cover transition-opacity duration-500 group-hover:opacity-0"
                   />
                   <Image
                     src="/profile/neeraj-smile.jpg"
                     alt="Neeraj Kumar smiling"
                     fill
-                    sizes="384px"
+                    sizes="340px"
                     className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   />
-                  <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+                  <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                 </div>
-                <span className="absolute bottom-5 left-5 z-[2] rounded-full border border-accent/40 bg-background/60 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur">
-                  {profile.role}
-                </span>
+
+                {/* Rotating circular text */}
+                <div className="absolute -bottom-8 -left-10 h-32 w-32">
+                  <svg viewBox="0 0 100 100" className="p-circle-badge h-full w-full">
+                    <defs>
+                      <path id="circlePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
+                    </defs>
+                    <text className="fill-accent" style={{ fontSize: "8.4px", letterSpacing: "2.1px" }}>
+                      <textPath href="#circlePath">
+                        FRONTEND DEVELOPER · WORDPRESS · SHOPIFY ·
+                      </textPath>
+                    </text>
+                  </svg>
+                  <span className="absolute inset-0 m-auto flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-background/80 font-serif text-lg italic text-accent backdrop-blur">
+                    NK
+                  </span>
+                </div>
               </div>
             </Parallax>
           </div>
         </div>
       </div>
 
-      {/* Bottom marquee */}
-      <div className="relative mt-16 border-t border-border/70 py-5">
-        <div className="p-marquee flex w-max items-center gap-8 whitespace-nowrap">
+      {/* Bottom marquee — refined */}
+      <div className="relative border-t border-border/70 py-4">
+        <div className="p-marquee flex w-max items-center gap-10 whitespace-nowrap">
           {[0, 1].map((copy) => (
-            <div key={copy} className="flex items-center gap-8" aria-hidden={copy === 1}>
+            <div key={copy} className="flex items-center gap-10" aria-hidden={copy === 1}>
               {marqueeItems.map((item) => (
-                <span key={item} className="flex items-center gap-8">
-                  <span className="font-serif text-2xl font-medium uppercase tracking-wide text-muted/70">
+                <span key={item} className="flex items-center gap-10">
+                  <span className="text-xs font-medium uppercase tracking-[0.35em] text-muted/80">
                     {item}
                   </span>
-                  <svg className="h-3.5 w-3.5 text-accent" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="h-2.5 w-2.5 text-accent/70" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" />
                   </svg>
                 </span>
