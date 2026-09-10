@@ -7,6 +7,12 @@ export default function Footer() {
         <p>
           © {new Date().getFullYear()} {profile.name}. All rights reserved.
         </p>
+        <a
+          href="/premium"
+          className="font-medium text-accent transition-colors hover:text-accent-dark"
+        >
+          ✦ View Premium Version
+        </a>
         <p>
           Designed & built with <span className="text-accent">Next.js</span>
         </p>
