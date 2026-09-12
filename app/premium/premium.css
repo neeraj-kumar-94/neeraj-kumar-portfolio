@@ -51,8 +51,31 @@
   animation: spin-slow 18s linear infinite;
 }
 
+/* Testimonial copy re-enters on every slide change */
+@keyframes p-quote-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.p-quote-in > * {
+  animation: p-quote-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.p-quote-in > :nth-child(2) {
+  animation-delay: 0.12s;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .p-circle-badge {
+  .p-circle-badge,
+  .p-quote-in > * {
     animation: none;
   }
 }
