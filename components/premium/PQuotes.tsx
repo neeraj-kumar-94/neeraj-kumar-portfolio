@@ -21,7 +21,7 @@ export default function PQuotes() {
       <div className="p-glow pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[800px] max-w-[100vw] -translate-x-1/2 -translate-y-1/2" />
 
       <div className="relative mx-auto max-w-5xl px-6">
-        <PSectionTitle num="05" label="Kind Words" />
+        <PSectionTitle label="Kind Words" />
 
         <Reveal variant="zoom">
           <div

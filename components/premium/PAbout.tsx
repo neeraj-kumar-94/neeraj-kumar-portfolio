@@ -8,7 +8,7 @@ export default function PAbout() {
   return (
     <section id="about" className="relative scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        <PSectionTitle num="01" label="About Me" />
+        <PSectionTitle label="About Me" />
 
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.35fr] lg:gap-20">
           {/* Left — cutout portrait breaking out of its card */}

@@ -52,7 +52,7 @@ export default function PSkills() {
   return (
     <section id="skills" className="scroll-mt-24 py-32 sm:py-44">
       <div className="mx-auto max-w-7xl px-6">
-        <PSectionTitle num="02" label="Expertise" />
+        <PSectionTitle label="Expertise" />
 
         <div ref={containerRef} className="relative border-t border-border">
           {/* Floating preview (desktop only) */}
@@ -83,10 +83,7 @@ export default function PSkills() {
                 onMouseLeave={() => setPreview(null)}
                 className="p-row grid gap-4 border-b border-border py-9 transition-colors duration-300 sm:grid-cols-[minmax(0,320px)_1fr] sm:items-center sm:gap-10"
               >
-                <div className="relative flex items-baseline gap-4">
-                  <span className="p-outline font-serif text-2xl font-semibold">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                <div className="relative">
                   <h3 className="font-serif text-2xl font-semibold text-foreground sm:text-3xl">
                     {group.title}
                   </h3>
