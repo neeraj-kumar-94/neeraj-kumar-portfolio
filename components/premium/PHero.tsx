@@ -99,17 +99,6 @@ export default function PHero() {
           >
             <Parallax speed={0.06}>
               <div className="group relative">
-                <Parallax
-                  speed={-0.08}
-                  className="pointer-events-none absolute inset-x-0 top-[8%] flex select-none justify-center"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="p-outline font-serif text-[14rem] font-semibold italic leading-none opacity-70"
-                  >
-                    NK
-                  </span>
-                </Parallax>
                 <div
                   className="pointer-events-none absolute -inset-x-10 bottom-[6%] h-1/2"
                   style={{
