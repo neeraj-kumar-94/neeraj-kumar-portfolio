@@ -92,34 +92,44 @@ export default function PHero() {
             </div>
           </div>
 
-          {/* Right — arch portrait + rotating badge */}
+          {/* Right — cutout portrait on a platinum spotlight + rotating badge */}
           <div
-            className="animate-fade-up relative mx-auto hidden w-full max-w-[340px] lg:block"
+            className="animate-fade-up relative mx-auto hidden w-full max-w-[380px] lg:block"
             style={{ animationDelay: "0.5s" }}
           >
             <Parallax speed={0.06}>
               <div className="group relative">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem]">
+                <div
+                  className="pointer-events-none absolute left-1/2 top-[6%] aspect-square w-[95%] -translate-x-1/2 rounded-full"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(198,205,218,0.18) 0%, rgba(198,205,218,0.05) 55%, transparent 72%)",
+                  }}
+                />
+                <div className="pointer-events-none absolute left-1/2 top-[9%] aspect-square w-[80%] -translate-x-1/2 rounded-full border border-accent/20" />
+
+                <div className="relative aspect-[879/1100]">
                   <Image
-                    src="/profile/neeraj-arms-crossed.jpg"
+                    src="/profile/neeraj-cutout.png"
                     alt="Neeraj Kumar"
                     fill
                     priority
-                    sizes="340px"
-                    className="object-cover transition-opacity duration-500 group-hover:opacity-0"
+                    sizes="380px"
+                    className="object-contain object-bottom transition-opacity duration-500 group-hover:opacity-0"
                   />
                   <Image
-                    src="/profile/neeraj-smile.jpg"
+                    src="/profile/neeraj-cutout-smile.png"
                     alt="Neeraj Kumar smiling"
                     fill
-                    sizes="340px"
-                    className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    sizes="380px"
+                    className="object-contain object-bottom opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   />
-                  <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                  {/* The photo is cropped at the waist — fade that edge into the page */}
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background via-background/70 to-transparent" />
                 </div>
 
                 {/* Rotating circular text */}
-                <div className="absolute -bottom-8 -left-10 h-32 w-32">
+                <div className="absolute bottom-4 -left-8 h-32 w-32">
                   <svg viewBox="0 0 100 100" className="p-circle-badge h-full w-full">
                     <defs>
                       <path id="circlePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
