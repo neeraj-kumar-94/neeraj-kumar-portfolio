@@ -11,20 +11,31 @@ export default function PAbout() {
         <PSectionTitle num="01" label="About Me" />
 
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.35fr] lg:gap-20">
-          {/* Left — clean sticky portrait */}
+          {/* Left — cutout portrait breaking out of its card */}
           <div className="lg:sticky lg:top-28 lg:self-start">
             <Reveal variant="left">
-              <div className="group relative mx-auto max-w-xs overflow-hidden rounded-[2rem] lg:max-w-none">
-                <div className="relative aspect-[4/5]">
+              <div className="group relative mx-auto max-w-xs pt-12 lg:max-w-none">
+                <div className="absolute inset-x-0 bottom-0 top-24 rounded-[2rem] border border-border bg-gradient-to-b from-card to-background shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_60px_-24px_rgba(0,0,0,0.7)]" />
+                <div
+                  className="absolute inset-x-0 bottom-0 h-2/3 rounded-b-[2rem]"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at 50% 100%, rgba(198,205,218,0.14) 0%, transparent 70%)",
+                  }}
+                />
+                {/* Negative top inset lets the head rise above the card while the bottom corners stay rounded */}
+                <div
+                  className="relative aspect-[879/1100]"
+                  style={{ clipPath: "inset(-20% 0 0 0 round 0 0 2rem 2rem)" }}
+                >
                   <Image
-                    src="/profile/neeraj-smile.jpg"
+                    src="/profile/neeraj-cutout-smile.png"
                     alt="Neeraj Kumar"
                     fill
-                    sizes="(max-width: 1024px) 320px, 400px"
-                    className="object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                    sizes="(max-width: 1024px) 320px, 480px"
+                    className="origin-bottom object-contain object-bottom transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />
                 </div>
-                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
               </div>
             </Reveal>
           </div>

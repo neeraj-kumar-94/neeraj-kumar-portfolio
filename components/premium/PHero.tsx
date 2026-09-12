@@ -114,14 +114,7 @@ export default function PHero() {
                     fill
                     priority
                     sizes="380px"
-                    className="object-contain object-bottom transition-opacity duration-500 group-hover:opacity-0"
-                  />
-                  <Image
-                    src="/profile/neeraj-cutout-smile.png"
-                    alt="Neeraj Kumar smiling"
-                    fill
-                    sizes="380px"
-                    className="object-contain object-bottom opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    className="object-contain object-bottom"
                   />
                   {/* The photo is cropped at the waist — fade that edge into the page */}
                   <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background via-background/70 to-transparent" />
