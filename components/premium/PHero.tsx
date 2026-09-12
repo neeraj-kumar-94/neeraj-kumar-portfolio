@@ -99,14 +99,24 @@ export default function PHero() {
           >
             <Parallax speed={0.06}>
               <div className="group relative">
+                <Parallax
+                  speed={-0.08}
+                  className="pointer-events-none absolute inset-x-0 top-[8%] flex select-none justify-center"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="p-outline font-serif text-[14rem] font-semibold italic leading-none opacity-70"
+                  >
+                    NK
+                  </span>
+                </Parallax>
                 <div
-                  className="pointer-events-none absolute left-1/2 top-[6%] aspect-square w-[95%] -translate-x-1/2 rounded-full"
+                  className="pointer-events-none absolute -inset-x-10 bottom-[6%] h-1/2"
                   style={{
                     background:
-                      "radial-gradient(circle, rgba(198,205,218,0.18) 0%, rgba(198,205,218,0.05) 55%, transparent 72%)",
+                      "radial-gradient(ellipse at 50% 100%, rgba(198,205,218,0.16) 0%, transparent 65%)",
                   }}
                 />
-                <div className="pointer-events-none absolute left-1/2 top-[9%] aspect-square w-[80%] -translate-x-1/2 rounded-full border border-accent/20" />
 
                 <div className="relative aspect-[879/1100]">
                   <Image
@@ -140,8 +150,10 @@ export default function PHero() {
                       </textPath>
                     </text>
                   </svg>
-                  <span className="absolute inset-0 m-auto flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-background/80 font-serif text-lg italic text-accent backdrop-blur">
-                    NK
+                  <span className="absolute inset-0 m-auto flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-background/80 text-accent backdrop-blur">
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" />
+                    </svg>
                   </span>
                 </div>
               </div>
