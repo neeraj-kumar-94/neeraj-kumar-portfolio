@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { premiumCopy, profile } from "@/lib/data";
+import { highlights, profile } from "@/lib/data";
 import CountUp from "../CountUp";
 import Reveal from "../Reveal";
 import PSectionTitle from "./PSectionTitle";
@@ -40,18 +40,47 @@ export default function PAbout() {
             </Reveal>
           </div>
 
-          {/* Right — editorial copy */}
+          {/* Right — editorial copy, organized for scanning */}
           <div>
             <Reveal variant="right">
-              <p className="font-serif text-2xl font-medium leading-snug text-foreground sm:text-[2.1rem]">
-                {premiumCopy.about[0]}
+              <p className="font-serif text-2xl font-medium leading-snug text-foreground sm:text-[2rem]">
+                {profile.about[0]}
               </p>
             </Reveal>
 
             <Reveal variant="right" delay={120}>
               <div className="mt-8 space-y-5 border-l border-border pl-6 sm:pl-8">
-                <p className="leading-relaxed text-muted">{premiumCopy.about[1]}</p>
-                <p className="leading-relaxed text-muted">{premiumCopy.about[2]}</p>
+                <p className="leading-relaxed text-muted">{profile.about[1]}</p>
+                <p className="leading-relaxed text-muted">{profile.about[2]}</p>
+              </div>
+            </Reveal>
+
+            {/* Career highlights — the key facts, easy to scan */}
+            <Reveal variant="right" delay={180}>
+              <div className="mt-12">
+                <p className="mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-accent">
+                  <span className="h-px w-8 bg-accent" />
+                  Career Highlights
+                </p>
+                <ul className="grid gap-3 sm:grid-cols-2">
+                  {highlights.map((item) => (
+                    <li
+                      key={item}
+                      className="flex gap-3 rounded-2xl border border-border bg-card/60 p-4 text-sm leading-relaxed text-muted transition-colors duration-300 hover:border-accent/40 hover:text-foreground"
+                    >
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
 

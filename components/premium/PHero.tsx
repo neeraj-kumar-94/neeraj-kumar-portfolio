@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { premiumCopy, profile } from "@/lib/data";
+import { profile } from "@/lib/data";
 import Parallax from "../Parallax";
 import PGreeting from "./PGreeting";
 
@@ -65,7 +65,7 @@ export default function PHero() {
               className="animate-fade-up mt-7 max-w-md leading-relaxed text-muted"
               style={{ animationDelay: "0.68s" }}
             >
-              {premiumCopy.tagline}
+              {profile.tagline}
             </p>
 
             <div
