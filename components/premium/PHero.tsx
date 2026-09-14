@@ -99,7 +99,7 @@ export default function PHero() {
           >
             <Parallax speed={0.06}>
               <div className="relative">
-                <PortraitFrame src="/profile/neeraj-cutout.png" alt="Neeraj Kumar" priority sizes="380px" />
+                <PortraitFrame src="/profile/neeraj-arms-crossed.jpg" alt="Neeraj Kumar" priority sizes="380px" />
 
                 {/* Rotating circular text */}
                 <div className="absolute bottom-4 -left-8 h-32 w-32">

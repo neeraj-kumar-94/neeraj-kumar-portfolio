@@ -15,7 +15,7 @@ export default function PAbout() {
           <div className="lg:sticky lg:top-28 lg:self-start">
             <Reveal variant="left">
               <PortraitFrame
-                src="/profile/neeraj-cutout-smile.png"
+                src="/profile/neeraj-smile.jpg"
                 alt="Neeraj Kumar"
                 sizes="(max-width: 1024px) 320px, 440px"
                 className="mx-auto max-w-xs lg:max-w-[440px]"

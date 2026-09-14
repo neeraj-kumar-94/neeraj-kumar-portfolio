@@ -25,13 +25,9 @@
   filter: brightness(1.08);
 }
 
-/* Studio-grade treatment for cutout portraits: gentle contrast lift, cooler
-   grade to sit in the navy palette, platinum rim light along the top-left
-   edge and a soft cast shadow behind the figure. */
+/* Editorial grade for portraits: slightly desaturated, a touch more contrast */
 .p-portrait-img {
-  filter: contrast(1.06) saturate(0.9) brightness(1.03)
-    drop-shadow(-2px -3px 3px rgba(198, 205, 218, 0.35))
-    drop-shadow(0 28px 32px rgba(0, 0, 0, 0.55));
+  filter: saturate(0.82) contrast(1.08) brightness(0.98);
 }
 
 /* Arch-top editorial portrait frame */

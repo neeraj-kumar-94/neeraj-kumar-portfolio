@@ -1,7 +1,8 @@
 import Image from "next/image";
 
-/** Cutout portrait staged like a studio shot: soft backdrop panel, key light
- *  from above, floor bounce, rim light along the figure, and a vignette. */
+/** Editorial portrait: the original studio photo in a tall frame, graded
+ *  cool so its black backdrop melts into the navy page, with soft edge
+ *  fades and grain — no artificial staging. */
 export default function PortraitFrame({
   src,
   alt,
@@ -17,53 +18,35 @@ export default function PortraitFrame({
 }) {
   return (
     <div className={`p-portrait group relative ${className}`}>
-      {/* Studio backdrop panel — sits behind the figure, head rises above it */}
-      <div className="absolute inset-x-0 bottom-0 top-[18%] overflow-hidden rounded-[2rem] border border-border bg-[linear-gradient(180deg,#16203a_0%,#0f1830_55%,#0a111f_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_30px_70px_-30px_rgba(0,0,0,0.85)]">
-        {/* Key light cone from the top */}
-        <span
-          className="absolute inset-x-0 top-0 h-3/4"
-          style={{
-            background:
-              "radial-gradient(60% 55% at 50% 0%, rgba(198,205,218,0.16) 0%, rgba(198,205,218,0.04) 45%, transparent 75%)",
-          }}
-        />
-        {/* Floor bounce */}
-        <span
-          className="absolute inset-x-0 bottom-0 h-2/5"
-          style={{
-            background:
-              "radial-gradient(70% 100% at 50% 100%, rgba(198,205,218,0.14) 0%, transparent 70%)",
-          }}
-        />
-        {/* Vignette */}
-        <span
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(5,9,18,0.55) 100%)",
-          }}
-        />
-      </div>
-
-      {/* Figure */}
-      <div className="relative aspect-[879/1100]" style={{ clipPath: "inset(-20% 0 0 0 round 0 0 2rem 2rem)" }}>
+      <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem]">
         <Image
           src={src}
           alt={alt}
           fill
           priority={priority}
           sizes={sizes}
-          className="p-portrait-img origin-bottom object-contain object-bottom transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          className="p-portrait-img object-cover object-top transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
         />
-        {/* Waist crop fades into the panel */}
-        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#0a111f] via-[#0a111f]/70 to-transparent" />
-      </div>
 
-      {/* Contact shadow on the floor */}
-      <span
-        className="pointer-events-none absolute inset-x-[12%] bottom-[2%] h-6 rounded-[50%] blur-md"
-        style={{ background: "rgba(0,0,0,0.55)" }}
-      />
+        {/* Cool grade — ties the photo's black backdrop to the navy page */}
+        <span className="pointer-events-none absolute inset-0 bg-[#0a111f]/25 mix-blend-multiply" />
+
+        {/* Edge fades: bottom melts into the page, top-left keeps the light on the face */}
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a111f] via-[#0a111f]/10 to-transparent" />
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0a111f]/40 via-transparent to-transparent" />
+
+        {/* Film grain */}
+        <span
+          className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          }}
+        />
+
+        {/* Hairline inner edge */}
+        <span className="pointer-events-none absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/[0.06]" />
+      </div>
     </div>
   );
 }
