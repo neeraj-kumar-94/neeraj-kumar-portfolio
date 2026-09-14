@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { profile } from "@/lib/data";
 import Parallax from "../Parallax";
 import PGreeting from "./PGreeting";
+import PortraitFrame from "./PortraitFrame";
 
 const heroFacts = [
   { label: "Location", value: "Shamli, UP — India" },
@@ -98,27 +98,8 @@ export default function PHero() {
             style={{ animationDelay: "0.5s" }}
           >
             <Parallax speed={0.06}>
-              <div className="group relative">
-                <div
-                  className="pointer-events-none absolute -inset-x-10 bottom-[6%] h-1/2"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at 50% 100%, rgba(198,205,218,0.16) 0%, transparent 65%)",
-                  }}
-                />
-
-                <div className="relative aspect-[879/1100]">
-                  <Image
-                    src="/profile/neeraj-cutout.png"
-                    alt="Neeraj Kumar"
-                    fill
-                    priority
-                    sizes="380px"
-                    className="object-contain object-bottom"
-                  />
-                  {/* The photo is cropped at the waist — fade that edge into the page */}
-                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background via-background/70 to-transparent" />
-                </div>
+              <div className="relative">
+                <PortraitFrame src="/profile/neeraj-cutout.png" alt="Neeraj Kumar" priority sizes="380px" />
 
                 {/* Rotating circular text */}
                 <div className="absolute bottom-4 -left-8 h-32 w-32">
