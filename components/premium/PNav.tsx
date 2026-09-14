@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { profile } from "@/lib/data";
 
@@ -59,12 +58,6 @@ export default function PNav() {
         </ul>
 
         <div className="flex items-center gap-3 sm:gap-5">
-          <Link
-            href="/"
-            className="hidden text-[11px] font-semibold uppercase tracking-[0.2em] text-muted transition-colors hover:text-accent sm:block"
-          >
-            Classic ↗
-          </Link>
           <a
             href="#contact"
             className="magnetic rounded-full border border-accent/50 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent transition-colors hover:bg-accent hover:text-background"
@@ -103,15 +96,6 @@ export default function PNav() {
               </a>
             </li>
           ))}
-          <li>
-            <Link
-              href="/"
-              onClick={() => setOpen(false)}
-              className="block py-3 text-sm font-medium uppercase tracking-[0.15em] text-muted transition-colors hover:text-accent"
-            >
-              Classic Version ↗
-            </Link>
-          </li>
         </ul>
       )}
     </header>
