@@ -1,7 +1,7 @@
 import { profile } from "@/lib/data";
 import Parallax from "../Parallax";
 import PGreeting from "./PGreeting";
-import PortraitFrame from "./PortraitFrame";
+import PortraitFrame, { Sticker } from "./PortraitFrame";
 
 const heroFacts = [
   { label: "Location", value: "Shamli, UP — India" },
@@ -94,12 +94,20 @@ export default function PHero() {
 
           {/* Right — cutout portrait on a platinum spotlight + rotating badge */}
           <div
-            className="animate-fade-up relative mx-auto hidden w-full max-w-[380px] lg:block"
+            className="animate-fade-up relative mx-auto hidden w-full max-w-[440px] lg:block"
             style={{ animationDelay: "0.5s" }}
           >
             <Parallax speed={0.06}>
               <div className="relative">
-                <PortraitFrame src="/profile/neeraj-arms-crossed.jpg" alt="Neeraj Kumar" priority sizes="380px" />
+                <PortraitFrame src="/profile/neeraj-arms-crossed.jpg" alt="Neeraj Kumar" priority sizes="440px">
+                  <Sticker className="-right-6 top-10" rotate={5}>
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                    4+ Years Experience
+                  </Sticker>
+                  <Sticker className="-right-3 top-[46%]" rotate={-3} delay={1.5}>
+                    20+ Projects Shipped
+                  </Sticker>
+                </PortraitFrame>
 
                 {/* Rotating circular text */}
                 <div className="absolute bottom-4 -left-8 h-32 w-32">

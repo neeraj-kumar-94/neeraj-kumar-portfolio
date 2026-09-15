@@ -30,6 +30,89 @@
   filter: saturate(0.82) contrast(1.08) brightness(0.98);
 }
 
+/* Mist layers — soft platinum haze that drifts slowly (Framer-template hero fog) */
+.p-mist {
+  background: radial-gradient(
+    closest-side,
+    rgba(198, 205, 218, 0.16) 0%,
+    rgba(198, 205, 218, 0.06) 45%,
+    transparent 72%
+  );
+  filter: blur(18px);
+  will-change: transform;
+}
+
+.p-mist-a {
+  animation: p-mist-drift 14s ease-in-out infinite;
+}
+
+.p-mist-b {
+  animation: p-mist-drift 18s ease-in-out -6s infinite reverse;
+}
+
+.p-mist-c {
+  background: radial-gradient(
+    closest-side,
+    rgba(198, 205, 218, 0.22) 0%,
+    rgba(198, 205, 218, 0.08) 50%,
+    transparent 75%
+  );
+  animation: p-mist-slide 22s ease-in-out infinite;
+}
+
+@keyframes p-mist-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(28px, -22px, 0) scale(1.12);
+  }
+}
+
+@keyframes p-mist-slide {
+  0%,
+  100% {
+    transform: translate3d(-6%, 0, 0);
+  }
+  50% {
+    transform: translate3d(6%, -8px, 0);
+  }
+}
+
+/* Floating sticker badges */
+.p-sticker {
+  transform: rotate(var(--r, -4deg));
+  animation: p-sticker-bob 6s ease-in-out infinite;
+}
+
+@keyframes p-sticker-bob {
+  0%,
+  100% {
+    transform: rotate(var(--r, -4deg)) translateY(0);
+  }
+  50% {
+    transform: rotate(var(--r, -4deg)) translateY(-8px);
+  }
+}
+
+/* Framer-style appear: elements come in from a slight blur with a snappy
+   overshoot curve (measured on the reference: 700ms, blur 2px → 0). */
+.premium .reveal {
+  filter: blur(6px);
+  transition-property: opacity, transform, filter;
+  transition-duration: 0.75s;
+  transition-timing-function: cubic-bezier(0.85, -0.03, 0.21, 1.04);
+}
+
+.premium .reveal.visible {
+  filter: blur(0);
+}
+
+.premium .word-hero {
+  animation-timing-function: cubic-bezier(0.85, -0.03, 0.21, 1.04);
+}
+
 /* Arch-top editorial portrait frame */
 .p-arch {
   border-radius: 999px 999px 28px 28px;
@@ -98,8 +181,15 @@
 @media (prefers-reduced-motion: reduce) {
   .p-circle-badge,
   .p-quote-in > *,
-  .p-tile-in {
+  .p-tile-in,
+  .p-mist-a,
+  .p-mist-b,
+  .p-mist-c,
+  .p-sticker {
     animation: none;
+  }
+  .premium .reveal {
+    filter: none;
   }
 }
 

@@ -1,7 +1,7 @@
 import { highlights, profile } from "@/lib/data";
 import CountUp from "../CountUp";
 import Reveal from "../Reveal";
-import PortraitFrame from "./PortraitFrame";
+import PortraitFrame, { Sticker } from "./PortraitFrame";
 import PSectionTitle from "./PSectionTitle";
 
 export default function PAbout() {
@@ -10,16 +10,24 @@ export default function PAbout() {
       <div className="mx-auto max-w-7xl px-6">
         <PSectionTitle label="About Me" />
 
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.3fr] lg:items-start lg:gap-16">
-          {/* Left — studio-staged cutout portrait */}
+        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.3fr] lg:items-start lg:gap-16">
+          {/* Left — editorial portrait with floating badges */}
           <div className="lg:sticky lg:top-28 lg:self-start">
             <Reveal variant="left">
               <PortraitFrame
                 src="/profile/neeraj-smile.jpg"
                 alt="Neeraj Kumar"
-                sizes="(max-width: 1024px) 320px, 440px"
-                className="mx-auto max-w-xs lg:max-w-[440px]"
-              />
+                sizes="(max-width: 1024px) 340px, 480px"
+                className="mx-auto max-w-[340px] lg:max-w-[480px]"
+              >
+                <Sticker className="-left-5 top-8" rotate={-5}>
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  {profile.role}
+                </Sticker>
+                <Sticker className="-right-4 bottom-12" rotate={4} delay={2}>
+                  Shamli, Uttar Pradesh
+                </Sticker>
+              </PortraitFrame>
             </Reveal>
           </div>
 
