@@ -1,0 +1,33 @@
+/* Screen: the premium navy + platinum theme (inherited from .premium).
+   Print / PDF: the same tokens switch to plain black & white — neutral greys
+   only, no colour — so the downloaded resume looks like a normal document. */
+
+.resume-page {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@media print {
+  .resume-page.premium {
+    --background: #ffffff;
+    --foreground: #111111;
+    --muted: #4a4a4a;
+    --accent: #111111;
+    --accent-dark: #111111;
+    --card: #ffffff;
+    --border: #c8c8c8;
+    background: #ffffff;
+    color: #111111;
+  }
+
+  /* Gradient text and gradient fills don't belong on paper */
+  .resume-page .p-gold {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--foreground);
+  }
+
+  .resume-page .bg-accent {
+    background-image: none;
+  }
+}

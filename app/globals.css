@@ -427,18 +427,6 @@ html.cursor-fx button {
   }
 }
 
-.resume-heading {
-  font-family: var(--font-playfair), ui-serif, Georgia, serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent-dark);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 4px;
-  margin-bottom: 10px;
-}
-
 @media print {
   .no-print {
     display: none !important;
