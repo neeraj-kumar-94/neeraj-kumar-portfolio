@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 
-export type PortraitVariant = "platinum" | "slate" | "mono" | "natural";
+export type PortraitVariant = "none" | "platinum" | "slate" | "mono" | "natural";
 
 // Studio backdrops for the cutout variants
 const backdrops: Partial<Record<PortraitVariant, string>> = {
@@ -10,6 +10,7 @@ const backdrops: Partial<Record<PortraitVariant, string>> = {
 };
 
 /** Portrait in a 4:5 frame.
+ *  - "none": the cutout straight on the page — no frame, no backdrop.
  *  - "platinum": the cutout on a light silver studio backdrop, so a dark
  *    outfit reads clearly against the navy page.
  *  - "slate": the cutout on a mid-tone slate-blue backdrop — made for light outfits.
@@ -41,6 +42,26 @@ export default function PortraitFrame({
     crop === "close"
       ? "origin-top scale-[1.55] group-hover:scale-[1.6]"
       : "origin-bottom group-hover:scale-[1.03]";
+
+  if (variant === "none") {
+    return (
+      <div className={`group relative ${className}`}>
+        <div className="relative aspect-[4/5]">
+          <Image
+            src={cutout}
+            alt={alt}
+            fill
+            priority={priority}
+            sizes={sizes}
+            className="origin-bottom object-contain object-bottom transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02]"
+          />
+          {/* The cutout is cropped at the waist — dissolve that edge into the page */}
+          <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background via-background/60 to-transparent" />
+        </div>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div className={`group relative ${className}`}>

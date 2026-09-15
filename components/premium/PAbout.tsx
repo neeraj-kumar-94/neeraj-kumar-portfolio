@@ -17,9 +17,9 @@ export default function PAbout() {
               <PortraitFrame
                 photo="/profile/neeraj-smile.jpg"
                 cutout="/profile/neeraj-cutout-smile.png"
+                variant="none"
                 alt="Neeraj Kumar"
-                crop="close"
-                sizes="(max-width: 1024px) 540px, 760px"
+                sizes="(max-width: 1024px) 340px, 480px"
                 className="mx-auto max-w-[340px] lg:max-w-[480px]"
               >
                 <Sticker className="-left-5 top-8" rotate={-5}>
