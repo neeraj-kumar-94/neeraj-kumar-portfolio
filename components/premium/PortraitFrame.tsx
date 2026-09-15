@@ -7,6 +7,7 @@ export type PortraitVariant = "platinum" | "mono" | "natural";
  *  - "platinum": the cutout on a light silver studio backdrop, so the dark
  *    outfit reads clearly against the navy page.
  *  - "mono" / "natural": the original studio photo, black & white or as shot.
+ *  crop "close" zooms in to a head-and-shoulders framing.
  *  Children render on top — use them for floating sticker badges. */
 export default function PortraitFrame({
   photo,
@@ -16,6 +17,7 @@ export default function PortraitFrame({
   sizes,
   className = "",
   variant = "platinum",
+  crop = "half",
   children,
 }: {
   photo: string;
@@ -25,8 +27,14 @@ export default function PortraitFrame({
   sizes: string;
   className?: string;
   variant?: PortraitVariant;
+  crop?: "half" | "close";
   children?: ReactNode;
 }) {
+  const zoom =
+    crop === "close"
+      ? "origin-top scale-[1.55] group-hover:scale-[1.6]"
+      : "origin-bottom group-hover:scale-[1.03]";
+
   return (
     <div className={`group relative ${className}`}>
       <div
@@ -53,7 +61,7 @@ export default function PortraitFrame({
               fill
               priority={priority}
               sizes={sizes}
-              className="origin-bottom object-contain object-bottom transition-transform duration-[1200ms] ease-out [filter:contrast(1.05)_drop-shadow(0_24px_28px_rgba(10,17,31,0.35))] group-hover:scale-[1.03]"
+              className={`object-contain object-bottom transition-transform duration-[1200ms] ease-out [filter:contrast(1.05)_drop-shadow(0_24px_28px_rgba(10,17,31,0.35))] ${zoom}`}
             />
           </>
         ) : (
@@ -63,7 +71,7 @@ export default function PortraitFrame({
             fill
             priority={priority}
             sizes={sizes}
-            className={`object-cover object-top transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04] ${
+            className={`object-cover object-top transition-transform duration-[1200ms] ease-out ${zoom} ${
               variant === "mono"
                 ? "[filter:grayscale(1)_contrast(1.15)_brightness(1.1)]"
                 : "[filter:brightness(1.08)_contrast(1.04)]"

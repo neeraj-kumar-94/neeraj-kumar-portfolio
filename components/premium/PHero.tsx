@@ -1,7 +1,7 @@
 import { profile } from "@/lib/data";
 import Parallax from "../Parallax";
 import PGreeting from "./PGreeting";
-import PortraitFrame, { Sticker } from "./PortraitFrame";
+import PortraitFrame from "./PortraitFrame";
 
 const heroFacts = [
   { label: "Location", value: "Shamli, UP — India" },
@@ -20,7 +20,7 @@ export default function PHero() {
           {/* Left — editorial type */}
           <div>
             <p
-              className="animate-fade-up mb-8 inline-flex items-center gap-3 rounded-full border border-border bg-card/70 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.25em] text-muted backdrop-blur"
+              className="animate-fade-up mb-8 inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-border bg-card/70 px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.15em] text-muted backdrop-blur sm:gap-3 sm:px-5 sm:text-xs sm:tracking-[0.25em]"
               style={{ animationDelay: "0.1s" }}
             >
               <span className="relative flex h-2 w-2">
@@ -92,9 +92,9 @@ export default function PHero() {
             </div>
           </div>
 
-          {/* Right — cutout portrait on a platinum spotlight + rotating badge */}
+          {/* Portrait — above the name on mobile, right column on desktop */}
           <div
-            className="animate-fade-up relative mx-auto hidden w-full max-w-[440px] lg:block"
+            className="animate-fade-up relative order-first w-full max-w-[240px] sm:max-w-[300px] lg:order-none lg:mx-auto lg:max-w-[440px]"
             style={{ animationDelay: "0.5s" }}
           >
             <Parallax speed={0.06}>
@@ -104,19 +104,11 @@ export default function PHero() {
                   cutout="/profile/neeraj-cutout.png"
                   alt="Neeraj Kumar"
                   priority
-                  sizes="440px"
-                >
-                  <Sticker className="-right-6 top-10" rotate={5}>
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                    4+ Years Experience
-                  </Sticker>
-                  <Sticker className="-right-3 top-[46%]" rotate={-3} delay={1.5}>
-                    20+ Projects Shipped
-                  </Sticker>
-                </PortraitFrame>
+                  sizes="(max-width: 1024px) 300px, 440px"
+                />
 
                 {/* Rotating circular text */}
-                <div className="absolute bottom-4 -left-8 z-[3] h-32 w-32 rounded-full bg-background/75 backdrop-blur-sm">
+                <div className="absolute bottom-4 -left-8 z-[3] hidden h-32 w-32 rounded-full bg-background/75 backdrop-blur-sm lg:block">
                   <svg viewBox="0 0 100 100" className="p-circle-badge h-full w-full">
                     <defs>
                       <path id="circlePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
