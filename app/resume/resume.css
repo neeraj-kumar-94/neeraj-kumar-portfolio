@@ -7,7 +7,19 @@
   print-color-adjust: exact;
 }
 
+/* The resume is dense, small text — it needs a lighter secondary grey than
+   the rest of the site to stay readable on the navy card. */
+.resume-page.premium {
+  --muted: #aab3c5;
+}
+
 @media print {
+  /* Text is set a little larger for the screen; scale the sheet down so the
+     PDF still fits on one A4 page. */
+  .resume-page .resume-sheet {
+    zoom: 0.7;
+  }
+
   .resume-page.premium {
     --background: #ffffff;
     --foreground: #111111;

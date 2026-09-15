@@ -1,140 +1,176 @@
 "use client";
 
-import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  siBootstrap,
+  siCss,
+  siFigma,
+  siGithub,
+  siHtml5,
+  siHubspot,
+  siJavascript,
+  siNextdotjs,
+  siPhp,
+  siReact,
+  siSass,
+  siShopify,
+  siWordpress,
+} from "simple-icons";
 import { skillGroups } from "@/lib/data";
 import Reveal from "../Reveal";
 import PSectionTitle from "./PSectionTitle";
 
-const details: Record<string, { blurb: string; icon: ReactNode }> = {
-  "Web Development": {
-    blurb: "Semantic, accessible markup and clean, scalable styling.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
-      />
-    ),
-  },
-  "Frameworks & CMS": {
-    blurb: "Custom WordPress themes, Shopify storefronts and modern React interfaces.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"
-      />
-    ),
-  },
-  "Tools & Integrations": {
-    blurb: "CRMs, payments and marketing tools wired in end to end.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085"
-      />
-    ),
-  },
-  "Design & Optimization": {
-    blurb: "Pixel-perfect builds that load fast and rank well.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
-      />
-    ),
-  },
+type Logo = { kind: "brand"; path: string } | { kind: "line"; node: ReactNode };
+
+const brand = (icon: { path: string }): Logo => ({ kind: "brand", path: icon.path });
+const line = (d: string): Logo => ({
+  kind: "line",
+  node: <path strokeLinecap="round" strokeLinejoin="round" d={d} />,
+});
+
+// Keyed by the skill's base name — the text before any "(…)" detail
+const logos: Record<string, Logo> = {
+  HTML5: brand(siHtml5),
+  CSS3: brand(siCss),
+  JavaScript: brand(siJavascript),
+  PHP: brand(siPhp),
+  Sass: brand(siSass),
+  "React.js": brand(siReact),
+  "Next.js": brand(siNextdotjs),
+  WordPress: brand(siWordpress),
+  Shopify: brand(siShopify),
+  Bootstrap: brand(siBootstrap),
+  "Git & GitHub": brand(siGithub),
+  HubSpot: brand(siHubspot),
+  Figma: brand(siFigma),
+  LeadSquared: line(
+    "M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
+  ),
+  "Payment Gateways": line(
+    "M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+  ),
+  "Adobe Photoshop": line(
+    "M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+  ),
+  "SEO Optimization": line("M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"),
+  "Performance Tuning": line("M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"),
+  "Cross-Browser Compatibility": line(
+    "M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
+  ),
+};
+const fallbackLogo = line("M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5");
+
+const splitSkill = (skill: string) => {
+  const match = skill.match(/^(.*?)\s*\((.+)\)$/);
+  return match ? { name: match[1], note: match[2] } : { name: skill, note: "" };
 };
 
-// Bento rhythm: wide + narrow on the first row, narrow + wide on the second
-const spans = ["lg:col-span-2", "lg:col-span-1", "lg:col-span-1", "lg:col-span-2"];
-const variants = ["left", "right", "left", "right"] as const;
-
-/** Moves the card's spotlight to follow the cursor (read via --x / --y in CSS). */
-const trackSpotlight = (e: MouseEvent<HTMLDivElement>) => {
-  const rect = e.currentTarget.getBoundingClientRect();
-  e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);
-  e.currentTarget.style.setProperty("--y", `${e.clientY - rect.top}px`);
-};
+const filters = ["All", ...skillGroups.map((g) => g.title)];
+const allTiles = skillGroups.flatMap((g) => g.skills.map((skill) => ({ group: g.title, skill })));
 
 export default function PSkills() {
+  const [active, setActive] = useState(0);
+  const [indicator, setIndicator] = useState({ left: 0, top: 0, width: 0, height: 0 });
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    const update = () => {
+      const el = tabRefs.current[active];
+      if (el) {
+        setIndicator({ left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight });
+      }
+    };
+    update();
+    // Tab widths change once the web font finishes loading
+    document.fonts?.ready.then(update);
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [active]);
+
+  const visible = active === 0 ? allTiles : allTiles.filter((t) => t.group === filters[active]);
+
   return (
-    <section id="skills" className="scroll-mt-24 py-24 sm:py-32">
+    <section id="skills" className="scroll-mt-24 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <PSectionTitle label="Expertise" />
 
-        <div className="grid gap-5 lg:grid-cols-3">
-          {skillGroups.map((group, i) => {
-            const detail = details[group.title];
-            return (
-              <Reveal
-                key={group.title}
-                variant={variants[i % variants.length]}
-                delay={(i % 2) * 120}
-                className={spans[i % spans.length]}
+        <Reveal variant="up">
+          {/* Filter tabs — wrap onto extra rows on narrow screens so every tab stays visible */}
+          <div
+            role="tablist"
+            aria-label="Skill categories"
+            className="relative inline-flex max-w-full flex-wrap gap-1 rounded-[1.75rem] border border-border bg-card/60 p-1.5 backdrop-blur"
+          >
+            <span
+              aria-hidden="true"
+              className="absolute rounded-full bg-accent transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                left: indicator.left,
+                top: indicator.top,
+                width: indicator.width,
+                height: indicator.height,
+              }}
+            />
+            {filters.map((label, i) => (
+              <button
+                key={label}
+                ref={(el) => {
+                  tabRefs.current[i] = el;
+                }}
+                role="tab"
+                aria-selected={active === i}
+                onClick={() => setActive(i)}
+                className={`relative z-[1] whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium transition-colors duration-300 sm:px-4 sm:text-sm ${
+                  active === i ? "text-background" : "text-muted hover:text-foreground"
+                }`}
               >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* Logo tiles — remount on filter change so they stagger back in */}
+          <div
+            key={active}
+            role="tabpanel"
+            className="mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5"
+          >
+            {visible.map((tile, k) => {
+              const { name, note } = splitSkill(tile.skill);
+              const logo = logos[name] ?? fallbackLogo;
+              return (
                 <div
-                  onMouseMove={trackSpotlight}
-                  className="group relative h-full overflow-hidden rounded-3xl border border-border bg-card/60 p-7 backdrop-blur transition-colors duration-500 hover:border-accent/40 sm:p-9"
+                  key={tile.skill}
+                  className="p-tile-in group flex min-h-[60px] items-center gap-2.5 rounded-2xl border border-border bg-card/60 px-3 py-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-card sm:min-h-[68px] sm:gap-3.5 sm:px-4 sm:py-3"
+                  style={{ "--d": `${k * 0.035}s` } as CSSProperties}
                 >
-                  {/* Cursor spotlight */}
-                  <span
-                    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{
-                      background:
-                        "radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(198,205,218,0.10), transparent 60%)",
-                    }}
-                  />
-
-                  {/* Oversized watermark icon */}
-                  {detail && (
-                    <svg
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -bottom-10 -right-10 h-48 w-48 text-accent/[0.05] transition-transform duration-700 group-hover:-rotate-6 group-hover:scale-110"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={0.8}
-                    >
-                      {detail.icon}
-                    </svg>
-                  )}
-
-                  <div className="relative">
-                    {detail && (
-                      <span className="mb-7 flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-background/60 text-accent transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-background">
-                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
-                          {detail.icon}
-                        </svg>
-                      </span>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-border bg-background/60 text-muted transition-colors duration-300 group-hover:border-accent/50 group-hover:text-accent sm:h-10 sm:w-10">
+                    {logo.kind === "brand" ? (
+                      <svg viewBox="0 0 24 24" className="h-4 w-4 sm:h-[18px] sm:w-[18px]" fill="currentColor" aria-hidden="true">
+                        <path d={logo.path} />
+                      </svg>
+                    ) : (
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.6}
+                        aria-hidden="true"
+                      >
+                        {logo.node}
+                      </svg>
                     )}
-
-                    <h3 className="font-serif text-2xl font-semibold text-foreground sm:text-[1.75rem]">
-                      {group.title}
-                    </h3>
-                    {detail && (
-                      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{detail.blurb}</p>
-                    )}
-
-                    <div className="mt-7 flex flex-wrap gap-2.5">
-                      {group.skills.map((skill, j) => (
-                        <span
-                          key={skill}
-                          className="pop rounded-full border border-border bg-background/50 px-4 py-1.5 text-sm text-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-foreground"
-                          style={{ "--pop-delay": `${0.15 + j * 0.05}s` } as CSSProperties}
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[13px] font-medium leading-snug text-foreground sm:text-sm">{name}</span>
+                    {note && <span className="block truncate text-xs text-muted">{note}</span>}
+                  </span>
                 </div>
-              </Reveal>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
