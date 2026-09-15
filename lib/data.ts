@@ -104,6 +104,16 @@ export const projects = [
     image: "/projects/enviro.jpg",
     result: "A clean B2B presence that backs up the firm's compliance expertise.",
   },
+  {
+    title: "Art Tech Institute",
+    subtitle: "Job-Ready Computer Training Platform",
+    description:
+      "Modern education platform for a Bilaspur-based computer institute offering practical courses in Advanced Excel, Power BI, Data Analytics, Tally Prime, and AI tools. Built course discovery, student outcomes, testimonials, and enquiry journeys into a clear, conversion-focused experience.",
+    tech: ["Next.js", "Responsive UI", "Course Platform", "SEO"],
+    liveUrl: "https://www.arttechbsp.com/",
+    image: "/projects/arttech.jpg",
+    result: "Turned a broad training catalogue into a focused path from learning to career readiness.",
+  },
 ];
 
 export const experience = [
@@ -113,11 +123,11 @@ export const experience = [
     period: "Mar 2023 — Present",
     location: "Gurugram, Haryana · Remote",
     points: [
-      "Develop and maintain dynamic, high-performance websites using HTML, CSS, JavaScript, and PHP, ensuring fast load times and smooth user experiences.",
-      "Build responsive layouts and reusable UI components, improving development efficiency and code consistency across projects.",
-      "Customize WordPress themes and Shopify templates to align with diverse client requirements and brand guidelines.",
-      "Integrate third-party plugins and APIs — HubSpot, LeadSquared, and payment gateways — enhancing site functionality and lead capture.",
-      "Partner closely with designers and stakeholders to convert UI/UX mockups into pixel-accurate, fully functional web pages.",
+      "Build and maintain fast, high-performance websites with HTML, CSS, JavaScript, and PHP for clients across multiple industries.",
+      "Customize WordPress themes and Shopify storefronts to match each client's brand and business requirements.",
+      "Integrate HubSpot, LeadSquared, and payment gateways to power lead capture and online sales.",
+      "Create responsive layouts and reusable UI components that keep projects consistent and quick to ship.",
+      "Work closely with designers and stakeholders to turn UI/UX mockups into pixel-accurate, fully functional pages.",
     ],
   },
   {
@@ -126,10 +136,10 @@ export const experience = [
     period: "Sep 2022 — Feb 2023",
     location: "Gurugram, Haryana · Remote",
     points: [
-      "Built eCommerce websites on Shopify and WordPress, delivering tailored solutions to meet client business needs.",
-      "Managed end-to-end client requirements and customized themes through custom coding and configuration.",
-      "Designed and developed SEO-friendly product and landing pages to improve organic visibility and conversions.",
-      "Diagnosed and resolved bugs, and maintained plugins, databases, and site performance for ongoing client sites.",
+      "Built eCommerce websites on Shopify and WordPress, tailored to each client's business goals.",
+      "Handled client requirements end to end — from theme customization and custom code to final configuration.",
+      "Designed SEO-friendly product and landing pages that improved organic visibility and conversions.",
+      "Fixed bugs and maintained plugins, databases, and performance for live client sites.",
     ],
   },
 ];
@@ -140,13 +150,13 @@ export const education = [
     institution: "Chaudhary Charan Singh University, Meerut",
     period: "Sep 2020 — Jun 2023",
     detail:
-      "Completed graduation while building a professional career in web development — balancing academics with real-world client projects.",
+      "Completed my degree while already working as a web developer — balancing academics with real client projects.",
   },
   {
     degree: "Intermediate (12th)",
     institution: "V.V. Inter College, Shamli",
     period: "Apr 2018 — Mar 2020",
-    detail: "Completed senior secondary education in Shamli, Uttar Pradesh.",
+    detail: "Senior secondary education from V.V. Inter College, Shamli.",
   },
 ];
 
@@ -157,24 +167,13 @@ export const highlights = [
   "Proven record of performance and SEO optimization — faster load times, stronger search visibility, and pixel-perfect responsive UI",
 ];
 
-// Premium variant (/premium) — personal-voice copy.
-export const premiumCopy = {
-  tagline:
-    "From WordPress themes to React interfaces — I build websites that load fast, look premium, and turn visitors into customers.",
-  about: [
-    "I'm Neeraj — a frontend developer from Shamli, a small town in Uttar Pradesh. I started with WordPress in 2021, taught myself to code between college classes, and haven't stopped shipping since.",
-    "Today I build eCommerce storefronts on Shopify, business websites on WordPress, and modern interfaces with React and Next.js. My favourite part of the job? That moment when a client sees their business live on the internet for the first time.",
-    "I care about the details most people scroll past — the 40% faster load time, the button that feels just right, the form that actually converts.",
-  ],
-};
-
 // "What Mentors Say" — shown in the testimonial slider.
 export const mentors = [
   {
     name: "Shakti Singh",
     title: "Consulting Specialist – UX/UI",
     linkedin: "https://www.linkedin.com/in/gurjarshakti/",
-    image: "/mentors/shakti.jpg",
+    image: "/mentors/shakti_singh.jpg",
     quote:
       "Guiding Neeraj through the nuances of frontend development has been a rewarding experience. His ability to quickly grasp new concepts and apply them creatively to projects is truly impressive. Not only does he possess strong technical skills, but his collaborative nature and effective communication make him a valuable asset.",
   },
@@ -182,7 +181,7 @@ export const mentors = [
     name: "Tanmay Sharma",
     title: "SaaS Sales Professional",
     linkedin: "https://www.linkedin.com/in/tanmaybummlers/",
-    image: "/mentors/tanmay.jpg",
+    image: "/mentors/tanmay_sharma.jpg",
     quote:
       "Neeraj is not just proficient in coding, he also possesses a strong design sense, which greatly enhances the visual appeal and functionality of his projects. His collaborative approach and strong problem-solving skills make him an excellent addition to any project. His dedication and passion for his craft are admirable.",
   },
@@ -190,7 +189,7 @@ export const mentors = [
     name: "Manish Gurjar",
     title: "Senior UI/UX Designer | Product Design Expert",
     linkedin: "https://www.linkedin.com/in/mymkrana/",
-    image: "/mentors/manish.jpg",
+    image: "/mentors/manish_rana.jpg",
     quote:
       "Neeraj has consistently demonstrated a high level of proficiency in frontend development. His code is not just functional but also elegant, reflecting a deep understanding of design principles. He possesses a strong command of WordPress, Shopify, and modern frontend technologies, and his ability to adapt to evolving industry standards is impressive.",
   },

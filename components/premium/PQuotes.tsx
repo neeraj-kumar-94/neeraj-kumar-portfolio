@@ -85,7 +85,7 @@ export default function PQuotes() {
   return (
     <section id="mentors" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
       <div className="relative mx-auto max-w-6xl px-6">
-        <PSectionTitle label="Kind Words" />
+        <PSectionTitle label="What Mentors Say" />
 
         <Reveal variant="up">
           <div
