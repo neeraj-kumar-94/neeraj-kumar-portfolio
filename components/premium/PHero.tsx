@@ -100,8 +100,9 @@ export default function PHero() {
             <Parallax speed={0.06}>
               <div className="relative">
                 <PortraitFrame
-                  photo="/profile/neeraj-arms-crossed.jpg"
-                  cutout="/profile/neeraj-cutout.png"
+                  variant="slate"
+                  photo="/profile/neeraj-white.jpg"
+                  cutout="/profile/neeraj-white-cutout.png"
                   alt="Neeraj Kumar"
                   priority
                   sizes="(max-width: 1024px) 300px, 440px"

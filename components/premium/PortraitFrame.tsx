@@ -1,11 +1,18 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 
-export type PortraitVariant = "platinum" | "mono" | "natural";
+export type PortraitVariant = "platinum" | "slate" | "mono" | "natural";
+
+// Studio backdrops for the cutout variants
+const backdrops: Partial<Record<PortraitVariant, string>> = {
+  platinum: "radial-gradient(120% 85% at 50% 18%, #f3f5f8 0%, #cfd5df 52%, #98a2b4 100%)",
+  slate: "radial-gradient(115% 80% at 50% 22%, #6f82a3 0%, #3f4f6e 52%, #243150 100%)",
+};
 
 /** Portrait in a 4:5 frame.
- *  - "platinum": the cutout on a light silver studio backdrop, so the dark
+ *  - "platinum": the cutout on a light silver studio backdrop, so a dark
  *    outfit reads clearly against the navy page.
+ *  - "slate": the cutout on a mid-tone slate-blue backdrop — made for light outfits.
  *  - "mono" / "natural": the original studio photo, black & white or as shot.
  *  crop "close" zooms in to a head-and-shoulders framing.
  *  Children render on top — use them for floating sticker badges. */
@@ -39,13 +46,9 @@ export default function PortraitFrame({
     <div className={`group relative ${className}`}>
       <div
         className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)]"
-        style={
-          variant === "platinum"
-            ? { background: "radial-gradient(120% 85% at 50% 18%, #f3f5f8 0%, #cfd5df 52%, #98a2b4 100%)" }
-            : undefined
-        }
+        style={backdrops[variant] ? { background: backdrops[variant] } : undefined}
       >
-        {variant === "platinum" ? (
+        {backdrops[variant] ? (
           <>
             {/* Edge vignette on the backdrop only — sits behind the figure */}
             <span
