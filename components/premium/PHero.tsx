@@ -99,7 +99,13 @@ export default function PHero() {
           >
             <Parallax speed={0.06}>
               <div className="relative">
-                <PortraitFrame src="/profile/neeraj-arms-crossed.jpg" alt="Neeraj Kumar" priority sizes="440px">
+                <PortraitFrame
+                  photo="/profile/neeraj-arms-crossed.jpg"
+                  cutout="/profile/neeraj-cutout.png"
+                  alt="Neeraj Kumar"
+                  priority
+                  sizes="440px"
+                >
                   <Sticker className="-right-6 top-10" rotate={5}>
                     <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                     4+ Years Experience
@@ -110,7 +116,7 @@ export default function PHero() {
                 </PortraitFrame>
 
                 {/* Rotating circular text */}
-                <div className="absolute bottom-4 -left-8 h-32 w-32">
+                <div className="absolute bottom-4 -left-8 z-[3] h-32 w-32 rounded-full bg-background/75 backdrop-blur-sm">
                   <svg viewBox="0 0 100 100" className="p-circle-badge h-full w-full">
                     <defs>
                       <path id="circlePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
