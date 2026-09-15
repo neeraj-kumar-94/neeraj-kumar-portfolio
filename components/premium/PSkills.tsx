@@ -66,12 +66,26 @@ const splitSkill = (skill: string) => {
 };
 
 const filters = ["All", ...skillGroups.map((g) => g.title)];
+
+// Phones get one-word tab labels so every tab fits on a single row
+const shortLabels: Record<string, string> = {
+  "Web Development": "Web",
+  "Frameworks & CMS": "Frameworks",
+  "Tools & Integrations": "Tools",
+  "Design & Optimization": "Design",
+};
 const allTiles = skillGroups.flatMap((g) => g.skills.map((skill) => ({ group: g.title, skill })));
 
 export default function PSkills() {
   const [active, setActive] = useState(0);
   const [indicator, setIndicator] = useState({ left: 0, top: 0, width: 0, height: 0 });
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // On phones, open on the first category instead of "All" so the section fits one screen
+  useEffect(() => {
+    if (window.innerWidth < 640) setActive(1);
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -81,25 +95,32 @@ export default function PSkills() {
       }
     };
     update();
-    // Tab widths change once the web font finishes loading
+    // Tab widths change once the web font loads, and the row can re-wrap —
+    // re-measure whenever the tab bar itself changes size.
     document.fonts?.ready.then(update);
+    const observer = new ResizeObserver(update);
+    if (listRef.current) observer.observe(listRef.current);
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", update);
+    };
   }, [active]);
 
   const visible = active === 0 ? allTiles : allTiles.filter((t) => t.group === filters[active]);
 
   return (
-    <section id="skills" className="scroll-mt-24 py-20 sm:py-24">
+    <section id="skills" className="scroll-mt-24 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <PSectionTitle label="Expertise" />
 
         <Reveal variant="up">
           {/* Filter tabs — wrap onto extra rows on narrow screens so every tab stays visible */}
           <div
+            ref={listRef}
             role="tablist"
             aria-label="Skill categories"
-            className="relative inline-flex max-w-full flex-wrap gap-1 rounded-[1.75rem] border border-border bg-card/60 p-1.5 backdrop-blur"
+            className="relative inline-flex max-w-full flex-wrap gap-0.5 rounded-[1.75rem] border border-border bg-card/60 p-1.5 backdrop-blur sm:gap-1"
           >
             <span
               aria-hidden="true"
@@ -120,11 +141,12 @@ export default function PSkills() {
                 role="tab"
                 aria-selected={active === i}
                 onClick={() => setActive(i)}
-                className={`relative z-[1] whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium transition-colors duration-300 sm:px-4 sm:text-sm ${
+                className={`relative z-[1] whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-medium transition-colors duration-300 sm:px-4 sm:text-sm ${
                   active === i ? "text-background" : "text-muted hover:text-foreground"
                 }`}
               >
-                {label}
+                <span className="sm:hidden">{shortLabels[label] ?? label}</span>
+                <span className="hidden sm:inline">{label}</span>
               </button>
             ))}
           </div>
@@ -133,7 +155,7 @@ export default function PSkills() {
           <div
             key={active}
             role="tabpanel"
-            className="mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5"
+            className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5"
           >
             {visible.map((tile, k) => {
               const { name, note } = splitSkill(tile.skill);
