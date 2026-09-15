@@ -1,7 +1,7 @@
 import { profile } from "@/lib/data";
-import Parallax from "../Parallax";
-import PGreeting from "./PGreeting";
-import PortraitFrame from "./PortraitFrame";
+import Parallax from "@/components/effects/Parallax";
+import Greeting from "@/components/ui/Greeting";
+import PortraitFrame from "@/components/ui/PortraitFrame";
 
 const heroFacts = [
   { label: "Location", value: "Shamli, UP — India" },
@@ -10,7 +10,7 @@ const heroFacts = [
   { label: "Status", value: "Open to Work" },
 ];
 
-export default function PHero() {
+export default function Hero() {
   const [first, last] = profile.name.split(" ");
 
   return (
@@ -27,7 +27,7 @@ export default function PHero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
-              <PGreeting /> · Available for Work
+              <Greeting /> · Available for Work
             </p>
 
             <h1 className="font-serif font-medium leading-[1.02] tracking-tight">
@@ -100,8 +100,6 @@ export default function PHero() {
             <Parallax speed={0.06}>
               <div className="relative">
                 <PortraitFrame
-                  variant="none"
-                  photo="/profile/neeraj-arms-crossed.jpg"
                   cutout="/profile/neeraj-cutout.png"
                   alt="Neeraj Kumar"
                   priority

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /** Time-aware greeting — a small personal touch. */
-export default function PGreeting() {
+export default function Greeting() {
   const [greeting, setGreeting] = useState("Hello");
 
   useEffect(() => {

@@ -1,21 +1,23 @@
-import Navbar from "@/components/Navbar";
-import SmoothScroll from "@/components/SmoothScroll";
-import ScrollProgress from "@/components/ScrollProgress";
-import CursorFx from "@/components/CursorFx";
-import MagneticFx from "@/components/MagneticFx";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Testimonials from "@/components/Testimonials";
-import Education from "@/components/Education";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/effects/SmoothScroll";
+import ScrollProgress from "@/components/effects/ScrollProgress";
+import CursorFx from "@/components/effects/CursorFx";
+import MagneticFx from "@/components/effects/MagneticFx";
+
+import Loader from "@/components/layout/Loader";
+import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Skills from "@/components/sections/Skills";
+import Projects from "@/components/sections/Projects";
+import Experience from "@/components/sections/Experience";
+import Mentors from "@/components/sections/Mentors";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <>
+    <div className="p-grain min-h-screen">
+      <Loader />
       <SmoothScroll />
       <ScrollProgress />
       <CursorFx />
@@ -27,11 +29,10 @@ export default function Home() {
         <Skills />
         <Projects />
         <Experience />
-        <Testimonials />
-        <Education />
+        <Mentors />
         <Contact />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

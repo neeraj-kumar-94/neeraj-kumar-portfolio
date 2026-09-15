@@ -10,8 +10,8 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { projects } from "@/lib/data";
-import Reveal from "../Reveal";
-import PSectionTitle from "./PSectionTitle";
+import Reveal from "@/components/effects/Reveal";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 const AUTOPLAY_MS = 6000;
 const SWIPE_THRESHOLD = 60;
@@ -229,7 +229,7 @@ function ProjectDeck() {
 /** Horizontal scroll-driven work section (desktop) — cards slide sideways
  *  as the page scrolls vertically. On smaller screens it becomes a swipeable
  *  card deck, like the testimonials. */
-export default function PProjects() {
+export default function Projects() {
   const outerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -285,7 +285,7 @@ export default function PProjects() {
   return (
     <section id="work" className="scroll-mt-24 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <PSectionTitle label="Selected Work" />
+        <SectionTitle label="Selected Work" />
       </div>
 
       {/* Phones & tablets: swipeable deck */}

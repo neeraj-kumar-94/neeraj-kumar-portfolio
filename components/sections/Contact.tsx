@@ -2,8 +2,8 @@
 
 import { useState, type FormEvent, type ReactNode } from "react";
 import { profile } from "@/lib/data";
-import Reveal from "../Reveal";
-import PSectionTitle from "./PSectionTitle";
+import Reveal from "@/components/effects/Reveal";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -53,7 +53,7 @@ const contacts: { label: string; value: string; href?: string; icon: ReactNode }
   },
 ];
 
-export default function PContact() {
+export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -82,7 +82,7 @@ export default function PContact() {
   return (
     <section id="contact" className="scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        <PSectionTitle label="Get In Touch" />
+        <SectionTitle label="Get In Touch" />
 
         <Reveal variant="up">
           <div className="grid overflow-hidden rounded-[2rem] border border-border bg-card/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_60px_-24px_rgba(0,0,0,0.7)] backdrop-blur lg:grid-cols-[0.85fr_1.15fr]">

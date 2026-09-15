@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /** One-time intro: name reveals letter by letter, then the curtain lifts. */
-export default function PLoader() {
+export default function Loader() {
   const [phase, setPhase] = useState<"show" | "exit" | "done">("show");
 
   useEffect(() => {

@@ -17,8 +17,8 @@ import {
   siWordpress,
 } from "simple-icons";
 import { skillGroups } from "@/lib/data";
-import Reveal from "../Reveal";
-import PSectionTitle from "./PSectionTitle";
+import Reveal from "@/components/effects/Reveal";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 type Logo = { kind: "brand"; path: string } | { kind: "line"; node: ReactNode };
 
@@ -76,7 +76,7 @@ const shortLabels: Record<string, string> = {
 };
 const allTiles = skillGroups.flatMap((g) => g.skills.map((skill) => ({ group: g.title, skill })));
 
-export default function PSkills() {
+export default function Skills() {
   const [active, setActive] = useState(0);
   const [indicator, setIndicator] = useState({ left: 0, top: 0, width: 0, height: 0 });
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -112,7 +112,7 @@ export default function PSkills() {
   return (
     <section id="skills" className="scroll-mt-24 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <PSectionTitle label="Expertise" />
+        <SectionTitle label="Expertise" />
 
         <Reveal variant="up">
           {/* Filter tabs — wrap onto extra rows on narrow screens so every tab stays visible */}

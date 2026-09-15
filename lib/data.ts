@@ -5,22 +5,14 @@
 export const profile = {
   name: "Neeraj Kumar",
   role: "Frontend Developer",
-  typedRoles: [
-    "Frontend Developer",
-    "WordPress Developer",
-    "Shopify Developer",
-    "React.js / Next.js Developer",
-  ],
   tagline:
     "I design and build responsive, performance-driven websites and eCommerce experiences — from pixel-perfect WordPress and Shopify builds to modern React.js and Next.js interfaces.",
   location: "Shamli, Uttar Pradesh, India",
   email: "neeraj74530@gmail.com",
   phone: "+91 8006902845",
-  resumeUrl: "/resume", // in-site resume page; PDF at /Neeraj-Kumar-Resume.pdf
   socials: {
     github: "https://github.com/neeraj-kumar-94",
     linkedin: "https://www.linkedin.com/in/neerajkumar94",
-    portfolio: "http://neeraj-kumar-94.github.io/Neeraj-kumar-Portfolio/",
   },
   about: [
     "I'm a Frontend Developer with 4+ years of experience designing and building responsive, performance-driven, and visually engaging websites. I specialize in WordPress and Shopify development, backed by strong proficiency in HTML5, CSS3, JavaScript, PHP, and React.js/Next.js.",

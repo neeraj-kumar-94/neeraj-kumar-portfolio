@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { education, experience } from "@/lib/data";
-import Reveal from "../Reveal";
-import PSectionTitle from "./PSectionTitle";
+import Reveal from "@/components/effects/Reveal";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 const icons = {
   Work: (
@@ -24,7 +24,7 @@ const icons = {
 
 /** Career timeline whose spine draws itself as you scroll; each node lights up
  *  once the line reaches it. */
-export default function PExperience() {
+export default function Experience() {
   const listRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLSpanElement>(null);
   const nodeRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -90,7 +90,7 @@ export default function PExperience() {
   return (
     <section id="experience" className="scroll-mt-24 py-12 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <PSectionTitle label="The Journey" />
+        <SectionTitle label="The Journey" />
 
         <div ref={listRef} className="relative pl-11 md:pl-0">
           {/* Spine — track + scroll-linked fill */}

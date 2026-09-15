@@ -12,7 +12,7 @@ const links = [
   { href: "#contact", label: "Contact" },
 ];
 
-export default function PNav() {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
 

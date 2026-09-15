@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Neeraj Kumar — Frontend Developer | WordPress & Shopify Specialist",
+  title: "Neeraj Kumar — Frontend Developer | WordPress, Shopify & React",
   description:
     "Portfolio of Neeraj Kumar, a frontend developer with 4+ years of experience building responsive, performance-driven websites and eCommerce platforms with WordPress, Shopify, React.js, and Next.js.",
 };

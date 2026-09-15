@@ -1,6 +1,6 @@
-import Reveal from "../Reveal";
+import Reveal from "@/components/effects/Reveal";
 
-export default function PSectionTitle({ label }: { label: string }) {
+export default function SectionTitle({ label }: { label: string }) {
   return (
     <Reveal variant="up">
       <div className="mb-10 sm:mb-20">

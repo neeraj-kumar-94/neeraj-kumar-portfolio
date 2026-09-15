@@ -1,23 +1,21 @@
 import { highlights, profile } from "@/lib/data";
-import CountUp from "../CountUp";
-import Reveal from "../Reveal";
-import PortraitFrame, { Sticker } from "./PortraitFrame";
-import PSectionTitle from "./PSectionTitle";
+import CountUp from "@/components/ui/CountUp";
+import Reveal from "@/components/effects/Reveal";
+import PortraitFrame, { Sticker } from "@/components/ui/PortraitFrame";
+import SectionTitle from "@/components/ui/SectionTitle";
 
-export default function PAbout() {
+export default function About() {
   return (
     <section id="about" className="relative scroll-mt-24 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
-        <PSectionTitle label="About Me" />
+        <SectionTitle label="About Me" />
 
         <div className="grid gap-12 lg:grid-cols-[0.95fr_1.3fr] lg:items-start lg:gap-16">
           {/* Left — editorial portrait with floating badges */}
           <div className="hidden md:block lg:sticky lg:top-28 lg:self-start">
             <Reveal variant="left">
               <PortraitFrame
-                photo="/profile/neeraj-smile.jpg"
                 cutout="/profile/neeraj-cutout-smile.png"
-                variant="none"
                 alt="Neeraj Kumar"
                 sizes="(max-width: 1024px) 340px, 480px"
                 className="mx-auto max-w-[340px] lg:max-w-[480px]"

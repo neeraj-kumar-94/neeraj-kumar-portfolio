@@ -10,8 +10,8 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { mentors } from "@/lib/data";
-import Reveal from "../Reveal";
-import PSectionTitle from "./PSectionTitle";
+import Reveal from "@/components/effects/Reveal";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 const AUTOPLAY_MS = 7000;
 const SWIPE_THRESHOLD = 70;
@@ -24,7 +24,7 @@ const stackPose = [
 ];
 const hiddenPose = { x: 50, y: 40, r: 12, s: 0.84, o: 0 };
 
-export default function PQuotes() {
+export default function Mentors() {
   const n = mentors.length;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -85,7 +85,7 @@ export default function PQuotes() {
   return (
     <section id="mentors" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
       <div className="relative mx-auto max-w-6xl px-6">
-        <PSectionTitle label="What Mentors Say" />
+        <SectionTitle label="What Mentors Say" />
 
         <Reveal variant="up">
           <div

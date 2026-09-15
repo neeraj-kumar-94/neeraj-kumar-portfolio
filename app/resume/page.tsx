@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { education, experience, profile, projects, skillGroups } from "@/lib/data";
-import "../premium/premium.css";
 import "./resume.css";
 
 export const metadata: Metadata = {
@@ -32,10 +31,10 @@ export default function ResumePage() {
   const [first, last] = profile.name.split(" ");
 
   return (
-    <div className="resume-page premium min-h-screen py-10 print:py-0">
+    <div className="resume-page min-h-screen py-10 print:py-0">
       {/* Toolbar — hidden in print/PDF */}
       <div className="no-print mx-auto mb-6 flex max-w-[880px] items-center justify-between px-6">
-        <Link href="/premium" className="text-sm font-medium text-muted transition-colors hover:text-accent">
+        <Link href="/" className="text-sm font-medium text-muted transition-colors hover:text-accent">
           ← Back to Portfolio
         </Link>
         <a

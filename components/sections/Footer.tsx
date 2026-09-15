@@ -1,7 +1,7 @@
 import { profile } from "@/lib/data";
-import Reveal from "../Reveal";
+import Reveal from "@/components/effects/Reveal";
 
-export default function PFooter() {
+export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-border pb-10 pt-24">
       <div className="mx-auto max-w-7xl px-6 text-center">
