@@ -94,7 +94,7 @@ export default function Hero() {
 
           {/* Portrait — above the name on mobile, right column on desktop */}
           <div
-            className="animate-fade-up relative order-first w-full max-w-[240px] sm:max-w-[300px] lg:order-none lg:mx-auto lg:max-w-[440px]"
+            className="animate-fade-up relative order-first mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:order-none lg:max-w-[440px]"
             style={{ animationDelay: "0.5s" }}
           >
             <Parallax speed={0.06}>
@@ -103,7 +103,7 @@ export default function Hero() {
                   cutout="/profile/neeraj-cutout.png"
                   alt="Neeraj Kumar"
                   priority
-                  sizes="(max-width: 1024px) 300px, 440px"
+                  sizes="(max-width: 1024px) 360px, 440px"
                 />
 
                 {/* Rotating circular text */}
