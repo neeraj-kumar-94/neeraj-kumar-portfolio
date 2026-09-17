@@ -23,7 +23,7 @@ export default function Home() {
       <CursorFx />
       <MagneticFx />
       <Navbar />
-      <main>
+      <main id="main">
         <Hero />
         <About />
         <Skills />

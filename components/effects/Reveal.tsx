@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import { useIsPhone } from "@/lib/useMediaQuery";
 
 export type RevealVariant = "up" | "left" | "right" | "zoom";
 
@@ -31,14 +32,20 @@ export default function Reveal({
   amount?: number;
 }) {
   const reduced = useReducedMotion();
+  // Animated blur is the most expensive effect on phones, so they get the
+  // movement without it.
+  const phone = useIsPhone();
 
   if (reduced) return <div className={className}>{children}</div>;
+
+  const blur = phone ? {} : { filter: "blur(10px)" };
+  const clear = phone ? {} : { filter: "blur(0px)" };
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, filter: "blur(10px)", ...from[variant] }}
-      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
+      initial={{ opacity: 0, ...blur, ...from[variant] }}
+      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, ...clear }}
       viewport={{ once: true, amount }}
       transition={{
         duration: 1.1,

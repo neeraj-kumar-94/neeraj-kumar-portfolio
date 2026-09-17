@@ -49,27 +49,14 @@ function TimelineItem({ item, index }: { item: Item; index: number }) {
     <Reveal variant={left ? "left" : "right"} delay={60} amount={0.15}>
       <div className="relative md:grid md:grid-cols-2 md:gap-24">
         {/* Node on the spine */}
+        {/* Colours come from theme tokens via classes, so the node follows the
+            light/dark swap; motion only drives the scale. */}
         <motion.span
           ref={nodeRef}
-          animate={
-            reached
-              ? {
-                  scale: 1.1,
-                  borderColor: "rgb(198,205,218)",
-                  backgroundColor: "rgb(198,205,218)",
-                  color: "rgb(10,17,31)",
-                  boxShadow: "0 0 28px rgba(198,205,218,0.45)",
-                }
-              : {
-                  scale: 1,
-                  borderColor: "rgb(32,44,71)",
-                  backgroundColor: "rgb(10,17,31)",
-                  color: "rgb(140,148,166)",
-                  boxShadow: "0 0 0 rgba(198,205,218,0)",
-                }
-          }
+          data-reached={reached}
+          animate={{ scale: reached ? 1.1 : 1 }}
           transition={{ duration: 0.5, ease }}
-          className="absolute -left-[29px] top-5 z-[1] flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border sm:h-9 sm:w-9 md:left-1/2"
+          className="absolute -left-[29px] top-5 z-[1] flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-background text-muted transition-colors duration-500 data-[reached=true]:border-signal data-[reached=true]:bg-signal data-[reached=true]:text-background data-[reached=true]:shadow-[0_0_28px_color-mix(in_srgb,var(--signal)_45%,transparent)] sm:h-9 sm:w-9 md:left-1/2"
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
             {icons[item.type]}
@@ -81,7 +68,7 @@ function TimelineItem({ item, index }: { item: Item; index: number }) {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ type: "spring", stiffness: 300, damping: 24 }}
-            className="group rounded-2xl border border-border bg-card/60 p-5 backdrop-blur transition-colors duration-500 hover:border-accent/40 sm:p-8"
+            className="group rounded-2xl border border-border bg-card/60 p-5 backdrop-blur transition-colors duration-500 hover:border-signal/40 sm:p-8"
           >
             <div className="mb-2 flex items-center gap-3 sm:mb-4">
               {/* On phones the spine icon already says Work vs Education */}
@@ -94,7 +81,7 @@ function TimelineItem({ item, index }: { item: Item; index: number }) {
                 onClick={() => setOpen(!open)}
                 aria-expanded={open}
                 aria-label={open ? "Hide details" : "Show details"}
-                className="-my-1 ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-accent transition-colors hover:border-accent md:hidden"
+                className="-my-1 ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-accent transition-colors hover:border-signal md:hidden"
               >
                 <motion.svg
                   animate={{ rotate: open ? 180 : 0 }}
@@ -110,7 +97,7 @@ function TimelineItem({ item, index }: { item: Item; index: number }) {
               </button>
             </div>
 
-            <h3 className="font-serif text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-accent sm:text-3xl">
+            <h3 className="font-serif text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-signal sm:text-3xl">
               {item.title}
             </h3>
             <p className="mt-1 text-[13px] text-muted sm:text-sm">

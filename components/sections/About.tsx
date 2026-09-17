@@ -76,7 +76,7 @@ export default function About() {
                         },
                       }}
                       whileHover={{ y: -4 }}
-                      className="flex gap-3 rounded-2xl border border-border bg-card/60 p-4 text-sm leading-relaxed text-muted transition-colors duration-300 hover:border-accent/40 hover:text-foreground"
+                      className="flex gap-3 rounded-2xl border border-border bg-card/60 p-4 text-sm leading-relaxed text-muted transition-colors duration-300 hover:border-signal/40 hover:text-foreground"
                     >
                       <svg
                         className="mt-0.5 h-4 w-4 shrink-0 text-accent"

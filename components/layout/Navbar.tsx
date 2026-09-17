@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/lib/data";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const links = [
   { href: "#about", label: "About" },
@@ -20,6 +23,10 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const lastY = useRef(0);
   const { scrollY } = useScroll();
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+  // Section links have to jump home first when you are reading a case study
+  const to = (hash: string) => (onHome ? hash : `/${hash}`);
 
   // Slide the bar away when scrolling down, bring it back on the way up
   useMotionValueEvent(scrollY, "change", (y) => {
@@ -58,25 +65,25 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="#top" className="font-serif text-xl font-semibold tracking-tight text-foreground">
+        <Link href={to("#top")} className="font-serif text-xl font-semibold tracking-tight text-foreground">
           {profile.name.split(" ")[0]}
-          <span className="text-accent">.</span>
-        </a>
+          <span className="text-signal">.</span>
+        </Link>
 
         {/* Desktop links — the active pill glides between items */}
         <ul className="hidden items-center gap-2 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <a
-                href={link.href}
+                href={to(link.href)}
                 className={`relative block rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors ${
-                  active === link.href ? "text-accent" : "text-muted hover:text-foreground"
+                  active === link.href ? "text-signal" : "text-muted hover:text-foreground"
                 }`}
               >
                 {active === link.href && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full border border-accent/30 bg-accent/10"
+                    className="absolute inset-0 rounded-full border border-signal/30 bg-signal/10"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   />
                 )}
@@ -86,13 +93,23 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3 sm:gap-5">
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Recruiters look for the resume in the header, not the footer */}
+          <Link
+            href="/resume"
+            className="hidden text-[11px] font-semibold uppercase tracking-[0.2em] text-muted transition-colors hover:text-signal sm:block"
+          >
+            Resume
+          </Link>
+
+          <ThemeToggle />
+
           <motion.a
-            href="#contact"
+            href={to("#contact")}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            className="magnetic rounded-full border border-accent/50 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent transition-colors hover:bg-accent hover:text-background"
+            className="magnetic rounded-full border border-signal/50 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-signal transition-colors hover:bg-signal hover:text-background"
           >
             Let&apos;s Talk
           </motion.a>
@@ -144,16 +161,29 @@ export default function Navbar() {
                   transition={{ delay: 0.06 + i * 0.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <a
-                    href={link.href}
+                    href={to(link.href)}
                     onClick={() => setOpen(false)}
-                    className={`block py-3 text-sm font-medium uppercase tracking-[0.15em] transition-colors hover:text-accent ${
-                      active === link.href ? "text-accent" : "text-muted"
+                    className={`block py-3 text-sm font-medium uppercase tracking-[0.15em] transition-colors hover:text-signal ${
+                      active === link.href ? "text-signal" : "text-muted"
                     }`}
                   >
                     {link.label}
                   </a>
                 </motion.li>
               ))}
+              <motion.li
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.06 + links.length * 0.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link
+                  href="/resume"
+                  onClick={() => setOpen(false)}
+                  className="block py-3 text-sm font-medium uppercase tracking-[0.15em] text-muted transition-colors hover:text-signal"
+                >
+                  Resume
+                </Link>
+              </motion.li>
             </ul>
           </motion.div>
         )}

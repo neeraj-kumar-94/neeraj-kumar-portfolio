@@ -31,7 +31,7 @@ export default function ScrollProgress() {
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.92 }}
-            className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-accent/30 bg-card text-accent shadow-lg shadow-accent/10 backdrop-blur transition-colors hover:bg-accent hover:text-background"
+            className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-accent/30 bg-card text-accent shadow-lg shadow-accent/10 backdrop-blur transition-colors hover:bg-signal hover:text-background"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />

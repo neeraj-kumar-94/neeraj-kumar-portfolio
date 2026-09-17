@@ -34,13 +34,13 @@ export default function ResumePage() {
     <div className="resume-page min-h-screen py-10 print:py-0">
       {/* Toolbar — hidden in print/PDF */}
       <div className="no-print mx-auto mb-6 flex max-w-[880px] items-center justify-between px-6">
-        <Link href="/" className="text-sm font-medium text-muted transition-colors hover:text-accent">
+        <Link href="/" className="text-sm font-medium text-muted transition-colors hover:text-signal">
           ← Back to Portfolio
         </Link>
         <a
           href="/Neeraj-Kumar-Resume.pdf"
           download
-          className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-background transition hover:brightness-110"
+          className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-on-accent transition hover:brightness-110"
         >
           Download PDF
         </a>
@@ -59,13 +59,13 @@ export default function ResumePage() {
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-[13.5px] text-muted">
             <span>{profile.location}</span>
             <span>{profile.phone}</span>
-            <a href={`mailto:${profile.email}`} className="transition-colors hover:text-accent">
+            <a href={`mailto:${profile.email}`} className="transition-colors hover:text-signal">
               {profile.email}
             </a>
-            <a href={profile.socials.linkedin} className="transition-colors hover:text-accent">
+            <a href={profile.socials.linkedin} className="transition-colors hover:text-signal">
               {domain(profile.socials.linkedin)}
             </a>
-            <a href={profile.socials.github} className="transition-colors hover:text-accent">
+            <a href={profile.socials.github} className="transition-colors hover:text-signal">
               {domain(profile.socials.github)}
             </a>
           </div>

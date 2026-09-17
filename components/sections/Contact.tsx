@@ -11,7 +11,7 @@ type Status = "idle" | "sending" | "sent" | "error";
 const microLabel = "text-[11px] font-semibold uppercase tracking-[0.2em] text-muted";
 const labelCls = `mb-2 block ${microLabel}`;
 const fieldCls =
-  "w-full rounded-xl border border-border bg-background/50 px-4 text-[15px] text-foreground outline-none transition placeholder:text-muted/50 focus:border-accent/60 focus:bg-background/80 focus:ring-4 focus:ring-accent/10";
+  "w-full rounded-xl border border-border bg-background/50 px-4 text-[15px] text-foreground outline-none transition placeholder:text-muted/50 focus:border-accent/60 focus:bg-background/80 focus:ring-4 focus:ring-signal/10";
 
 const contacts: { label: string; value: string; href?: string; icon: ReactNode }[] = [
   {
@@ -53,6 +53,56 @@ const contacts: { label: string; value: string; href?: string; icon: ReactNode }
     ),
   },
 ];
+
+/** Copies the email and confirms it in place, so nobody has to select text. */
+function CopyEmail() {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard can be blocked; the mailto link next to it still works
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      aria-label={copied ? "Email copied" : "Copy email address"}
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-signal hover:text-signal"
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.svg
+          key={copied ? "done" : "copy"}
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.6 }}
+          transition={{ duration: 0.2 }}
+          className="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={1.8}
+          aria-hidden="true"
+        >
+          {copied ? (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"
+            />
+          )}
+        </motion.svg>
+      </AnimatePresence>
+    </button>
+  );
+}
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
@@ -103,28 +153,29 @@ export default function Contact() {
                 {contacts.map((c) => {
                   const inner = (
                     <>
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-accent transition-colors group-hover:border-accent">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-accent transition-colors group-hover:border-signal">
                         <svg className="h-[18px] w-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
                           {c.icon}
                         </svg>
                       </span>
                       <span className="min-w-0">
                         <span className={`block ${microLabel}`}>{c.label}</span>
-                        <span className="mt-0.5 block truncate text-foreground transition-colors group-hover:text-accent">
+                        <span className="mt-0.5 block truncate text-foreground transition-colors group-hover:text-signal">
                           {c.value}
                         </span>
                       </span>
                     </>
                   );
                   return (
-                    <li key={c.label}>
+                    <li key={c.label} className="flex items-center gap-3">
                       {c.href ? (
-                        <a href={c.href} className="group flex items-center gap-4">
+                        <a href={c.href} className="group flex min-w-0 flex-1 items-center gap-4">
                           {inner}
                         </a>
                       ) : (
-                        <div className="group flex items-center gap-4">{inner}</div>
+                        <div className="group flex min-w-0 flex-1 items-center gap-4">{inner}</div>
                       )}
+                      {c.label === "Email" && <CopyEmail />}
                     </li>
                   );
                 })}
@@ -220,13 +271,41 @@ export default function Contact() {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  className="group magnetic inline-flex shrink-0 items-center justify-between gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-background disabled:cursor-not-allowed disabled:opacity-60 sm:justify-center"
+                  className="group magnetic inline-flex shrink-0 items-center justify-between gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-on-accent disabled:cursor-not-allowed disabled:opacity-60 sm:justify-center"
                 >
-                  {status === "sending" ? "Sending…" : "Send Message"}
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={status}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {status === "sending" ? "Sending…" : status === "sent" ? "Message sent" : "Send Message"}
+                    </motion.span>
+                  </AnimatePresence>
+                  {/* The arrow becomes a tick once the message is away */}
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-background/20 transition-transform duration-300 group-hover:translate-x-1">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.svg
+                        key={status === "sent" ? "done" : "send"}
+                        initial={{ opacity: 0, rotate: -30, scale: 0.6 }}
+                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.6 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        {status === "sent" ? (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        ) : (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        )}
+                      </motion.svg>
+                    </AnimatePresence>
                   </span>
                 </motion.button>
               </div>

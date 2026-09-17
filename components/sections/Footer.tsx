@@ -20,17 +20,17 @@ export default function Footer() {
               © {new Date().getFullYear()} {profile.name}
             </p>
             <div className="flex items-center gap-7">
-              <a href={profile.socials.github} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
+              <a href={profile.socials.github} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-signal">
                 GitHub
               </a>
-              <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
+              <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-signal">
                 LinkedIn
               </a>
-              <a href="/resume" className="transition-colors hover:text-accent">
+              <a href="/resume" className="transition-colors hover:text-signal">
                 Resume
               </a>
             </div>
-            <a href="#top" className="transition-colors hover:text-accent">
+            <a href="#top" className="transition-colors hover:text-signal">
               Back to Top ↑
             </a>
           </div>

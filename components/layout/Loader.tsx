@@ -9,14 +9,30 @@ const NAME = "Neeraj Kumar";
  *  the curtain lifts off the hero. */
 export default function Loader() {
   const reduced = useReducedMotion();
+  // Shown once per session: returning visitors should land straight on the work
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    if (reduced) {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("intro-seen") === "1";
+    } catch {
+      // blocked storage just means the intro plays again
+    }
+
+    if (reduced || seen) {
       setVisible(false);
       return;
     }
-    const timer = setTimeout(() => setVisible(false), 1500);
+
+    const timer = setTimeout(() => {
+      setVisible(false);
+      try {
+        sessionStorage.setItem("intro-seen", "1");
+      } catch {
+        // ignore
+      }
+    }, 1500);
     return () => clearTimeout(timer);
   }, [reduced]);
 
@@ -49,7 +65,7 @@ export default function Loader() {
               </span>
             ))}
             <motion.span
-              className="ml-2 text-accent"
+              className="ml-2 text-signal"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.75, type: "spring", stiffness: 500, damping: 18 }}
@@ -60,7 +76,7 @@ export default function Loader() {
 
           <span className="h-px w-40 overflow-hidden bg-border">
             <motion.span
-              className="block h-full origin-left bg-accent"
+              className="block h-full origin-left bg-signal"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1.25, ease: [0.22, 1, 0.36, 1] }}

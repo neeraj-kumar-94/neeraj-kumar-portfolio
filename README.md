@@ -34,10 +34,12 @@ sirf theme, surfaces aur print rules hain — motion components ke andar rehta h
 
 ```
 app/
-├── layout.tsx            → Fonts, SEO metadata
+├── layout.tsx            → Fonts, SEO metadata, theme script, skip link
 ├── page.tsx              → Home page — saare sections yahan jude hain
 ├── globals.css           → Theme colours, surfaces aur print rules
 ├── icon.svg              → Favicon
+├── template.tsx          → Har route ka entrance transition
+├── work/[slug]/page.tsx  → Case study pages (3)
 └── resume/
     ├── page.tsx          → /resume page (screen par site theme, print/PDF black & white)
     └── resume.css        → Resume ke print rules
@@ -49,7 +51,7 @@ components/
 ├── sections/             → Page ke sections (upar se neeche isi order mein)
 │   ├── Hero.tsx          → Naam, tagline, CTA, portrait, rotating badge
 │   ├── About.tsx         → About text, career highlights, count-up stats
-│   ├── Skills.tsx        → "Expertise" — filter tabs + logo tiles
+│   ├── Skills.tsx        → "Expertise" — 3 core stacks + proof (phone par accordion)
 │   ├── Projects.tsx      → "Selected Work" — desktop: horizontal scroll, mobile: swipe deck
 │   ├── Experience.tsx    → "The Journey" — scroll-drawn timeline
 │   ├── Mentors.tsx       → "What Mentors Say" — draggable card deck
@@ -59,6 +61,7 @@ components/
 │   ├── SectionTitle.tsx  → Section heading
 │   ├── PortraitFrame.tsx → Background-free portrait + floating Sticker badges
 │   ├── Greeting.tsx      → Time-based greeting (Good morning/evening)
+│   ├── ThemeToggle.tsx   → Dark ⇄ light switch (localStorage mein yaad rehta hai)
 │   └── CountUp.tsx       → Number count-up (0 → 20+)
 └── effects/              → Animation helpers (sab Framer Motion par)
     ├── Reveal.tsx        → Scroll par blur + glide entrance wrapper
@@ -85,15 +88,24 @@ public/
 
 Sab kuch **`lib/data.ts`** mein hai — components ko touch karne ki zaroorat nahi:
 
-- `profile` → naam, tagline, email, phone, socials, about paragraphs, stats
-- `skillGroups` → Expertise ke 4 groups
+- `profile` → naam, positioning line (`tagline`), availability, email, phone, socials, about, stats
+- `proofPoints` → hero ke neeche wali proof strip
+- `coreSkills` → Expertise ke 3 core stacks (naam, summary, proof, tools)
+- `alsoWorkWith` → baaki skills ki ek line
 - `projects` → title, description, tech, live URL, image, result line
+- `caseStudies` → 3 detailed case studies (`/work/[slug]` pages isi se bante hain)
 - `experience` / `education` → Journey timeline (resume mein bhi yahi aata hai)
 - `highlights` → About ke Career Highlights
 - `mentors` → testimonials (naam, title, LinkedIn, photo, quote)
+- `skillGroups` → sirf resume page ke Core Skills ke liye
 
 **Naya project add karna ho:** image `public/projects/` mein daalo, phir `projects`
-array mein ek entry add karo.
+array mein ek entry add karo. Case study chahiye to `caseStudies` mein same slug ke
+saath entry add karo — page apne aap ban jayega.
+
+> **Case studies:** inme abhi qualitative outcomes likhe hain. Agar tumhare paas real
+> numbers hain (conversion, load time, enquiries), unhe `outcome` line mein daal do —
+> hiring managers ke liye wahi sabse strong proof hota hai.
 
 ---
 
@@ -146,16 +158,24 @@ ab `/` par redirect hota hai (`next.config.ts`).
 
 ## 7. Design Tokens
 
-`app/globals.css` ke `:root` mein:
+`app/globals.css` mein do sets hain: `:root` (dark) aur `:root[data-theme="light"]`.
+Surfaces shadow se nahi, **luminance** se upar aati hain — dark mein jitna upar, utna
+halka. `--signal` (brass) sirf interactive cheezon ke liye hai: hover, focus, active,
+progress. Baaki sab platinum/neutral rehta hai.
 
-| Variable | Value | Use |
-|---|---|---|
-| `--background` | `#0a111f` | Ink navy page |
-| `--foreground` | `#f2f4f7` | Main text |
-| `--muted` | `#8c94a6` | Secondary text |
-| `--accent` | `#c6cdda` | Platinum — buttons, highlights |
-| `--accent-dark` | `#9aa4b8` | Accent hover |
-| `--card` | `#0f1830` | Cards |
-| `--border` | `#202c47` | Borders |
+| Variable | Dark | Light | Use |
+|---|---|---|---|
+| `--background` | `#0a111f` | `#f7f5f1` | Page |
+| `--card` | `#101a2e` | `#ffffff` | Cards (level 1) |
+| `--surface-2` | `#16233c` | `#fbf9f6` | Hover / raised (level 2) |
+| `--surface-3` | `#1c2c49` | `#f0ece4` | Overlay (level 3) |
+| `--foreground` | `#f2f4f7` | `#14181f` | Main text |
+| `--muted` | `#98a1b3` | `#5a6474` | Secondary text |
+| `--accent` | `#c6cdda` | `#2c3a58` | Platinum display accent |
+| `--signal` | `#e3a857` | `#8a540f` | Brass — sirf interactive states |
+| `--border` | `#202c47` | `#e3ded4` | Hairline borders |
+| `--border-strong` | `#3a4a70` | `#bdb5a7` | Strong borders |
 
-Colour change karna ho to sirf ye variables badlo.
+Har text/surface pair WCAG AA (4.5:1) se upar hai, dono themes mein. Theme toggle
+navbar mein hai aur choice `localStorage` mein save hoti hai; `layout.tsx` ka inline
+script paint se pehle apply kar deta hai, isliye flash nahi hota.

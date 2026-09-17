@@ -11,8 +11,9 @@ import {
   useTransform,
   type PanInfo,
 } from "motion/react";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { projects } from "@/lib/data";
+import { caseStudies, projects, slugify } from "@/lib/data";
 import Reveal from "@/components/effects/Reveal";
 import SectionTitle from "@/components/ui/SectionTitle";
 
@@ -27,6 +28,13 @@ const stackPose = [
   { x: 24, y: 26, rotate: 6, scale: 0.88, opacity: 0.3 },
 ];
 const hiddenPose = { x: 30, y: 34, rotate: 8, scale: 0.84, opacity: 0 };
+
+const studySlugs = new Set(caseStudies.map((c) => c.slug));
+/** Three projects have a written case study; the rest link straight to the live site. */
+const studyFor = (title: string) => {
+  const slug = slugify(title);
+  return studySlugs.has(slug) ? slug : null;
+};
 
 /** Swipeable project deck for phones and tablets — same interaction as the testimonials. */
 function ProjectDeck() {
@@ -70,7 +78,7 @@ function ProjectDeck() {
         aria-label="Projects"
         tabIndex={0}
         onKeyDown={onKeyDown}
-        className="mx-auto max-w-md select-none rounded-[1.5rem] outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+        className="mx-auto max-w-md select-none rounded-[1.5rem] outline-none focus-visible:ring-2 focus-visible:ring-signal/40"
       >
         <div className="relative aspect-[4/3]">
           {projects.map((project, i) => {
@@ -142,23 +150,33 @@ function ProjectDeck() {
                 </motion.span>
               ))}
             </div>
-            <a
-              href={active.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent"
-            >
-              Visit Live Site
-              <svg
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.8}
+            <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3">
+              {studyFor(active.title) && (
+                <Link
+                  href={`/work/${studyFor(active.title)}`}
+                  className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-signal"
+                >
+                  Read case study
+                  <svg
+                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.8}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              )}
+              <a
+                href={active.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-sm font-semibold uppercase tracking-[0.18em] text-muted"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-              </svg>
-            </a>
+                Visit live site
+              </a>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -196,7 +214,7 @@ function ProjectDeck() {
               whileTap={{ scale: 0.92 }}
               transition={{ type: "spring", stiffness: 400, damping: 18 }}
               aria-label={dir === -1 ? "Previous project" : "Next project"}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:bg-accent hover:text-background"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-signal hover:bg-signal hover:text-background"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path
@@ -284,14 +302,19 @@ export default function Projects() {
                 className="group relative w-[30vw] max-w-[440px] shrink-0"
               >
                 <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={studyFor(project.title) ? `/work/${studyFor(project.title)}` : project.liveUrl}
+                  {...(studyFor(project.title)
+                    ? {}
+                    : { target: "_blank", rel: "noopener noreferrer" })}
                   data-cursor="view"
-                  aria-label={`Visit ${project.title}`}
+                  aria-label={
+                    studyFor(project.title)
+                      ? `Read the ${project.title} case study`
+                      : `Visit ${project.title}`
+                  }
                   whileHover={{ y: -10 }}
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                  className="relative block overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-[0_24px_80px_-35px_rgba(0,0,0,0.9)] transition-colors duration-500 hover:border-accent/50"
+                  className="relative block overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-[0_24px_80px_-35px_rgba(0,0,0,0.9)] transition-colors duration-500 hover:border-signal/50"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-background">
                     <motion.div
@@ -312,7 +335,13 @@ export default function Projects() {
                   </div>
                   <span className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/10" />
 
-                  <span className="absolute bottom-4 right-4 z-[2] flex h-10 w-10 items-center justify-center rounded-full border border-accent/40 bg-background/70 text-accent backdrop-blur-md transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-background">
+                  {studyFor(project.title) && (
+                    <span className="absolute left-4 top-4 z-[2] rounded-full border border-signal/40 bg-background/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-signal backdrop-blur-md">
+                      Case study
+                    </span>
+                  )}
+
+                  <span className="absolute bottom-4 right-4 z-[2] flex h-10 w-10 items-center justify-center rounded-full border border-signal/40 bg-background/70 text-signal backdrop-blur-md transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-background">
                     <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>
@@ -323,7 +352,7 @@ export default function Projects() {
                   <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">
                     {project.subtitle}
                   </p>
-                  <h3 className="font-serif text-2xl font-semibold tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent">
+                  <h3 className="font-serif text-2xl font-semibold tracking-tight text-foreground transition-colors duration-300 group-hover:text-signal">
                     {project.title}
                   </h3>
                   <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-muted">

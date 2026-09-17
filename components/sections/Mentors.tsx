@@ -28,6 +28,8 @@ export default function Mentors() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [dragging, setDragging] = useState(false);
+  // The hint has done its job once someone drags; it fades out for good
+  const [hasDragged, setHasDragged] = useState(false);
   const reduced = useReducedMotion();
 
   const go = useCallback((dir: number) => setIndex((i) => (i + dir + n) % n), [n]);
@@ -41,6 +43,7 @@ export default function Mentors() {
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
     setDragging(false);
+    setHasDragged(true);
     // A short flick counts as much as a long drag
     const throw_ = info.offset.x + info.velocity.x * 0.12;
     if (throw_ < -70) go(1);
@@ -69,7 +72,7 @@ export default function Mentors() {
             onKeyDown={onKeyDown}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
-            className="grid select-none items-center gap-12 rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-accent/40 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-stretch lg:gap-20"
+            className="grid select-none items-center gap-12 rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-signal/40 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-stretch lg:gap-20"
           >
             {/* Photo deck */}
             <div className="group relative mx-auto w-full max-w-[300px] lg:max-w-none">
@@ -77,7 +80,7 @@ export default function Mentors() {
                 className="pointer-events-none absolute -inset-12"
                 style={{
                   background:
-                    "radial-gradient(ellipse at 45% 50%, rgba(198,205,218,0.10) 0%, transparent 65%)",
+                    "radial-gradient(ellipse at 45% 50%, color-mix(in srgb, var(--accent) 10%, transparent) 0%, transparent 65%)",
                 }}
               />
               <div className="relative aspect-[4/5]">
@@ -119,9 +122,13 @@ export default function Mentors() {
                   );
                 })}
               </div>
-              <p className="mt-10 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-muted">
+              <motion.p
+                animate={{ opacity: hasDragged ? 0 : 1, y: hasDragged ? -6 : 0 }}
+                transition={{ duration: 0.5, ease }}
+                className="mt-10 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-muted"
+              >
                 Drag or swipe to browse
-              </p>
+              </motion.p>
             </div>
 
             {/* Quote */}
@@ -154,7 +161,7 @@ export default function Mentors() {
                         href={active.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 font-semibold text-foreground transition-colors hover:text-accent"
+                        className="inline-flex items-center gap-2 font-semibold text-foreground transition-colors hover:text-signal"
                       >
                         {active.name}
                         <svg className="h-3.5 w-3.5 text-muted" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -203,7 +210,7 @@ export default function Mentors() {
                       whileTap={{ scale: 0.92 }}
                       transition={{ type: "spring", stiffness: 400, damping: 18 }}
                       aria-label={dir === -1 ? "Previous testimonial" : "Next testimonial"}
-                      className="flex h-12 w-12 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:bg-accent hover:text-background"
+                      className="flex h-12 w-12 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-signal hover:bg-signal hover:text-background"
                     >
                       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                         <path

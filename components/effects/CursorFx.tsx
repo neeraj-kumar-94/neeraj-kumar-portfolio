@@ -3,17 +3,25 @@
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
 
-const ring = {
-  default: { width: 32, height: 32, backgroundColor: "rgba(198,205,218,0)", borderColor: "rgba(198,205,218,0.5)" },
-  hover: { width: 56, height: 56, backgroundColor: "rgba(198,205,218,0.12)", borderColor: "rgba(198,205,218,0.75)" },
-  view: { width: 84, height: 84, backgroundColor: "rgba(198,205,218,0.92)", borderColor: "rgba(198,205,218,1)" },
+// Size is animated; colour comes from theme tokens through the classes below,
+// so the cursor follows the light/dark swap.
+const ringSize = {
+  default: { width: 32, height: 32 },
+  hover: { width: 56, height: 56 },
+  view: { width: 84, height: 84 },
+};
+
+const ringSkin = {
+  default: "border-accent/50",
+  hover: "border-signal/80 bg-signal/15",
+  view: "border-signal bg-signal",
 };
 
 /** Platinum dot with a ring that trails behind it on a spring. The ring swells
  *  over links and turns into a "View" pill over project cards. Desktop only. */
 export default function CursorFx() {
   const [enabled, setEnabled] = useState(false);
-  const [mode, setMode] = useState<keyof typeof ring>("default");
+  const [mode, setMode] = useState<keyof typeof ringSize>("default");
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -68,10 +76,10 @@ export default function CursorFx() {
         className="pointer-events-none fixed left-0 top-0 z-[100] h-0 w-0"
       >
         <motion.div
-          animate={ring[mode]}
+          animate={ringSize[mode]}
           initial={false}
           transition={{ type: "spring", stiffness: 280, damping: 24 }}
-          className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border"
+          className={`flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition-colors duration-300 ${ringSkin[mode]}`}
         >
           <motion.span
             animate={{ opacity: mode === "view" ? 1 : 0 }}

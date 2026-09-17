@@ -19,6 +19,7 @@ export default function TextReveal({
   stagger = 0.09,
   duration = 1.15,
   trigger = "view",
+  weight,
 }: {
   text: string;
   className?: string;
@@ -28,6 +29,8 @@ export default function TextReveal({
   stagger?: number;
   duration?: number;
   trigger?: "load" | "view";
+  /** Variable-font weight to settle from and to, e.g. [300, 500] */
+  weight?: [number, number];
 }) {
   const reduced = useReducedMotion();
   const words = text.split(" ");
@@ -39,9 +42,15 @@ export default function TextReveal({
     show: { transition: { delayChildren: delay, staggerChildren: stagger } },
   };
 
+  // Playfair is loaded as a variable font, so the weight can settle along with
+  // the rise — the type itself gains presence as it lands.
   const word: Variants = {
-    hidden: { y: "115%" },
-    show: { y: "0%", transition: { duration, ease } },
+    hidden: { y: "115%", ...(weight ? { fontWeight: weight[0] } : {}) },
+    show: {
+      y: "0%",
+      ...(weight ? { fontWeight: weight[1] } : {}),
+      transition: { duration, ease },
+    },
   };
 
   return (

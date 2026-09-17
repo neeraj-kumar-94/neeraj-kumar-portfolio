@@ -5,8 +5,14 @@
 export const profile = {
   name: "Neeraj Kumar",
   role: "Frontend Developer",
-  tagline:
-    "I design and build responsive, performance-driven websites and eCommerce experiences — from pixel-perfect WordPress and Shopify builds to modern React.js and Next.js interfaces.",
+  // The positioning line: who it's for and what they get. Keep it short.
+  tagline: "I build WordPress and Shopify sites that load fast and turn visitors into customers.",
+  taglineSupport:
+    "Four years shipping storefronts, CMS builds and React interfaces for clients across retail, legal, education and consultancy.",
+  availability: {
+    status: "Open to work",
+    detail: "Full-time or remote · Replies within 24 hours",
+  },
   location: "Shamli, Uttar Pradesh, India",
   email: "neeraj74530@gmail.com",
   phone: "+91 8006902845",
@@ -25,6 +31,55 @@ export const profile = {
     { value: "5+", label: "Industries Served" },
   ],
 };
+
+// The three stacks worked in every day, each with the proof behind it.
+// Depth reads senior; a wall of logos reads generalist.
+export const coreSkills = [
+  {
+    name: "Shopify",
+    summary: "Custom Liquid themes, subscriptions and checkout",
+    proof:
+      "Built a premium pet-food storefront end to end — custom theme, subscription plans, meal customizers, discount codes and payment gateways.",
+    tools: ["Liquid", "Custom themes", "Subscriptions", "Payment gateways"],
+  },
+  {
+    name: "WordPress",
+    summary: "Theme customization, Elementor and CMS builds",
+    proof:
+      "Shipped law, education, school and consultancy sites — custom sections, structured blogs, CRM-connected forms and SEO-focused page builds.",
+    tools: ["Elementor", "Custom CSS/PHP", "Pagelayer Pro", "Plugin maintenance"],
+  },
+  {
+    name: "React & Next.js",
+    summary: "Component UI, routing and modern frontend",
+    proof:
+      "Built a course discovery and enquiry platform, plus this portfolio — App Router, reusable components, image optimization and scroll-driven motion.",
+    tools: ["Next.js App Router", "TypeScript", "Tailwind CSS", "Framer Motion"],
+  },
+];
+
+// Everything else, kept as one quiet line instead of a logo wall
+export const alsoWorkWith = [
+  "HTML5",
+  "CSS3 & Sass",
+  "JavaScript (ES6+)",
+  "PHP",
+  "Bootstrap",
+  "Git & GitHub",
+  "HubSpot",
+  "LeadSquared",
+  "Figma",
+  "Photoshop",
+  "SEO & performance tuning",
+];
+
+// Proof band under the hero — numbers only mean something with context
+export const proofPoints = [
+  { value: "4+", label: "Years shipping client work" },
+  { value: "20+", label: "Websites delivered" },
+  { value: "6", label: "Live projects you can open below" },
+  { value: "5", label: "Sectors: retail, legal, education, consultancy, environment" },
+];
 
 export const skillGroups = [
   {
@@ -105,6 +160,129 @@ export const projects = [
     liveUrl: "https://www.arttechbsp.com/",
     image: "/projects/arttech.jpg",
     result: "Turned a broad training catalogue into a focused path from learning to career readiness.",
+  },
+];
+
+export const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+/** Long-form case studies for the three projects with the most to say.
+ *  Each one answers the questions a hiring manager actually has: what was the
+ *  problem, what did you decide, and what did it change.
+ *
+ *  Keep these honest. If you have real numbers (conversion lift, load time,
+ *  enquiry volume), replace the qualitative outcome lines with them. */
+export const caseStudies = [
+  {
+    slug: slugify("Brunswick Fur Food"),
+    role: "Frontend Developer · Softles",
+    sector: "Direct-to-consumer retail",
+    duration: "Shopify build",
+    context:
+      "Brunswick Fur Food sells premium pet food built around recurring orders rather than one-off purchases. The brand needed a storefront where a customer could choose a meal plan, customize it for their pet, and subscribe without dropping out halfway.",
+    challenge:
+      "A standard Shopify theme handles simple products well, but it falls apart once meal options, plan frequencies and discounts have to work together. The buying flow had to stay short enough that a first-time visitor could finish it on a phone.",
+    decisions: [
+      {
+        title: "Built the theme custom instead of stretching a stock one",
+        detail:
+          "A purchased theme would have needed heavy overrides for variant logic and subscriptions. Writing the Liquid templates directly kept the markup small and the product logic readable for whoever maintains it next.",
+      },
+      {
+        title: "Made plan selection part of the product page, not a separate step",
+        detail:
+          "Meal options and subscription frequency are chosen inline with custom variant selectors, so the customer sees price and plan update together instead of discovering them at checkout.",
+      },
+      {
+        title: "Wired marketing and payments into the same flow",
+        detail:
+          "HubSpot captures enquiries and discount codes apply cleanly against subscription pricing, so campaigns and secure payment gateways work without manual reconciliation.",
+      },
+    ],
+    build: [
+      "Custom Shopify theme in Liquid, built from the ground up",
+      "Subscription plans with configurable delivery frequency",
+      "Custom product variant selectors for meal customization",
+      "Interactive enquiry forms wired to HubSpot",
+      "Discount code handling and secure payment gateway integration",
+    ],
+    outcome:
+      "The store now sells a subscription rather than a single bag of food: plan, customization and payment all happen in one uninterrupted flow, which is what turns a one-time buyer into a repeat customer.",
+  },
+  {
+    slug: slugify("BNPS International"),
+    role: "Frontend Developer · Softles",
+    sector: "Education consultancy",
+    duration: "WordPress build",
+    context:
+      "BNPS International advises students on studying abroad. Almost all of their business starts with an enquiry form, so the website is a lead engine before it is a brochure.",
+    challenge:
+      "Enquiries were only useful if they landed in the consultancy's CRM with the right context and triggered a fast follow-up. The site also had to rank, because most prospective students arrive through search rather than a referral.",
+    decisions: [
+      {
+        title: "Treated the form as the product",
+        detail:
+          "Forms were placed at each decision point on the page rather than parked on a contact page, so a visitor can enquire the moment they are convinced.",
+      },
+      {
+        title: "Connected LeadSquared with automated email workflows",
+        detail:
+          "Every submission creates a CRM record and triggers an automated acknowledgement, so no lead sits unanswered while the counselling team is busy.",
+      },
+      {
+        title: "Customized the theme rather than adding more plugins",
+        detail:
+          "Custom layouts and animations were written directly into the theme. Fewer plugins meant fewer conflicts, better load times and a site the client could keep running.",
+      },
+    ],
+    build: [
+      "Customized WordPress theme with bespoke layouts and animations",
+      "LeadSquared CRM integration across every enquiry form",
+      "Automated email workflows for instant follow-up",
+      "On-page SEO structure and performance tuning",
+      "Fully responsive build across phone, tablet and desktop",
+    ],
+    outcome:
+      "The site turns search traffic into qualified CRM-tracked leads with an automatic first response, instead of collecting form submissions in an inbox.",
+  },
+  {
+    slug: slugify("Art Tech Institute"),
+    role: "Frontend Developer",
+    sector: "Education and training",
+    duration: "Next.js build",
+    context:
+      "Art Tech Institute teaches practical, job-oriented courses in Advanced Excel, Power BI, data analytics, Tally Prime and AI tools from Bilaspur. Their catalogue was broad, which made it hard for a visitor to work out which course was right for them.",
+    challenge:
+      "A long course list answers nothing on its own. The site had to guide someone from 'I want a better job' to a specific course and an enquiry, and it had to stay fast on the modest phones most of their students use.",
+    decisions: [
+      {
+        title: "Organized the site around outcomes, not the catalogue",
+        detail:
+          "Courses are framed by where they lead, so a visitor picks a career direction first and the matching course second.",
+      },
+      {
+        title: "Put student proof next to the decision",
+        detail:
+          "Outcomes and testimonials sit beside the course details rather than in a separate section, because social proof works where the doubt is.",
+      },
+      {
+        title: "Built on Next.js for speed and search",
+        detail:
+          "Server-rendered pages and optimized images keep the site quick on slow connections, and give each course a real URL that search can index.",
+      },
+    ],
+    build: [
+      "Next.js course platform with a clear discovery path",
+      "Course detail pages built for scanning and comparison",
+      "Student outcome and testimonial sections",
+      "Enquiry journeys placed at each decision point",
+      "Responsive, SEO-focused, performance-optimized build",
+    ],
+    outcome:
+      "A broad training catalogue now reads as a focused path from learning to career readiness, with an enquiry route at every step of it.",
   },
 ];
 

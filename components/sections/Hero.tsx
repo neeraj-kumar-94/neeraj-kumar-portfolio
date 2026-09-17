@@ -10,17 +10,10 @@ import {
   type Variants,
 } from "motion/react";
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
-import { profile } from "@/lib/data";
+import { profile, proofPoints } from "@/lib/data";
 import Greeting from "@/components/ui/Greeting";
 import PortraitFrame from "@/components/ui/PortraitFrame";
 import TextReveal from "@/components/effects/TextReveal";
-
-const heroFacts = [
-  { label: "Location", value: "Shamli, UP — India" },
-  { label: "Experience", value: "4+ Years · 20+ Projects" },
-  { label: "Speciality", value: "WordPress · Shopify · React" },
-  { label: "Status", value: "Open to Work" },
-];
 
 // The intro curtain lifts at ~1.5s; the hero starts moving just before it clears
 const INTRO = 1.15;
@@ -91,13 +84,13 @@ export default function Hero() {
             >
               <span className="relative flex h-2 w-2">
                 <motion.span
-                  className="absolute inline-flex h-full w-full rounded-full bg-accent"
+                  className="absolute inline-flex h-full w-full rounded-full bg-signal"
                   animate={{ scale: [1, 2.4], opacity: [0.6, 0] }}
                   transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
                 />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-signal" />
               </span>
-              <Greeting /> · Available for Work
+              <Greeting /> · {profile.availability.status}
             </motion.p>
 
             <h1 className="font-serif font-medium leading-[1.02] tracking-tight">
@@ -105,6 +98,7 @@ export default function Hero() {
                 text={first}
                 trigger="load"
                 delay={INTRO + 0.1}
+                weight={[300, 500]}
                 className="block text-[clamp(3.2rem,9vw,8rem)] text-foreground"
               />
 
@@ -125,22 +119,35 @@ export default function Hero() {
                 text={last}
                 trigger="load"
                 delay={INTRO + 0.28}
+                weight={[300, 500]}
                 className="block text-[clamp(3.2rem,9vw,8rem)] italic"
                 wordClassName="p-gold pr-4"
               />
             </h1>
 
-            <motion.p variants={riseIn} className="mt-7 max-w-md leading-relaxed text-muted">
+            <motion.p
+              variants={riseIn}
+              className="measure mt-7 text-lg leading-relaxed text-foreground sm:text-xl"
+            >
               {profile.tagline}
             </motion.p>
 
-            <motion.div variants={riseIn} className="mt-10 flex flex-wrap items-center gap-5">
+            {/* The supporting line is detail, not the pitch — phones keep the hero short */}
+            <motion.p
+              variants={riseIn}
+              className="measure mt-3 hidden text-[15px] leading-relaxed text-muted sm:block"
+            >
+              {profile.taglineSupport}
+            </motion.p>
+
+            {/* One primary action; the rest are quiet text links */}
+            <motion.div variants={riseIn} className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
               <motion.a
                 href="#work"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="group magnetic inline-flex items-center gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-background"
+                className="group magnetic inline-flex items-center gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-on-accent"
               >
                 Selected Work
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-background/20 transition-transform duration-300 group-hover:translate-x-1">
@@ -149,16 +156,17 @@ export default function Hero() {
                   </svg>
                 </span>
               </motion.a>
-              <motion.a
+              <a
                 href="#contact"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="magnetic rounded-full border border-border px-8 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-foreground transition-colors hover:border-accent hover:text-accent"
+                className="link-underline text-sm font-semibold uppercase tracking-[0.15em] text-foreground"
               >
-                Contact
-              </motion.a>
+                Get in touch
+              </a>
             </motion.div>
+
+            <motion.p variants={riseIn} className="mt-6 text-[13px] text-muted">
+              {profile.availability.detail}
+            </motion.p>
           </motion.div>
 
           {/* Portrait — above the name on mobile, right column on desktop */}
@@ -216,7 +224,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom fact strip */}
+      {/* Proof band — the numbers, each with the context that makes it mean something */}
       <motion.div
         className="border-t border-border/70"
         initial={{ opacity: 0, y: 30 }}
@@ -224,20 +232,18 @@ export default function Hero() {
         transition={{ duration: 1, delay: INTRO + 0.85, ease }}
       >
         <div className="mx-auto grid max-w-7xl grid-cols-2 divide-border/70 px-6 max-lg:gap-y-5 max-lg:py-6 lg:grid-cols-4 lg:divide-x">
-          {heroFacts.map((fact, i) => (
+          {proofPoints.map((point, i) => (
             <motion.div
-              key={fact.label}
+              key={point.label}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: INTRO + 0.95 + i * 0.08, ease }}
               className={`lg:py-6 ${i === 0 ? "lg:pr-8" : "lg:px-8"}`}
             >
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted">
-                {fact.label}
+              <p className="font-serif text-2xl font-medium italic text-foreground sm:text-3xl">
+                {point.value}
               </p>
-              <p className="mt-1.5 font-serif text-sm italic text-foreground sm:text-base">
-                {fact.value}
-              </p>
+              <p className="mt-1.5 text-[11px] leading-snug text-muted sm:text-xs">{point.label}</p>
             </motion.div>
           ))}
         </div>
