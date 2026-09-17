@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Motion lives in the components, on Framer Motion (`motion/react`).
+   This file only carries the theme, surfaces and print rules. */
+
 /* ── Theme: ink navy + platinum ─────────────────────── */
 :root {
   --background: #0a111f;
@@ -62,185 +65,11 @@ body {
   color: #0c0a08;
 }
 
-/* ── Entrance animations ────────────────────────────── */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up {
-  animation: fade-up 0.7s ease-out both;
-}
-
-@keyframes nav-in {
-  from {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-nav-in {
-  animation: nav-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* Scroll reveal (components/effects/Reveal): elements come in from a slight
-   blur on a snappy overshoot curve */
-.reveal {
-  opacity: 0;
-  filter: blur(6px);
-  transition-property: opacity, transform, filter;
-  transition-duration: 1s;
-  transition-timing-function: cubic-bezier(0.85, -0.03, 0.21, 1.04);
-  will-change: opacity, transform;
-}
-
-.reveal-up {
-  transform: translateY(48px);
-}
-
-.reveal-left {
-  transform: translateX(-56px);
-}
-
-.reveal-right {
-  transform: translateX(56px);
-}
-
-.reveal-zoom {
-  transform: scale(0.88) translateY(24px);
-  transition-duration: 1.2s;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-  filter: blur(0);
-}
-
-/* Word-by-word mask reveal for display headings */
-.word-mask {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
-}
-
-.word-hero {
-  display: inline-block;
-  transform: translateY(115%);
-  animation: word-in 1.15s cubic-bezier(0.85, -0.03, 0.21, 1.04) both;
-}
-
-@keyframes word-in {
-  to {
-    transform: translateY(0);
-  }
-}
-
-/* Image zooms out as its card reveals */
-.img-zoom {
-  transform: scale(1.2);
-  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
-}
-
-.reveal.visible .img-zoom {
-  transform: scale(1);
-}
-
-/* ── Interaction ────────────────────────────────────── */
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 1.5px;
-  width: 0;
-  background: var(--accent);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after,
-.nav-link-active::after {
-  width: 100%;
-}
-
-.magnetic-ready {
-  transition: transform 0.25s ease-out;
-  will-change: transform;
-}
-
+/* The custom cursor replaces the system one while it is on screen */
 html.cursor-fx,
 html.cursor-fx a,
 html.cursor-fx button {
   cursor: none;
-}
-
-/* Autoplay progress bar in the sliders */
-@keyframes slider-progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.slider-progress {
-  animation: slider-progress 6s linear both;
-}
-
-/* Slide copy re-enters on every change (testimonials, project deck) */
-@keyframes p-quote-in {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-}
-
-.p-quote-in > * {
-  animation: p-quote-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.p-quote-in > :nth-child(2) {
-  animation-delay: 0.12s;
-}
-
-/* Filtered skill tiles re-enter with a short stagger (delay via --d) */
-.p-tile-in {
-  animation: p-tile-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: var(--d, 0s);
-}
-
-@keyframes p-tile-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* ── Surfaces & display text ────────────────────────── */
@@ -302,36 +131,6 @@ html.cursor-fx button {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Rotating circular badge (hero) */
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.p-circle-badge {
-  animation: spin-slow 18s linear infinite;
-}
-
-/* Floating sticker badges */
-.p-sticker {
-  transform: rotate(var(--r, -4deg));
-  animation: p-sticker-bob 6s ease-in-out infinite;
-}
-
-@keyframes p-sticker-bob {
-  0%,
-  100% {
-    transform: rotate(var(--r, -4deg)) translateY(0);
-  }
-  50% {
-    transform: rotate(var(--r, -4deg)) translateY(-8px);
-  }
-}
-
 /* ── Print ──────────────────────────────────────────── */
 @media print {
   .no-print {
@@ -351,31 +150,12 @@ html.cursor-fx button {
   margin: 0;
 }
 
-/* ── Reduced motion ─────────────────────────────────── */
+/* ── Reduced motion ─────────────────────────────────────
+   Framer Motion skips its own animations via useReducedMotion;
+   these are the few effects that are pure CSS. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .animate-fade-up,
-  .animate-nav-in,
-  .word-hero,
-  .slider-progress,
-  .p-quote-in > *,
-  .p-tile-in,
-  .p-circle-badge,
-  .p-sticker {
-    animation: none;
-  }
-  .word-hero,
-  .img-zoom {
-    transform: none;
-    transition: none;
-  }
-  .reveal {
-    opacity: 1;
-    transform: none;
-    filter: none;
-    transition: none;
   }
   .p-fill-text {
     transition: none;

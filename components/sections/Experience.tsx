@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView, useScroll, useSpring, useTransform } from "motion/react";
+import { useRef, useState, type ReactNode } from "react";
 import { education, experience } from "@/lib/data";
 import Reveal from "@/components/effects/Reveal";
 import SectionTitle from "@/components/ui/SectionTitle";
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 const icons = {
   Work: (
@@ -22,53 +25,172 @@ const icons = {
   ),
 };
 
-/** Career timeline whose spine draws itself as you scroll; each node lights up
- *  once the line reaches it. */
+type Item = {
+  type: keyof typeof icons;
+  title: string;
+  org: string;
+  location: string;
+  period: string;
+  points: string[];
+};
+
+/** One stop on the timeline: its node lights up as the drawn line reaches it. */
+function TimelineItem({ item, index }: { item: Item; index: number }) {
+  const left = index % 2 === 0;
+  const [open, setOpen] = useState(false);
+  const nodeRef = useRef<HTMLSpanElement>(null);
+  // Fires as the node crosses the middle of the screen — the point the spine
+  // has drawn down to. The band is deliberately a few percent tall: a margin of
+  // exactly -50%/-50% collapses the observer root to a zero-height line, which
+  // never reports an intersection.
+  const reached = useInView(nodeRef, { margin: "-45% 0px -45% 0px" });
+
+  return (
+    <Reveal variant={left ? "left" : "right"} delay={60} amount={0.15}>
+      <div className="relative md:grid md:grid-cols-2 md:gap-24">
+        {/* Node on the spine */}
+        <motion.span
+          ref={nodeRef}
+          animate={
+            reached
+              ? {
+                  scale: 1.1,
+                  borderColor: "rgb(198,205,218)",
+                  backgroundColor: "rgb(198,205,218)",
+                  color: "rgb(10,17,31)",
+                  boxShadow: "0 0 28px rgba(198,205,218,0.45)",
+                }
+              : {
+                  scale: 1,
+                  borderColor: "rgb(32,44,71)",
+                  backgroundColor: "rgb(10,17,31)",
+                  color: "rgb(140,148,166)",
+                  boxShadow: "0 0 0 rgba(198,205,218,0)",
+                }
+          }
+          transition={{ duration: 0.5, ease }}
+          className="absolute -left-[29px] top-5 z-[1] flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border sm:h-9 sm:w-9 md:left-1/2"
+        >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+            {icons[item.type]}
+          </svg>
+        </motion.span>
+
+        {/* Card */}
+        <div className={`md:row-start-1 ${left ? "md:col-start-1" : "md:col-start-2"}`}>
+          <motion.div
+            whileHover={{ y: -6 }}
+            transition={{ type: "spring", stiffness: 300, damping: 24 }}
+            className="group rounded-2xl border border-border bg-card/60 p-5 backdrop-blur transition-colors duration-500 hover:border-accent/40 sm:p-8"
+          >
+            <div className="mb-2 flex items-center gap-3 sm:mb-4">
+              {/* On phones the spine icon already says Work vs Education */}
+              <span className="hidden rounded-full border border-accent/30 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent sm:inline-block">
+                {item.type}
+              </span>
+              <span className="text-[13px] font-medium text-muted sm:text-sm md:hidden">{item.period}</span>
+              <button
+                type="button"
+                onClick={() => setOpen(!open)}
+                aria-expanded={open}
+                aria-label={open ? "Hide details" : "Show details"}
+                className="-my-1 ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-accent transition-colors hover:border-accent md:hidden"
+              >
+                <motion.svg
+                  animate={{ rotate: open ? 180 : 0 }}
+                  transition={{ duration: 0.35, ease }}
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </motion.svg>
+              </button>
+            </div>
+
+            <h3 className="font-serif text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-accent sm:text-3xl">
+              {item.title}
+            </h3>
+            <p className="mt-1 text-[13px] text-muted sm:text-sm">
+              {item.org}
+              {item.location && <span className="hidden sm:inline"> · {item.location}</span>}
+            </p>
+
+            {/* Always open from tablet up; a smooth accordion on phones */}
+            <ul className="mt-4 hidden space-y-2.5 border-t border-border pt-4 sm:mt-5 sm:pt-5 md:block">
+              {item.points.map((point) => (
+                <Bullet key={point.slice(0, 32)}>{point}</Bullet>
+              ))}
+            </ul>
+
+            <AnimatePresence initial={false}>
+              {open && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.45, ease }}
+                  className="overflow-hidden md:hidden"
+                >
+                  <ul className="mt-4 space-y-2.5 border-t border-border pt-4">
+                    {item.points.map((point, i) => (
+                      <motion.li
+                        key={point.slice(0, 32)}
+                        initial={{ opacity: 0, x: -12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease }}
+                        className="flex gap-3 text-sm leading-relaxed text-muted"
+                      >
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                        {point}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+
+        {/* Period on the opposite side of the spine (desktop) */}
+        <div
+          className={`hidden md:row-start-1 md:flex md:pt-5 ${
+            left ? "md:col-start-2 md:justify-start" : "md:col-start-1 md:justify-end"
+          }`}
+        >
+          <p className="font-serif text-3xl italic text-foreground/70">{item.period}</p>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+function Bullet({ children }: { children: ReactNode }) {
+  return (
+    <li className="flex gap-3 text-sm leading-relaxed text-muted">
+      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+      {children}
+    </li>
+  );
+}
+
+/** Career timeline whose spine draws itself as you scroll. */
 export default function Experience() {
   const listRef = useRef<HTMLDivElement>(null);
-  const fillRef = useRef<HTMLSpanElement>(null);
-  const nodeRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  // On phones the bullet points start collapsed so the timeline fits one screen
-  const [open, setOpen] = useState<number[]>([]);
-  const toggle = (i: number) =>
-    setOpen((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i]));
 
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let frame = 0;
-    const update = () => {
-      const list = listRef.current;
-      const fill = fillRef.current;
-      if (!list || !fill) return;
-      const rect = list.getBoundingClientRect();
-      const anchor = window.innerHeight * 0.65;
-      const progress = reduced
-        ? 1
-        : Math.min(Math.max((anchor - rect.top) / rect.height, 0), 1);
-      fill.style.height = `${(progress * 100).toFixed(2)}%`;
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 65%", "end 65%"],
+  });
+  const scaleY = useSpring(useTransform(scrollYProgress, [0, 1], [0, 1]), {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.3,
+  });
 
-      const reach = rect.top + rect.height * progress;
-      nodeRefs.current.forEach((node) => {
-        if (!node) return;
-        const r = node.getBoundingClientRect();
-        node.dataset.active = String(r.top + r.height / 2 <= reach);
-      });
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  const items = [
+  const items: Item[] = [
     ...experience.map((job) => ({
       type: "Work" as const,
       title: job.role,
@@ -93,94 +215,17 @@ export default function Experience() {
         <SectionTitle label="The Journey" />
 
         <div ref={listRef} className="relative pl-11 md:pl-0">
-          {/* Spine — track + scroll-linked fill */}
+          {/* Spine — static track plus the scroll-drawn fill */}
           <span className="absolute left-[15px] top-0 h-full w-px -translate-x-1/2 bg-border md:left-1/2" />
-          <span
-            ref={fillRef}
-            className="absolute left-[15px] top-0 w-[2px] -translate-x-1/2 bg-gradient-to-b from-accent via-accent to-accent/40 shadow-[0_0_12px_rgba(198,205,218,0.5)] md:left-1/2"
-            style={{ height: "0%" }}
+          <motion.span
+            style={{ scaleY }}
+            className="absolute left-[15px] top-0 h-full w-[2px] origin-top -translate-x-1/2 bg-gradient-to-b from-accent via-accent to-accent/40 shadow-[0_0_12px_rgba(198,205,218,0.5)] md:left-1/2"
           />
 
           <div className="space-y-5 md:space-y-24">
-            {items.map((item, i) => {
-              const left = i % 2 === 0;
-              return (
-                <Reveal key={item.title} variant={left ? "left" : "right"} delay={60}>
-                  <div className="relative md:grid md:grid-cols-2 md:gap-24">
-                    {/* Node on the spine */}
-                    <span
-                      ref={(el) => {
-                        nodeRefs.current[i] = el;
-                      }}
-                      data-active="false"
-                      className="absolute -left-[29px] top-5 z-[1] flex h-8 w-8 -translate-x-1/2 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-border bg-background text-muted transition-all duration-500 data-[active=true]:scale-110 data-[active=true]:border-accent data-[active=true]:bg-accent data-[active=true]:text-background data-[active=true]:shadow-[0_0_28px_rgba(198,205,218,0.45)] md:left-1/2"
-                    >
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
-                        {icons[item.type]}
-                      </svg>
-                    </span>
-
-                    {/* Card */}
-                    <div className={`md:row-start-1 ${left ? "md:col-start-1" : "md:col-start-2"}`}>
-                      <div className="group rounded-2xl border border-border bg-card/60 p-5 backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 sm:p-8">
-                        <div className="mb-2 flex items-center gap-3 sm:mb-4">
-                          {/* On phones the spine icon already says Work vs Education */}
-                          <span className="hidden rounded-full border border-accent/30 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent sm:inline-block">
-                            {item.type}
-                          </span>
-                          <span className="text-[13px] font-medium text-muted sm:text-sm md:hidden">{item.period}</span>
-                          <button
-                            type="button"
-                            onClick={() => toggle(i)}
-                            aria-expanded={open.includes(i)}
-                            aria-label={open.includes(i) ? "Hide details" : "Show details"}
-                            className="-my-1 ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-accent transition-colors hover:border-accent md:hidden"
-                          >
-                            <svg
-                              className={`h-3.5 w-3.5 transition-transform duration-300 ${open.includes(i) ? "rotate-180" : ""}`}
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2}
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg>
-                          </button>
-                        </div>
-                        <h3 className="font-serif text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-accent sm:text-3xl">
-                          {item.title}
-                        </h3>
-                        <p className="mt-1 text-[13px] text-muted sm:text-sm">
-                          {item.org}
-                          {item.location && <span className="hidden sm:inline"> · {item.location}</span>}
-                        </p>
-                        <ul
-                          className={`mt-4 space-y-2.5 border-t border-border pt-4 sm:mt-5 sm:pt-5 md:block ${
-                            open.includes(i) ? "block" : "hidden"
-                          }`}
-                        >
-                          {item.points.map((point) => (
-                            <li key={point.slice(0, 32)} className="flex gap-3 text-sm leading-relaxed text-muted">
-                              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* Period on the opposite side of the spine (desktop) */}
-                    <div
-                      className={`hidden md:row-start-1 md:flex md:pt-5 ${
-                        left ? "md:col-start-2 md:justify-start" : "md:col-start-1 md:justify-end"
-                      }`}
-                    >
-                      <p className="font-serif text-3xl italic text-foreground/70">{item.period}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
+            {items.map((item, i) => (
+              <TimelineItem key={item.title} item={item} index={i} />
+            ))}
           </div>
         </div>
       </div>

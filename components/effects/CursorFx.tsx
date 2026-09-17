@@ -1,34 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring } from "motion/react";
+import { useEffect, useState } from "react";
 
-/** Custom cursor: gold dot + trailing ring. Grows on links/buttons,
- *  shows "View" over elements marked data-cursor="view". Desktop only. */
+const ring = {
+  default: { width: 32, height: 32, backgroundColor: "rgba(198,205,218,0)", borderColor: "rgba(198,205,218,0.5)" },
+  hover: { width: 56, height: 56, backgroundColor: "rgba(198,205,218,0.12)", borderColor: "rgba(198,205,218,0.75)" },
+  view: { width: 84, height: 84, backgroundColor: "rgba(198,205,218,0.92)", borderColor: "rgba(198,205,218,1)" },
+};
+
+/** Platinum dot with a ring that trails behind it on a spring. The ring swells
+ *  over links and turns into a "View" pill over project cards. Desktop only. */
 export default function CursorFx() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
-  const [mode, setMode] = useState<"default" | "hover" | "view">("default");
+  const [mode, setMode] = useState<keyof typeof ring>("default");
+
+  const x = useMotionValue(-100);
+  const y = useMotionValue(-100);
+  const ringX = useSpring(x, { stiffness: 260, damping: 26, mass: 0.45 });
+  const ringY = useSpring(y, { stiffness: 260, damping: 26, mass: 0.45 });
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!fine || reduced) return;
+
     setEnabled(true);
     document.documentElement.classList.add("cursor-fx");
 
-    let tx = -100, ty = -100; // target
-    let rx = -100, ry = -100; // ring (lerped)
-    let frame: number;
-
     const onMove = (e: MouseEvent) => {
-      tx = e.clientX;
-      ty = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
-      }
+      x.set(e.clientX);
+      y.set(e.clientY);
     };
-
     const onOver = (e: MouseEvent) => {
       const el = (e.target as HTMLElement).closest("[data-cursor='view'], a, button");
       if (!el) setMode("default");
@@ -36,56 +39,49 @@ export default function CursorFx() {
       else setMode("hover");
     };
 
-    const loop = () => {
-      rx += (tx - rx) * 0.16;
-      ry += (ty - ry) * 0.16;
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      }
-      frame = requestAnimationFrame(loop);
-    };
-    frame = requestAnimationFrame(loop);
-
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseover", onOver, { passive: true });
     return () => {
-      cancelAnimationFrame(frame);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
       document.documentElement.classList.remove("cursor-fx");
     };
-  }, []);
+  }, [x, y]);
 
   if (!enabled) return null;
 
   return (
     <>
-      <div
-        ref={dotRef}
+      <motion.div
         aria-hidden="true"
-        className={`pointer-events-none fixed left-0 top-0 z-[100] -ml-1 -mt-1 h-2 w-2 rounded-full bg-accent transition-opacity duration-200 ${
-          mode === "view" ? "opacity-0" : "opacity-100"
-        }`}
+        style={{ x, y }}
+        animate={{ opacity: mode === "view" ? 0 : 1, scale: mode === "hover" ? 0.6 : 1 }}
+        transition={{ duration: 0.2 }}
+        className="pointer-events-none fixed left-0 top-0 z-[100] -ml-1 -mt-1 h-2 w-2 rounded-full bg-accent"
       />
-      <div
-        ref={ringRef}
+
+      {/* Outer node carries the position; the inner one carries the size, so the
+          ring stays centred on the cursor while it grows and shrinks. */}
+      <motion.div
         aria-hidden="true"
-        className={`pointer-events-none fixed left-0 top-0 z-[100] flex items-center justify-center rounded-full transition-[width,height,margin,background-color,border-color] duration-300 ${
-          mode === "view"
-            ? "-ml-9 -mt-9 h-18 w-18 border border-accent bg-accent/90"
-            : mode === "hover"
-              ? "-ml-6 -mt-6 h-12 w-12 border border-accent/70 bg-accent/10"
-              : "-ml-4 -mt-4 h-8 w-8 border border-accent/50 bg-transparent"
-        }`}
+        style={{ x: ringX, y: ringY }}
+        className="pointer-events-none fixed left-0 top-0 z-[100] h-0 w-0"
       >
-        <span
-          className={`text-[11px] font-semibold uppercase tracking-widest text-white transition-opacity duration-200 ${
-            mode === "view" ? "opacity-100" : "opacity-0"
-          }`}
+        <motion.div
+          animate={ring[mode]}
+          initial={false}
+          transition={{ type: "spring", stiffness: 280, damping: 24 }}
+          className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border"
         >
-          View
-        </span>
-      </div>
+          <motion.span
+            animate={{ opacity: mode === "view" ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
+            className="text-[11px] font-semibold uppercase tracking-widest text-background"
+          >
+            View
+          </motion.span>
+        </motion.div>
+      </motion.div>
     </>
   );
 }

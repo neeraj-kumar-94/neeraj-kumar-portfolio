@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "motion/react";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { profile } from "@/lib/data";
 import Reveal from "@/components/effects/Reveal";
@@ -187,17 +188,38 @@ export default function Contact() {
               </div>
 
               <div className="mt-8 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <p aria-live="polite" className="min-h-5 text-sm">
-                  {status === "sent" && (
-                    <span className="text-accent">Thanks — your message is on its way. I&apos;ll reply soon.</span>
-                  )}
-                  {status === "error" && (
-                    <span className="text-red-400">Couldn&apos;t send. Please email me at {profile.email}.</span>
-                  )}
-                </p>
-                <button
+                <div aria-live="polite" className="min-h-5 text-sm">
+                  <AnimatePresence mode="wait">
+                    {status === "sent" && (
+                      <motion.span
+                        key="sent"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        className="block text-accent"
+                      >
+                        Thanks — your message is on its way. I&apos;ll reply soon.
+                      </motion.span>
+                    )}
+                    {status === "error" && (
+                      <motion.span
+                        key="error"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        className="block text-red-400"
+                      >
+                        Couldn&apos;t send. Please email me at {profile.email}.
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </div>
+                <motion.button
                   type="submit"
                   disabled={status === "sending"}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                   className="group magnetic inline-flex shrink-0 items-center justify-between gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-background disabled:cursor-not-allowed disabled:opacity-60 sm:justify-center"
                 >
                   {status === "sending" ? "Sending…" : "Send Message"}
@@ -206,7 +228,7 @@ export default function Contact() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                   </span>
-                </button>
+                </motion.button>
               </div>
             </form>
           </div>

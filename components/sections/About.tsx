@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "motion/react";
 import { highlights, profile } from "@/lib/data";
 import CountUp from "@/components/ui/CountUp";
 import Reveal from "@/components/effects/Reveal";
@@ -53,10 +56,26 @@ export default function About() {
                   <span className="h-px w-8 bg-accent" />
                   Career Highlights
                 </p>
-                <ul className="grid gap-3 sm:grid-cols-2">
+                <motion.ul
+                  className="grid gap-3 sm:grid-cols-2"
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09 } } }}
+                >
                   {highlights.map((item) => (
-                    <li
+                    <motion.li
                       key={item}
+                      variants={{
+                        hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+                        show: {
+                          opacity: 1,
+                          y: 0,
+                          filter: "blur(0px)",
+                          transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                        },
+                      }}
+                      whileHover={{ y: -4 }}
                       className="flex gap-3 rounded-2xl border border-border bg-card/60 p-4 text-sm leading-relaxed text-muted transition-colors duration-300 hover:border-accent/40 hover:text-foreground"
                     >
                       <svg
@@ -69,24 +88,31 @@ export default function About() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                       </svg>
                       {item}
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
+                </motion.ul>
               </div>
             </Reveal>
 
             {/* Stats strip */}
             <Reveal variant="up" delay={200}>
               <div className="mt-10 grid grid-cols-3 divide-x divide-border border-y border-border">
-                {profile.stats.map((stat) => (
-                  <div key={stat.label} className="px-3 py-6 text-center sm:px-6">
+                {profile.stats.map((stat, i) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                    className="px-3 py-6 text-center sm:px-6"
+                  >
                     <p className="p-gold font-serif text-4xl font-semibold italic sm:text-5xl">
                       <CountUp value={stat.value} />
                     </p>
                     <p className="mt-2.5 text-[10px] font-medium uppercase leading-snug tracking-[0.2em] text-muted sm:text-xs">
                       {stat.label}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </Reveal>

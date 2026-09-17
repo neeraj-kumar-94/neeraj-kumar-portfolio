@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   siBootstrap,
   siCss,
@@ -78,34 +79,11 @@ const allTiles = skillGroups.flatMap((g) => g.skills.map((skill) => ({ group: g.
 
 export default function Skills() {
   const [active, setActive] = useState(0);
-  const [indicator, setIndicator] = useState({ left: 0, top: 0, width: 0, height: 0 });
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const listRef = useRef<HTMLDivElement>(null);
 
   // On phones, open on the first category instead of "All" so the section fits one screen
   useEffect(() => {
     if (window.innerWidth < 640) setActive(1);
   }, []);
-
-  useEffect(() => {
-    const update = () => {
-      const el = tabRefs.current[active];
-      if (el) {
-        setIndicator({ left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight });
-      }
-    };
-    update();
-    // Tab widths change once the web font loads, and the row can re-wrap —
-    // re-measure whenever the tab bar itself changes size.
-    document.fonts?.ready.then(update);
-    const observer = new ResizeObserver(update);
-    if (listRef.current) observer.observe(listRef.current);
-    window.addEventListener("resize", update);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", update);
-    };
-  }, [active]);
 
   const visible = active === 0 ? allTiles : allTiles.filter((t) => t.group === filters[active]);
 
@@ -117,54 +95,55 @@ export default function Skills() {
         <Reveal variant="up">
           {/* Filter tabs — wrap onto extra rows on narrow screens so every tab stays visible */}
           <div
-            ref={listRef}
             role="tablist"
             aria-label="Skill categories"
             className="relative inline-flex max-w-full flex-wrap gap-0.5 rounded-[1.75rem] border border-border bg-card/60 p-1.5 backdrop-blur sm:gap-1"
           >
-            <span
-              aria-hidden="true"
-              className="absolute rounded-full bg-accent transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              style={{
-                left: indicator.left,
-                top: indicator.top,
-                width: indicator.width,
-                height: indicator.height,
-              }}
-            />
             {filters.map((label, i) => (
               <button
                 key={label}
-                ref={(el) => {
-                  tabRefs.current[i] = el;
-                }}
                 role="tab"
                 aria-selected={active === i}
                 onClick={() => setActive(i)}
-                className={`relative z-[1] whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-medium transition-colors duration-300 sm:px-4 sm:text-sm ${
+                className={`relative whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-medium transition-colors duration-300 sm:px-4 sm:text-sm ${
                   active === i ? "text-background" : "text-muted hover:text-foreground"
                 }`}
               >
-                <span className="sm:hidden">{shortLabels[label] ?? label}</span>
-                <span className="hidden sm:inline">{label}</span>
+                {/* The pill itself moves between tabs — no measuring needed */}
+                {active === i && (
+                  <motion.span
+                    layoutId="skill-pill"
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-full bg-accent"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
+                <span className="relative sm:hidden">{shortLabels[label] ?? label}</span>
+                <span className="relative hidden sm:inline">{label}</span>
               </button>
             ))}
           </div>
 
-          {/* Logo tiles — remount on filter change so they stagger back in */}
-          <div
-            key={active}
+          {/* Logo tiles — swap out and stagger back in on every filter change */}
+          <motion.div
+            layout
             role="tabpanel"
             className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-8 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5"
           >
-            {visible.map((tile, k) => {
+            <AnimatePresence mode="popLayout" initial={false}>
+              {visible.map((tile, k) => {
               const { name, note } = splitSkill(tile.skill);
               const logo = logos[name] ?? fallbackLogo;
               return (
-                <div
+                <motion.div
                   key={tile.skill}
-                  className="p-tile-in group flex min-h-[60px] items-center gap-2.5 rounded-2xl border border-border bg-card/60 px-3 py-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-card sm:min-h-[68px] sm:gap-3.5 sm:px-4 sm:py-3"
-                  style={{ "--d": `${k * 0.035}s` } as CSSProperties}
+                  layout
+                  initial={{ opacity: 0, y: 14, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.96 }}
+                  transition={{ duration: 0.45, delay: k * 0.03, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -4 }}
+                  className="group flex min-h-[60px] items-center gap-2.5 rounded-2xl border border-border bg-card/60 px-3 py-2.5 transition-colors duration-300 hover:border-accent/40 hover:bg-card sm:min-h-[68px] sm:gap-3.5 sm:px-4 sm:py-3"
                 >
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-border bg-background/60 text-muted transition-colors duration-300 group-hover:border-accent/50 group-hover:text-accent sm:h-10 sm:w-10">
                     {logo.kind === "brand" ? (
@@ -188,10 +167,11 @@ export default function Skills() {
                     <span className="block text-[13px] font-medium leading-snug text-foreground sm:text-sm">{name}</span>
                     {note && <span className="block truncate text-xs text-muted">{note}</span>}
                   </span>
-                </div>
+                </motion.div>
               );
-            })}
-          </div>
+              })}
+            </AnimatePresence>
+          </motion.div>
         </Reveal>
       </div>
     </section>

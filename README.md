@@ -18,14 +18,15 @@ smooth scroll-based animations.
 | **Next.js 16** (App Router, Turbopack) | Framework — routing, image optimization, static build |
 | **React 19** + **TypeScript** | UI components, type-safe code |
 | **Tailwind CSS 4** | Saari styling (utility classes + theme tokens) |
+| **Motion (Framer Motion)** | Saari animations — scroll reveals, spring physics, drag, shared layout |
 | **Lenis** | Smooth scrolling |
 | **simple-icons** | Skill logos (Expertise section) |
 | **next/font** | Playfair Display (headings) + Inter (body) — self-hosted |
 | **FormSubmit** | Contact form → mail seedha `neeraj74530@gmail.com` par |
 | **Vercel** | Hosting — `main` par push hote hi auto-deploy |
 
-Koi heavy animation library (GSAP, Framer Motion) use nahi hui — saari animations
-CSS + thoda vanilla JavaScript hain, isliye site fast hai.
+Animations **Framer Motion** (`motion/react`) se bani hain. `globals.css` mein ab
+sirf theme, surfaces aur print rules hain — motion components ke andar rehta hai.
 
 ---
 
@@ -35,7 +36,7 @@ CSS + thoda vanilla JavaScript hain, isliye site fast hai.
 app/
 ├── layout.tsx            → Fonts, SEO metadata
 ├── page.tsx              → Home page — saare sections yahan jude hain
-├── globals.css           → Theme colours + saari animation CSS
+├── globals.css           → Theme colours, surfaces aur print rules
 ├── icon.svg              → Favicon
 └── resume/
     ├── page.tsx          → /resume page (screen par site theme, print/PDF black & white)
@@ -59,13 +60,14 @@ components/
 │   ├── PortraitFrame.tsx → Background-free portrait + floating Sticker badges
 │   ├── Greeting.tsx      → Time-based greeting (Good morning/evening)
 │   └── CountUp.tsx       → Number count-up (0 → 20+)
-└── effects/              → Animation helpers
-    ├── Reveal.tsx        → Scroll par entrance animation wrapper
+└── effects/              → Animation helpers (sab Framer Motion par)
+    ├── Reveal.tsx        → Scroll par blur + glide entrance wrapper
+    ├── TextReveal.tsx    → Heading ke words mask ke peeche se upar aate hain
     ├── SmoothScroll.tsx  → Lenis setup
     ├── ScrollProgress.tsx→ Top progress bar + back-to-top
-    ├── Parallax.tsx      → Scroll-based parallax
+    ├── Parallax.tsx      → Scroll-linked parallax (spring)
     ├── CursorFx.tsx      → Custom cursor (sirf desktop)
-    └── MagneticFx.tsx    → Magnetic buttons
+    └── MagneticFx.tsx    → Magnetic buttons (spring)
 
 lib/
 └── data.ts               → ⭐ SAARA CONTENT YAHAN HAI
@@ -99,18 +101,21 @@ array mein ek entry add karo.
 
 | Animation | Kaise bani hai | File |
 |---|---|---|
-| Smooth scroll | Lenis + requestAnimationFrame | `effects/SmoothScroll.tsx` |
-| Entrance reveals (blur + slide) | IntersectionObserver + CSS transitions | `effects/Reveal.tsx`, `globals.css` |
-| Hero word reveal | CSS mask + `translateY` keyframes | `sections/Hero.tsx` |
-| Horizontal project track | Scroll position → `translateX` | `sections/Projects.tsx` |
-| Swipe decks (projects mobile, mentors) | Pointer Events + autoplay progress bar | `sections/Projects.tsx`, `sections/Mentors.tsx` |
-| Journey timeline draw | Scroll progress → line fill, nodes light up | `sections/Experience.tsx` |
-| Skill tab indicator | Measured offsets + ResizeObserver | `sections/Skills.tsx` |
-| Custom cursor / magnetic buttons | rAF lerp + mousemove | `effects/CursorFx.tsx`, `effects/MagneticFx.tsx` |
-| Count-up stats | IntersectionObserver + rAF easing | `ui/CountUp.tsx` |
+| Intro curtain | `AnimatePresence` + exit slide | `layout/Loader.tsx` |
+| Hero load sequence | Parent `variants` + `staggerChildren` | `sections/Hero.tsx` |
+| Heading word reveal | Mask + stagger (trigger wrapper par, word par nahi) | `effects/TextReveal.tsx` |
+| Entrance reveals (blur + glide) | `whileInView` + `viewport.once` | `effects/Reveal.tsx` |
+| Hero portrait | `useScroll` parallax + pointer tilt (spring) | `sections/Hero.tsx` |
+| Horizontal project track | `useScroll` → `useTransform` x + spring | `sections/Projects.tsx` |
+| Swipe decks (projects mobile, mentors) | Motion `drag` + velocity-based flick | `sections/Projects.tsx`, `sections/Mentors.tsx` |
+| Journey timeline draw | `useScroll` → `scaleY`, nodes `useInView` | `sections/Experience.tsx` |
+| Skill tab pill | `layoutId` shared layout | `sections/Skills.tsx` |
+| Navbar | Scroll-direction hide/show + `layoutId` pill | `layout/Navbar.tsx` |
+| Custom cursor / magnetic buttons | Motion values + springs | `effects/CursorFx.tsx`, `effects/MagneticFx.tsx` |
+| Count-up stats | `useInView` + `animate()` | `ui/CountUp.tsx` |
 
-`prefers-reduced-motion` on ho to saari animations band ho jaati hain (`globals.css`
-ke end mein).
+`prefers-reduced-motion` on ho to animations skip ho jaati hain — har component
+`useReducedMotion()` check karta hai.
 
 ---
 
