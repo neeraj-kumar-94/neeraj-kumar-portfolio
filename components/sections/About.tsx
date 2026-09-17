@@ -37,13 +37,13 @@ export default function About() {
           {/* Right — editorial copy, organized for scanning */}
           <div>
             <Reveal variant="right">
-              <p className="max-w-2xl font-serif text-[1.65rem] font-medium leading-snug text-foreground sm:text-[1.9rem]">
+              <p className="measure-wide font-serif text-[1.65rem] font-medium leading-snug text-foreground sm:text-[1.9rem]">
                 {profile.about[0]}
               </p>
             </Reveal>
 
             <Reveal variant="right" delay={120}>
-              <div className="mt-7 max-w-2xl space-y-4 border-l border-border pl-6 text-[15px] sm:pl-8">
+              <div className="measure mt-7 space-y-4 border-l border-border pl-6 text-[15px] sm:pl-8">
                 <p className="leading-relaxed text-muted">{profile.about[1]}</p>
                 <p className="leading-relaxed text-muted">{profile.about[2]}</p>
               </div>
