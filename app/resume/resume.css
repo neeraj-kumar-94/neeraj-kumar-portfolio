@@ -1,26 +1,12 @@
-/* Screen: the site's navy + platinum theme.
-   Print / PDF: the same tokens switch to plain black & white — neutral greys
-   only, no colour — so the downloaded resume looks like a normal document. */
+/* Screen: the site's own theme. Print: plain black and white, set in
+   globals.css so the overrides sit after the theme tokens and win. */
 
 .resume-page {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
-  /* Dense, small text needs a lighter secondary grey than the rest of the site */
-  --muted: #aab3c5;
 }
 
 @media print {
-  .resume-page {
-    --background: #ffffff;
-    --foreground: #111111;
-    --muted: #4a4a4a;
-    --accent: #111111;
-    --accent-dark: #111111;
-    --card: #ffffff;
-    --border: #c8c8c8;
-    color: #111111;
-  }
-
   /* Text is set a little larger for the screen; scale the sheet down so the
      PDF still fits on one A4 page. */
   .resume-page .resume-sheet {

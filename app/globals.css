@@ -252,15 +252,51 @@ html.cursor-fx button {
 
 /* ── Print ──────────────────────────────────────────── */
 @media print {
-  .no-print {
+  /* Paper is plain black and white, whichever theme the screen is in. These sit
+     after the theme blocks on purpose, so they win. */
+  :root,
+  :root[data-theme="dark"],
+  :root[data-theme="light"] {
+    --background: #ffffff;
+    --foreground: #111111;
+    --muted: #4a4a4a;
+    --accent: #111111;
+    --accent-dark: #111111;
+    --signal: #111111;
+    --signal-strong: #111111;
+    --card: #ffffff;
+    --surface-2: #ffffff;
+    --surface-3: #ffffff;
+    --border: #c8c8c8;
+    --border-strong: #999999;
+    --display-1: #111111;
+    --display-2: #111111;
+    --display-3: #111111;
+    --on-accent: #ffffff;
+    --grain-opacity: 0;
+    color-scheme: light;
+  }
+
+  .no-print,
+  .skip-link {
     display: none !important;
   }
   html,
   body {
     background: #fff;
+    color: #111;
   }
   a {
     text-decoration: none;
+  }
+  /* Entrance animations start from opacity 0. Printing must never capture a
+     half-played state, so everything is forced to its settled position. */
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
 
