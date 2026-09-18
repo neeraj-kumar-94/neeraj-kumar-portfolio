@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 // Size is animated; colour comes from theme tokens through the classes below,
 // so the cursor follows the light/dark swap.
@@ -20,7 +21,10 @@ const ringSkin = {
 /** Platinum dot with a ring that trails behind it on a spring. The ring swells
  *  over links and turns into a "View" pill over project cards. Desktop only. */
 export default function CursorFx() {
-  const [enabled, setEnabled] = useState(false);
+  // Only a real mouse gets the custom cursor, and never with reduced motion
+  const fine = useMediaQuery("(pointer: fine)");
+  const reduced = useReducedMotion();
+  const enabled = fine && !reduced;
   const [mode, setMode] = useState<keyof typeof ringSize>("default");
 
   const x = useMotionValue(-100);
@@ -29,11 +33,8 @@ export default function CursorFx() {
   const ringY = useSpring(y, { stiffness: 260, damping: 26, mass: 0.45 });
 
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!fine || reduced) return;
+    if (!enabled) return;
 
-    setEnabled(true);
     document.documentElement.classList.add("cursor-fx");
 
     const onMove = (e: MouseEvent) => {
@@ -54,7 +55,7 @@ export default function CursorFx() {
       window.removeEventListener("mouseover", onOver);
       document.documentElement.classList.remove("cursor-fx");
     };
-  }, [x, y]);
+  }, [enabled, x, y]);
 
   if (!enabled) return null;
 

@@ -15,12 +15,7 @@ export default function CountUp({ value }: { value: string }) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    if (!target) return;
-    if (reduced) {
-      setCurrent(target);
-      return;
-    }
-    if (!inView) return;
+    if (!target || reduced || !inView) return;
 
     const controls = animate(0, target, {
       duration: 1.6,
@@ -30,9 +25,10 @@ export default function CountUp({ value }: { value: string }) {
     return () => controls.stop();
   }, [inView, target, reduced]);
 
+  // Reduced motion shows the final number straight away, no count
   return (
     <span ref={ref}>
-      {current}
+      {reduced ? target : current}
       {suffix}
     </span>
   );

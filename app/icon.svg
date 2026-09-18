@@ -1,4 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#9a7b4f"/>
-  <text x="32" y="44" font-family="Georgia, serif" font-size="36" font-weight="600" fill="#faf9f7" text-anchor="middle">N</text>
+  <defs>
+    <linearGradient id="plat" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f6fa"/>
+      <stop offset="0.55" stop-color="#c6cdda"/>
+      <stop offset="1" stop-color="#9aa4b8"/>
+    </linearGradient>
+  </defs>
+  <!-- Ink navy tile with a hairline edge so it holds on dark tab bars -->
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="#0a111f" stroke="#2a3858" stroke-width="1.5"/>
+  <!-- Didone-style N drawn as paths: no font dependency, crisp at every size -->
+  <g fill="url(#plat)">
+    <rect x="15" y="18" width="5" height="28"/>
+    <rect x="38" y="18" width="5" height="28"/>
+    <polygon points="15,18 23,18 43,46 35,46"/>
+    <rect x="11" y="16" width="13" height="3"/>
+    <rect x="34" y="16" width="13" height="3"/>
+    <rect x="11" y="45" width="13" height="3"/>
+  </g>
+  <!-- The brass full stop from the "Neeraj." wordmark -->
+  <circle cx="52" cy="45" r="4.5" fill="#e3a857"/>
 </svg>
