@@ -35,11 +35,13 @@ export default function TextReveal({
   const reduced = useReducedMotion();
   const words = text.split(" ");
 
-  if (reduced) return <span className={className}>{text}</span>;
-
+  // Same markup and same start state everywhere (the server renders the
+  // hidden state inline); reduced motion only makes the reveal instant.
   const container: Variants = {
     hidden: {},
-    show: { transition: { delayChildren: delay, staggerChildren: stagger } },
+    show: {
+      transition: reduced ? {} : { delayChildren: delay, staggerChildren: stagger },
+    },
   };
 
   // Playfair is loaded as a variable font, so the weight can settle along with
@@ -49,7 +51,7 @@ export default function TextReveal({
     show: {
       y: "0%",
       ...(weight ? { fontWeight: weight[1] } : {}),
-      transition: { duration, ease },
+      transition: reduced ? { duration: 0 } : { duration, ease },
     },
   };
 

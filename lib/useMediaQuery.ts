@@ -3,7 +3,8 @@
 import { useSyncExternalStore } from "react";
 
 /** Reads a media query without a render-then-correct flash on the client.
- *  Returns `false` during server render. */
+ *  Returns `false` during server render — so never use it to choose styles an
+ *  element is server-rendered with, only for client-only behaviour. */
 export function useMediaQuery(query: string) {
   return useSyncExternalStore(
     (onChange) => {
@@ -15,6 +16,3 @@ export function useMediaQuery(query: string) {
     () => false
   );
 }
-
-/** Phone-sized viewports, where heavy filters cost the most. */
-export const useIsPhone = () => useMediaQuery("(max-width: 640px)");

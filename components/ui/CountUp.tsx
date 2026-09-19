@@ -15,20 +15,21 @@ export default function CountUp({ value }: { value: string }) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    if (!target || reduced || !inView) return;
+    if (!target || !inView) return;
 
+    // Reduced motion lands on the final number at once instead of counting.
+    // The server always renders 0, so the first client render must match it.
     const controls = animate(0, target, {
-      duration: 1.6,
+      duration: reduced ? 0 : 1.6,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setCurrent(Math.round(v)),
     });
     return () => controls.stop();
   }, [inView, target, reduced]);
 
-  // Reduced motion shows the final number straight away, no count
   return (
     <span ref={ref}>
-      {reduced ? target : current}
+      {current}
       {suffix}
     </span>
   );

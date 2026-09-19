@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
-import { useIsPhone } from "@/lib/useMediaQuery";
 
 export type RevealVariant = "up" | "left" | "right" | "zoom";
 
@@ -15,7 +14,13 @@ const from: Record<RevealVariant, Record<string, number>> = {
 };
 
 /** Reveals its children once, the first time they scroll into view:
- *  a soft de-blur and glide on a long decelerating curve. */
+ *  a soft de-blur and glide on a long decelerating curve.
+ *
+ *  The start and end states must be identical on the server and on every
+ *  device. The server renders the start state as inline styles, and anything
+ *  the target doesn't name is never animated back: a device-specific target
+ *  once left phones stuck at `blur(8px)`. So the element and both states never
+ *  change; reduced motion only changes the timing, making it instant. */
 export default function Reveal({
   children,
   className = "",
@@ -32,26 +37,18 @@ export default function Reveal({
   amount?: number;
 }) {
   const reduced = useReducedMotion();
-  // Animated blur is the most expensive effect on phones, so they get the
-  // movement without it.
-  const phone = useIsPhone();
-
-  if (reduced) return <div className={className}>{children}</div>;
-
-  const blur = phone ? {} : { filter: "blur(10px)" };
-  const clear = phone ? {} : { filter: "blur(0px)" };
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, ...blur, ...from[variant] }}
-      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, ...clear }}
+      initial={{ opacity: 0, filter: "blur(8px)", ...from[variant] }}
+      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
       viewport={{ once: true, amount }}
-      transition={{
-        duration: 1.1,
-        delay: delay / 1000,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      transition={
+        reduced
+          ? { duration: 0 }
+          : { duration: 1.1, delay: delay / 1000, ease: [0.16, 1, 0.3, 1] }
+      }
     >
       {children}
     </motion.div>
