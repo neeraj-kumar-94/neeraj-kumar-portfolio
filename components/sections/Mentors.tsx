@@ -72,7 +72,7 @@ export default function Mentors() {
             onKeyDown={onKeyDown}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
-            className="grid select-none items-center gap-12 rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-signal/40 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-stretch lg:gap-20"
+            className="grid select-none grid-cols-1 items-center gap-6 rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-signal/40 sm:gap-12 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-stretch lg:gap-20"
           >
             {/* Photo deck */}
             <div className="group relative mx-auto w-full max-w-[300px] lg:max-w-none">
@@ -125,7 +125,7 @@ export default function Mentors() {
               <motion.p
                 animate={{ opacity: hasDragged ? 0 : 1, y: hasDragged ? -6 : 0 }}
                 transition={{ duration: 0.5, ease }}
-                className="mt-10 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-muted"
+                className="mt-6 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-muted sm:mt-10"
               >
                 Drag or swipe to browse
               </motion.p>
@@ -133,7 +133,7 @@ export default function Mentors() {
 
             {/* Quote */}
             <div className="flex min-w-0 flex-col lg:py-4">
-              <svg className="mb-6 h-11 w-11 text-accent/30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg className="mb-3 h-7 w-7 text-accent/30 sm:mb-6 sm:h-11 sm:w-11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M9.583 17.321C8.553 16.227 8 15 8 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm-8 0C.553 16.227 0 15 0 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
               </svg>
 

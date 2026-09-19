@@ -136,9 +136,11 @@ export default function Contact() {
         <SectionTitle label="Get In Touch" />
 
         <Reveal variant="up">
-          <div className="grid overflow-hidden rounded-[2rem] border border-border bg-card/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_60px_-24px_rgba(0,0,0,0.7)] backdrop-blur lg:grid-cols-[0.85fr_1.15fr]">
+          {/* grid-cols-1 caps the single phone column at the card's width; without
+              it the column sizes to the form's natural width and overflows the card */}
+          <div className="grid grid-cols-1 overflow-hidden rounded-[2rem] border border-border bg-card/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_60px_-24px_rgba(0,0,0,0.7)] backdrop-blur lg:grid-cols-[0.85fr_1.15fr]">
             {/* Info pane */}
-            <div className="flex flex-col gap-10 border-b border-border p-8 sm:p-10 lg:border-b-0 lg:border-r">
+            <div className="flex min-w-0 flex-col gap-8 border-b border-border p-6 sm:gap-10 sm:p-10 lg:border-b-0 lg:border-r">
               <div>
                 <p className="font-serif text-2xl leading-snug text-foreground sm:text-3xl">
                   Have a project in mind, or a role where I&apos;d fit?{" "}
@@ -183,7 +185,7 @@ export default function Contact() {
             </div>
 
             {/* Form pane */}
-            <form onSubmit={onSubmit} className="p-8 sm:p-10">
+            <form onSubmit={onSubmit} className="min-w-0 p-6 sm:p-10">
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="pc-name" className={labelCls}>
