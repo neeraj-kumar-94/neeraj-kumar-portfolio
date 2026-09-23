@@ -3,8 +3,8 @@
 **Live Site:** https://neeraj-kumar-portfolio-eight.vercel.app/
 **Resume:** https://neeraj-kumar-portfolio-eight.vercel.app/resume
 
-Frontend Developer portfolio — ink navy + platinum theme, editorial typography aur
-smooth scroll-based animations.
+Frontend Developer portfolio — ink ground, bone type aur brass signal colour.
+Display serif + mono meta layer, scroll-driven motion, aur ek studio-index Work section.
 
 > Purana ivory/gold ("classic") design `classic` branch par safe rakha hai.
 > `main` branch mein sirf current portfolio ka code hai.
@@ -21,7 +21,7 @@ smooth scroll-based animations.
 | **Motion (Framer Motion)** | Saari animations — scroll reveals, spring physics, drag, shared layout |
 | **Lenis** | Smooth scrolling |
 | **simple-icons** | Skill logos (Expertise section) |
-| **next/font** | Playfair Display (headings) + Inter (body) — self-hosted |
+| **next/font** | Playfair Display (display) + Inter (body) + JetBrains Mono (meta layer) — self-hosted |
 | **FormSubmit** | Contact form → mail seedha `neeraj74530@gmail.com` par |
 | **Vercel** | Hosting — `main` par push hote hi auto-deploy |
 
@@ -52,15 +52,16 @@ components/
 │   ├── Hero.tsx          → Naam, tagline, CTA, portrait, rotating badge
 │   ├── About.tsx         → About text, career highlights, count-up stats
 │   ├── Skills.tsx        → "Expertise" — 3 core stacks + proof (phone par accordion)
-│   ├── Projects.tsx      → "Selected Work" — desktop: horizontal scroll, mobile: swipe deck
+│   ├── Projects.tsx      → "Selected Work" — desktop: hover index + preview, mobile: swipe deck
 │   ├── Experience.tsx    → "The Journey" — scroll-drawn timeline
 │   ├── Mentors.tsx       → "What Mentors Say" — draggable card deck
 │   ├── Contact.tsx       → Contact info + form
 │   └── Footer.tsx        → Big CTA + links
 ├── ui/                   → Chhote reusable pieces
-│   ├── SectionTitle.tsx  → Section heading
+│   ├── SectionTitle.tsx  → Section heading (rule + mono tag/meta + serif title)
 │   ├── PortraitFrame.tsx → Background-free portrait + floating Sticker badges
 │   ├── Greeting.tsx      → Time-based greeting (Good morning/evening)
+│   ├── LocalTime.tsx     → Header ki live Shamli clock
 │   ├── ThemeToggle.tsx   → Dark ⇄ light switch (localStorage mein yaad rehta hai)
 │   └── CountUp.tsx       → Number count-up (0 → 20+)
 └── effects/              → Animation helpers (sab Framer Motion par)
@@ -68,7 +69,6 @@ components/
     ├── TextReveal.tsx    → Heading ke words mask ke peeche se upar aate hain
     ├── SmoothScroll.tsx  → Lenis setup
     ├── ScrollProgress.tsx→ Top progress bar + back-to-top
-    ├── Parallax.tsx      → Scroll-linked parallax (spring)
     ├── CursorFx.tsx      → Custom cursor (sirf desktop)
     └── MagneticFx.tsx    → Magnetic buttons (spring)
 
@@ -118,10 +118,10 @@ saath entry add karo — page apne aap ban jayega.
 | Heading word reveal | Mask + stagger (trigger wrapper par, word par nahi) | `effects/TextReveal.tsx` |
 | Entrance reveals (blur + glide) | `whileInView` + `viewport.once` | `effects/Reveal.tsx` |
 | Hero portrait | `useScroll` parallax + pointer tilt (spring) | `sections/Hero.tsx` |
-| Horizontal project track | `useScroll` → `useTransform` x + spring | `sections/Projects.tsx` |
 | Swipe decks (projects mobile, mentors) | Motion `drag` + velocity-based flick | `sections/Projects.tsx`, `sections/Mentors.tsx` |
 | Journey timeline draw | `useScroll` → `scaleY`, nodes `useInView` | `sections/Experience.tsx` |
-| Skill tab pill | `layoutId` shared layout | `sections/Skills.tsx` |
+| Work index preview | Hover state + CSS cross-fade (no mount/unmount) | `sections/Projects.tsx` |
+| Live local clock | `useSyncExternalStore` on a one-minute tick | `ui/LocalTime.tsx` |
 | Navbar | Scroll-direction hide/show + `layoutId` pill | `layout/Navbar.tsx` |
 | Custom cursor / magnetic buttons | Motion values + springs | `effects/CursorFx.tsx`, `effects/MagneticFx.tsx` |
 | Count-up stats | `useInView` + `animate()` | `ui/CountUp.tsx` |
@@ -169,9 +169,9 @@ progress. Baaki sab platinum/neutral rehta hai.
 | `--card` | `#101a2e` | `#ffffff` | Cards (level 1) |
 | `--surface-2` | `#16233c` | `#fbf9f6` | Hover / raised (level 2) |
 | `--surface-3` | `#1c2c49` | `#f0ece4` | Overlay (level 3) |
-| `--foreground` | `#f2f4f7` | `#14181f` | Main text |
-| `--muted` | `#98a1b3` | `#5a6474` | Secondary text |
-| `--accent` | `#c6cdda` | `#2c3a58` | Platinum display accent |
+| `--foreground` | `#efeae1` | `#14181f` | Main text (warm bone on ink) |
+| `--muted` | `#9e9b95` | `#5a6474` | Secondary text |
+| `--accent` | `#cfc9bd` | `#2c3a58` | Bone-silver display accent |
 | `--signal` | `#e3a857` | `#8a540f` | Brass — sirf interactive states |
 | `--border` | `#202c47` | `#e3ded4` | Hairline borders |
 | `--border-strong` | `#3a4a70` | `#bdb5a7` | Strong borders |

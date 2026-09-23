@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -10,6 +10,14 @@ const playfair = Playfair_Display({
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// The meta layer: labels, counters, timestamps and anything that reads as
+// instrument data rather than prose.
+const mono = JetBrains_Mono({
+  variable: "--font-mono-face",
   subsets: ["latin"],
   display: "swap",
 });
@@ -39,7 +47,7 @@ export default function RootLayout({
           <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
         </noscript>
       </head>
-      <body className={`${playfair.variable} ${inter.variable} antialiased`}>
+      <body className={`${playfair.variable} ${inter.variable} ${mono.variable} antialiased`}>
         <a href="#main" className="skip-link rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent">
           Skip to content
         </a>

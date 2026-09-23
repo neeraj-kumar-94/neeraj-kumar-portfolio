@@ -72,7 +72,7 @@ function TimelineItem({ item, index }: { item: Item; index: number }) {
           >
             <div className="mb-2 flex items-center gap-3 sm:mb-4">
               {/* On phones the spine icon already says Work vs Education */}
-              <span className="hidden rounded-full border border-accent/30 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent sm:inline-block">
+              <span className="hidden rounded-full border border-accent/30 px-3 py-0.5 meta meta-sm text-accent sm:inline-block">
                 {item.type}
               </span>
               <span className="text-[13px] font-medium text-muted sm:text-sm md:hidden">{item.period}</span>
@@ -199,7 +199,7 @@ export default function Experience() {
   return (
     <section id="experience" className="scroll-mt-24 py-12 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionTitle label="The Journey" />
+        <SectionTitle label="The Journey" tag="Where I have worked" meta="2020 — Present" />
 
         <div ref={listRef} className="relative pl-11 md:pl-0">
           {/* Spine — static track plus the scroll-drawn fill */}

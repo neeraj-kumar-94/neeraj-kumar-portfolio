@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/lib/data";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import LocalTime from "@/components/ui/LocalTime";
 
 const links = [
   { href: "#about", label: "About" },
@@ -65,10 +66,14 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href={to("#top")} className="font-serif text-xl font-semibold tracking-tight text-foreground">
+        <div className="flex items-center gap-4">
+          <Link href={to("#top")} className="font-serif text-xl font-semibold tracking-tight text-foreground">
           {profile.name.split(" ")[0]}
           <span className="text-signal">.</span>
         </Link>
+          <span className="hidden h-3 w-px bg-border sm:block" />
+          <span className="hidden sm:block"><LocalTime /></span>
+        </div>
 
         {/* Desktop links — the active pill glides between items */}
         <ul className="hidden items-center gap-2 lg:flex">
@@ -76,7 +81,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={to(link.href)}
-                className={`relative block rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors ${
+                className={`meta meta-sm relative block rounded-full px-4 py-2 transition-colors ${
                   active === link.href ? "text-signal" : "text-muted hover:text-foreground"
                 }`}
               >
@@ -97,7 +102,7 @@ export default function Navbar() {
           {/* Recruiters look for the resume in the header, not the footer */}
           <Link
             href="/resume"
-            className="hidden text-[11px] font-semibold uppercase tracking-[0.2em] text-muted transition-colors hover:text-signal sm:block"
+            className="meta meta-sm hidden text-muted transition-colors hover:text-signal sm:block"
           >
             Resume
           </Link>
@@ -109,7 +114,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            className="magnetic rounded-full border border-signal/50 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-signal transition-colors hover:bg-signal hover:text-background"
+            className="magnetic meta meta-sm rounded-full border border-signal/50 px-5 py-2 text-signal transition-colors hover:bg-signal hover:text-background"
           >
             Let&apos;s Talk
           </motion.a>

@@ -80,7 +80,7 @@ export default function Hero() {
           <motion.div variants={stack} initial="hidden" animate="show" style={{ y: copyY, opacity: copyFade }}>
             <motion.p
               variants={riseIn}
-              className="mb-8 inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-border bg-card/70 px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.15em] text-muted backdrop-blur sm:gap-3 sm:px-5 sm:text-xs sm:tracking-[0.25em]"
+              className="mb-8 inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-border bg-card/70 px-4 py-2.5 meta meta-sm text-muted backdrop-blur sm:gap-3 sm:px-5"
             >
               <span className="relative flex h-2 w-2">
                 <motion.span
@@ -110,7 +110,7 @@ export default function Hero() {
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1, delay: INTRO + 0.5, ease }}
                 />
-                <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.4em] text-accent sm:text-xs">
+                <span className="meta meta-sm text-accent">
                   {profile.role}
                 </span>
               </motion.span>
@@ -147,7 +147,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="group magnetic inline-flex items-center gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-on-accent"
+                className="group magnetic inline-flex items-center gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 meta text-on-accent"
               >
                 Selected Work
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-background/20 transition-transform duration-300 group-hover:translate-x-1">
@@ -158,7 +158,7 @@ export default function Hero() {
               </motion.a>
               <a
                 href="#contact"
-                className="link-underline text-sm font-semibold uppercase tracking-[0.15em] text-foreground"
+                className="link-underline meta text-foreground"
               >
                 Get in touch
               </a>

@@ -11,7 +11,7 @@ export default function About() {
   return (
     <section id="about" className="relative scroll-mt-24 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionTitle label="About Me" />
+        <SectionTitle label="About Me" tag="Who you are hiring" meta="Shamli, India" />
 
         <div className="grid gap-12 lg:grid-cols-[0.95fr_1.3fr] lg:items-start lg:gap-16">
           {/* Left — editorial portrait with floating badges */}
@@ -52,7 +52,7 @@ export default function About() {
             {/* Career highlights — the key facts, easy to scan */}
             <Reveal variant="right" delay={180}>
               <div className="mt-10">
-                <p className="mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-accent">
+                <p className="mb-5 flex items-center gap-3 meta meta-sm text-accent">
                   <span className="h-px w-8 bg-accent" />
                   Career Highlights
                 </p>

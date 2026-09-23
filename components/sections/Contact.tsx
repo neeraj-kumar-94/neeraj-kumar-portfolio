@@ -8,7 +8,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-const microLabel = "text-[11px] font-semibold uppercase tracking-[0.2em] text-muted";
+const microLabel = "meta meta-sm text-muted";
 const labelCls = `mb-2 block ${microLabel}`;
 const fieldCls =
   "w-full rounded-xl border border-border bg-background/50 px-4 text-[15px] text-foreground outline-none transition placeholder:text-muted/50 focus:border-accent/60 focus:bg-background/80 focus:ring-4 focus:ring-signal/10";
@@ -133,7 +133,7 @@ export default function Contact() {
   return (
     <section id="contact" className="scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionTitle label="Get In Touch" />
+        <SectionTitle label="Get In Touch" tag="Start a conversation" meta="Replies within 24 hours" />
 
         <Reveal variant="up">
           {/* grid-cols-1 caps the single phone column at the card's width; without
@@ -273,7 +273,7 @@ export default function Contact() {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  className="group magnetic inline-flex shrink-0 items-center justify-between gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-on-accent disabled:cursor-not-allowed disabled:opacity-60 sm:justify-center"
+                  className="group magnetic inline-flex shrink-0 items-center justify-between gap-3 rounded-full bg-accent py-2.5 pl-7 pr-2.5 meta text-on-accent disabled:cursor-not-allowed disabled:opacity-60 sm:justify-center"
                 >
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.span

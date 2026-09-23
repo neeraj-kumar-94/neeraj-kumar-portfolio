@@ -1,16 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  type PanInfo,
-} from "motion/react";
+import { AnimatePresence, motion, useInView, useReducedMotion, type PanInfo } from "motion/react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { caseStudies, projects, slugify } from "@/lib/data";
@@ -129,12 +120,12 @@ function ProjectDeck() {
             transition={{ duration: 0.55, ease }}
             aria-live="polite"
           >
-            <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">
+            <p className="mb-1.5 meta meta-sm text-accent">
               {active.subtitle}
             </p>
             <h3 className="font-serif text-2xl font-semibold tracking-tight text-foreground">{active.title}</h3>
             <p className="mt-2 text-[13px] leading-relaxed text-muted">
-              <span className="mr-2 text-[10px] uppercase tracking-[0.18em] text-muted/70">Outcome</span>
+              <span className="meta meta-sm mr-2 text-muted/70">Outcome</span>
               {active.result}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -154,7 +145,7 @@ function ProjectDeck() {
               {studyFor(active.title) && (
                 <Link
                   href={`/work/${studyFor(active.title)}`}
-                  className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-signal"
+                  className="group inline-flex items-center gap-2 meta text-signal"
                 >
                   Read case study
                   <svg
@@ -172,7 +163,7 @@ function ProjectDeck() {
                 href={active.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-underline text-sm font-semibold uppercase tracking-[0.18em] text-muted"
+                className="link-underline meta text-muted"
               >
                 Visit live site
               </a>
@@ -231,48 +222,19 @@ function ProjectDeck() {
   );
 }
 
-/** Horizontal scroll-driven work section (desktop) — cards slide sideways as
- *  the page scrolls vertically. Smaller screens get the swipeable deck. */
+/** Work as a studio index (desktop): the projects read as a list of names and
+ *  the preview on the right swaps to whichever one you are pointing at. It
+ *  scans far faster than a row of cards, and it gives the section its own
+ *  character. Phones keep the swipeable deck. */
 export default function Projects() {
-  const outerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [travel, setTravel] = useState(0);
-  const reduced = useReducedMotion();
-
-  // The section is as tall as the sideways distance the track has to cover
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const measure = () => {
-      const wide = window.innerWidth >= 1024;
-      setTravel(wide ? Math.max(track.scrollWidth - window.innerWidth, 0) : 0);
-    };
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
-    window.addEventListener("resize", measure);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: outerRef,
-    offset: ["start start", "end end"],
-  });
-  const x = useSpring(useTransform(scrollYProgress, [0, 1], [0, -travel]), {
-    stiffness: 110,
-    damping: 26,
-    mass: 0.4,
-  });
+  const [hovered, setHovered] = useState(0);
+  const active = projects[hovered];
+  const activeSlug = studyFor(active.title);
 
   return (
     <section id="work" className="scroll-mt-24 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionTitle label="Selected Work" />
+        <SectionTitle label="Selected Work" tag="Index of projects" meta="Hover to preview · Click to open" />
       </div>
 
       {/* Phones & tablets: swipeable deck */}
@@ -280,112 +242,125 @@ export default function Projects() {
         <ProjectDeck />
       </Reveal>
 
-      {/* Desktop: horizontal scroll-driven track */}
-      <div
-        ref={outerRef}
-        className="relative hidden lg:block"
-        style={{ height: travel ? `calc(100vh + ${travel}px)` : undefined }}
-      >
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          <motion.div
-            ref={trackRef}
-            style={{ x: reduced ? 0 : x }}
-            className="flex flex-row gap-10 pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] pr-24"
-          >
-            {projects.map((project, i) => (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.9, delay: (i % 2) * 0.08, ease }}
-                className="group relative w-[30vw] max-w-[440px] shrink-0"
-              >
-                <motion.a
-                  href={studyFor(project.title) ? `/work/${studyFor(project.title)}` : project.liveUrl}
-                  {...(studyFor(project.title)
-                    ? {}
-                    : { target: "_blank", rel: "noopener noreferrer" })}
-                  data-cursor="view"
-                  aria-label={
-                    studyFor(project.title)
-                      ? `Read the ${project.title} case study`
-                      : `Visit ${project.title}`
-                  }
-                  whileHover={{ y: -10 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                  className="relative block overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-[0_24px_80px_-35px_rgba(0,0,0,0.9)] transition-colors duration-500 hover:border-signal/50"
+      {/* Desktop: the index */}
+      <div className="mx-auto hidden max-w-7xl px-6 lg:block">
+        <div className="grid grid-cols-[1.05fr_0.95fr] gap-16">
+          <ul onMouseLeave={() => setHovered(0)}>
+            {projects.map((project, i) => {
+              const slug = studyFor(project.title);
+              const isOn = hovered === i;
+              return (
+                <motion.li
+                  key={project.title}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: 0.7, delay: i * 0.06, ease }}
+                  onMouseEnter={() => setHovered(i)}
+                  className="border-b border-border first:border-t"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-background">
-                    <motion.div
-                      initial={{ scale: 1.25 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true, amount: 0.3 }}
-                      transition={{ duration: 1.5, ease }}
-                      className="absolute inset-0"
+                  <a
+                    href={slug ? `/work/${slug}` : project.liveUrl}
+                    {...(slug ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                    onFocus={() => setHovered(i)}
+                    data-cursor="view"
+                    className="group flex items-baseline gap-6 py-7"
+                  >
+                    <motion.span
+                      animate={{ x: isOn ? 10 : 0 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 26 }}
+                      className="min-w-0 flex-1"
                     >
-                      <Image
-                        src={project.image}
-                        alt={`${project.title} mockup`}
-                        fill
-                        sizes="440px"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-                      />
-                    </motion.div>
+                      <span className="meta meta-sm block text-muted transition-colors group-hover:text-signal">
+                        {project.subtitle}
+                      </span>
+                      <span
+                        className={`mt-2 block font-serif text-3xl leading-tight transition-colors duration-300 xl:text-[2.6rem] ${
+                          isOn ? "text-foreground" : "text-foreground/55"
+                        }`}
+                      >
+                        {project.title}
+                      </span>
+                    </motion.span>
+
+                    {slug && <span className="meta meta-sm shrink-0 text-signal">Case study</span>}
+
+                    <motion.span
+                      aria-hidden="true"
+                      animate={{ opacity: isOn ? 1 : 0.25, x: isOn ? 0 : -6 }}
+                      className="shrink-0 text-signal"
+                    >
+                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                      </svg>
+                    </motion.span>
+                  </a>
+                </motion.li>
+              );
+            })}
+          </ul>
+
+          {/* Preview — follows the pointer down the list */}
+          <Reveal variant="right" amount={0.1}>
+            <div className="sticky top-28">
+              {/* Every preview is mounted and cross-faded with a plain CSS
+                  transition. Swapping through mount/unmount would tie the
+                  interaction to the animation frameloop, which stalls whenever
+                  the tab is in the background. */}
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-border bg-card">
+                {projects.map((project, i) => (
+                  <div
+                    key={project.title}
+                    aria-hidden={i !== hovered}
+                    className={`absolute inset-0 transition-opacity duration-500 ease-out ${
+                      i === hovered ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} mockup`}
+                      fill
+                      sizes="620px"
+                      className="object-cover"
+                    />
                   </div>
-                  <span className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/10" />
+                ))}
+                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/45 via-transparent to-transparent" />
+              </div>
 
-                  {studyFor(project.title) && (
-                    <span className="absolute left-4 top-4 z-[2] rounded-full border border-signal/40 bg-background/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-signal backdrop-blur-md">
-                      Case study
-                    </span>
-                  )}
-
-                  <span className="absolute bottom-4 right-4 z-[2] flex h-10 w-10 items-center justify-center rounded-full border border-signal/40 bg-background/70 text-signal backdrop-blur-md transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-background">
-                    <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                    </svg>
-                  </span>
-                </motion.a>
-
-                <div className="mt-5 px-1">
-                  <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-accent">
-                    {project.subtitle}
-                  </p>
-                  <h3 className="font-serif text-2xl font-semibold tracking-tight text-foreground transition-colors duration-300 group-hover:text-signal">
-                    {project.title}
-                  </h3>
-                  <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-muted">
-                    <span className="mr-2 text-[10px] uppercase tracking-[0.18em] text-muted/70">Outcome</span>
-                    {project.result}
+              <div className="mt-6">
+                  <p className="measure text-[15px] leading-relaxed text-muted">
+                    <span className="meta meta-sm mr-3 text-muted/70">Outcome</span>
+                    {active.result}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {project.tech.map((tech) => (
-                      <span key={tech} className="rounded-full border border-border bg-card/50 px-3 py-1 text-[11px] font-medium tracking-wide text-muted">
+                    {active.tech.map((tech) => (
+                      <span key={tech} className="meta meta-sm rounded-full border border-border px-3 py-1 text-muted">
                         {tech}
                       </span>
                     ))}
                   </div>
-                </div>
-              </motion.article>
-            ))}
-
-            {/* End card */}
-            <div className="flex w-[26vw] shrink-0 items-center">
-              <a href="#contact" className="magnetic group/end block">
-                <span className="p-outline font-serif text-5xl font-semibold leading-tight">
-                  Your project
-                  <br />
-                  next?
-                </span>
-                <span className="mt-4 inline-block text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-                  Let&apos;s talk →
-                </span>
-              </a>
+                  <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3">
+                    {activeSlug && (
+                      <Link href={`/work/${activeSlug}`} className="meta text-signal">
+                        Read case study →
+                      </Link>
+                    )}
+                    <a
+                      href={active.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-underline meta text-muted"
+                    >
+                      Visit live site
+                    </a>
+                  </div>
+              </div>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>
   );
 }
+

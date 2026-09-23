@@ -61,7 +61,7 @@ export default function Mentors() {
   return (
     <section id="mentors" className="relative scroll-mt-24 overflow-hidden py-24 sm:py-32">
       <div className="relative mx-auto max-w-6xl px-6">
-        <SectionTitle label="What Mentors Say" />
+        <SectionTitle label="What Mentors Say" tag="People I have worked under" meta="Drag the stack" />
 
         <Reveal variant="up">
           <div
@@ -125,7 +125,7 @@ export default function Mentors() {
               <motion.p
                 animate={{ opacity: hasDragged ? 0 : 1, y: hasDragged ? -6 : 0 }}
                 transition={{ duration: 0.5, ease }}
-                className="mt-6 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-muted sm:mt-10"
+                className="mt-6 text-center meta meta-sm text-muted sm:mt-10"
               >
                 Drag or swipe to browse
               </motion.p>

@@ -60,7 +60,7 @@ export function Sticker({
       whileInView={{ opacity: 1, scale: 1, rotate }}
       viewport={{ once: true, amount: 0.6 }}
       transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.3 + delay * 0.1 }}
-      className={`absolute z-[3] inline-flex items-center gap-2 rounded-full border border-border bg-card/85 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground shadow-[0_18px_40px_-18px_rgba(0,0,0,0.8)] backdrop-blur-md ${className}`}
+      className={`absolute z-[3] inline-flex items-center gap-2 rounded-full border border-border bg-card/85 px-4 py-2 meta meta-sm text-foreground shadow-[0_18px_40px_-18px_rgba(0,0,0,0.8)] backdrop-blur-md ${className}`}
     >
       <motion.span
         className="inline-flex items-center gap-2"

@@ -17,13 +17,13 @@
   --surface-2: #16233c;
   --surface-3: #1c2c49;
 
-  /* Text */
-  --foreground: #f2f4f7;
-  --muted: #98a1b3;
+  /* Text: warm bone on ink, so the page reads like paper rather than screen */
+  --foreground: #efeae1;
+  --muted: #9e9b95;
 
-  /* Platinum: display accents, large quiet surfaces */
-  --accent: #c6cdda;
-  --accent-dark: #9aa4b8;
+  /* Bone-silver: display accents, large quiet surfaces */
+  --accent: #cfc9bd;
+  --accent-dark: #a6a096;
 
   /* Brass: interactive signal only */
   --signal: #e3a857;
@@ -33,13 +33,13 @@
   --border-strong: #3a4a70;
 
   /* Display gradient stops (p-gold) */
-  --display-1: #f2f5f9;
-  --display-2: #c6cdda;
-  --display-3: #97a1b6;
+  --display-1: #f6f2ea;
+  --display-2: #cfc9bd;
+  --display-3: #9c958a;
 
   /* Accent surface gradient + the text that sits on it */
   --on-accent: #0a111f;
-  --accent-grad: linear-gradient(135deg, #f0f3f8 0%, #c6cdda 45%, #8e99ad 100%);
+  --accent-grad: linear-gradient(135deg, #f4f0e8 0%, #cfc9bd 45%, #968f85 100%);
 
   --grain-opacity: 0.035;
   color-scheme: dark;
@@ -90,6 +90,7 @@
   --color-on-accent: var(--on-accent);
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono-face);
 }
 
 html {
@@ -125,6 +126,24 @@ body {
 
 .font-serif {
   font-family: var(--font-playfair), ui-serif, Georgia, serif;
+}
+
+/* ── The meta layer ─────────────────────────────────────
+   Labels, counters, timestamps and index numbers are set in mono: they read
+   as instrument data next to the editorial serif, and they are what keeps the
+   site from looking like every other dark portfolio. */
+.meta {
+  font-family: var(--font-mono-face), ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.meta-sm {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
 }
 
 ::selection {

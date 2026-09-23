@@ -56,7 +56,7 @@ function SkillCard({ skill }: { skill: Skill }) {
 
         <div className="min-w-0 flex-1">
           <h3 className="font-serif text-xl font-semibold text-foreground sm:text-2xl">{skill.name}</h3>
-          <p className="mt-0.5 text-[12px] font-medium uppercase tracking-[0.14em] text-signal">
+          <p className="mt-0.5 meta meta-sm text-signal">
             {skill.summary}
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function Skills() {
   return (
     <section id="skills" className="scroll-mt-24 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionTitle label="Expertise" />
+        <SectionTitle label="Expertise" tag="What I work in" meta="WordPress · Shopify · React" />
 
         <Reveal variant="up">
           <p className="measure-wide -mt-4 mb-8 leading-relaxed text-muted sm:mb-12 sm:text-lg">
@@ -130,7 +130,7 @@ export default function Skills() {
         {/* Everything else stays a single quiet line rather than a logo wall */}
         <Reveal variant="up" delay={120}>
           <div className="mt-8 flex flex-col gap-3 border-t border-border pt-7 sm:flex-row sm:items-baseline sm:gap-8">
-            <p className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted">
+            <p className="shrink-0 meta meta-sm text-muted">
               Also work with
             </p>
             <p className="text-[15px] leading-relaxed text-foreground/80">{alsoWorkWith.join(" · ")}</p>
