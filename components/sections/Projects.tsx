@@ -174,27 +174,21 @@ function ProjectDeck() {
 
       {/* Controls */}
       <div className="mx-auto mt-10 flex max-w-md items-center gap-5">
-        <div className="flex flex-1 items-center gap-1.5">
-          {projects.map((project, i) => (
-            <button
-              key={project.title}
-              onClick={() => setIndex(i)}
-              aria-label={`Show ${project.title}`}
-              className="group/bar flex-1 py-3"
-            >
-              <span className="relative block h-[3px] overflow-hidden rounded-full bg-border transition-colors group-hover/bar:bg-accent/30">
-                {i === index && (
-                  <motion.span
-                    key={index}
-                    className="absolute inset-0 origin-left bg-accent"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: progressRunning ? AUTOPLAY_MS / 1000 : 0, ease: "linear" }}
-                  />
-                )}
-              </span>
-            </button>
-          ))}
+        {/* One counter and one progress line. A bar per project would leave
+            tap targets barely 20px wide once the list grew past six. */}
+        <div className="flex flex-1 items-center gap-4">
+          <span className="meta meta-sm shrink-0 text-muted">
+            {String(index + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+          </span>
+          <span className="relative block h-[3px] flex-1 overflow-hidden rounded-full bg-border">
+            <motion.span
+              key={index}
+              className="absolute inset-0 origin-left bg-signal"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: progressRunning ? AUTOPLAY_MS / 1000 : 0, ease: "linear" }}
+            />
+          </span>
         </div>
         <div className="flex gap-3">
           {[-1, 1].map((dir) => (

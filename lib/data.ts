@@ -8,7 +8,7 @@ export const profile = {
   // The positioning line: who it's for and what they get. Keep it short.
   tagline: "I build WordPress and Shopify sites that load fast and turn visitors into customers.",
   taglineSupport:
-    "Four years shipping storefronts, CMS builds and React interfaces for clients across retail, legal, education and consultancy.",
+    "Four years shipping storefronts, CMS builds and React interfaces for clients across retail, legal, education, consultancy and non-profit work.",
   availability: {
     status: "Open to work",
     detail: "Full-time or remote · Replies within 24 hours",
@@ -22,13 +22,13 @@ export const profile = {
   },
   about: [
     "I'm a Frontend Developer with 4+ years of experience designing and building responsive, performance-driven, and visually engaging websites. I specialize in WordPress and Shopify development, backed by strong proficiency in HTML5, CSS3, JavaScript, PHP, and React.js/Next.js.",
-    "I've delivered eCommerce platforms, corporate websites, and CMS-driven solutions for clients across the legal, retail, education, and consultancy sectors — translating design mockups into pixel-perfect, cross-browser interfaces, integrating tools like HubSpot and LeadSquared, and optimizing every site for speed and SEO.",
+    "I've delivered eCommerce platforms, corporate websites, and CMS-driven solutions for clients across retail, legal, education, consultancy, non-profit, and data-analytics work — translating design mockups into pixel-perfect, cross-browser interfaces, integrating tools like HubSpot and LeadSquared, and optimizing every site for speed and SEO.",
     "I'm known for writing clean, maintainable code and collaborating closely with designers and stakeholders to deliver on real business goals. Currently open to full-time and remote roles.",
   ],
   stats: [
     { value: "4+", label: "Years Experience" },
     { value: "20+", label: "Projects Delivered" },
-    { value: "5+", label: "Industries Served" },
+    { value: "6+", label: "Industries Served" },
   ],
 };
 
@@ -77,8 +77,8 @@ export const alsoWorkWith = [
 export const proofPoints = [
   { value: "4+", label: "Years shipping client work" },
   { value: "20+", label: "Websites delivered" },
-  { value: "6", label: "Live projects you can open below" },
-  { value: "5", label: "Sectors: retail, legal, education, consultancy, environment" },
+  { value: "8", label: "Live projects you can open below" },
+  { value: "6", label: "Sectors: retail, legal, education, consultancy, non-profit, data" },
 ];
 
 export const skillGroups = [
@@ -106,50 +106,30 @@ export const projects = [
     subtitle: "Premium Pet Food eCommerce",
     description:
       "Custom Shopify storefront for a premium pet food brand with subscription plans and customizable meal options. Built interactive forms and custom product variant selectors, and integrated discount codes, HubSpot, and secure payment gateways.",
-    tech: ["Shopify", "Custom Theme", "HubSpot", "Payment Gateway"],
+    tech: ["Shopify", "Liquid", "Subscriptions", "HubSpot", "Payment Gateway"],
     liveUrl: "https://www.brunswickfurfood.com/",
     image: "/projects/brunswick.jpg",
     result: "Subscription checkout that turns one-time buyers into repeat customers.",
+    featured: true,
+    bullets: [
+      "Built a custom Shopify theme in Liquid for a premium pet-food brand, including subscription plans, configurable meal options and custom variant selectors.",
+      "Integrated discount codes, HubSpot and secure payment gateways so campaigns and recurring orders run without manual reconciliation.",
+    ],
   },
   {
-    title: "Pride and Justice",
-    subtitle: "Legal Services Website",
+    title: "Ayla Solutions",
+    subtitle: "Data Consultancy, Headless Build",
     description:
-      "Professional website for a law firm focused on establishing credibility and client trust. Implemented responsive layouts, custom Elementor sections, and a structured blog, with performance optimizations for a smooth experience across devices.",
-    tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
-    liveUrl: "https://prideandjustice.in/",
-    image: "/projects/pride-justice.jpg",
-    result: "A credibility-first design that wins client trust before the first call.",
-  },
-  {
-    title: "BNPS International",
-    subtitle: "Education Consultancy Platform",
-    description:
-      "Responsive website for an education consultancy, built for lead generation. Customized the WordPress theme with custom animations and layouts, integrated LeadSquared CRM with automated email workflows, and optimized for performance and SEO.",
-    tech: ["WordPress", "Elementor", "LeadSquared", "Email Automation"],
-    liveUrl: "https://bnpsinternational.com/",
-    image: "/projects/bnps.jpg",
-    result: "CRM-connected forms that turn visitors into a steady stream of qualified leads.",
-  },
-  {
-    title: "Vivekanand Vidya Niketan",
-    subtitle: "School Website, Assandh",
-    description:
-      "Full-featured school website with academics, admissions, and achievements sections. Implemented custom multimedia sections — video banners, achievement galleries, and social media feeds — optimized for a smooth, mobile-friendly experience.",
-    tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
-    liveUrl: "https://vvnassandh.com/",
-    image: "/projects/vvn.jpg",
-    result: "Gave a small-town school a digital presence parents actually use for admissions.",
-  },
-  {
-    title: "Enviro Guru Consultancy",
-    subtitle: "Environmental Consultancy",
-    description:
-      "WordPress website for an environmental consultancy firm showcasing services and compliance expertise, with a clean, professional layout that highlights client success stories to build credibility and trust.",
-    tech: ["WordPress", "Elementor", "Custom CSS"],
-    liveUrl: "https://enviroguru.in/",
-    image: "/projects/enviro.jpg",
-    result: "A clean B2B presence that backs up the firm's compliance expertise.",
+      "Marketing site for a data analytics consultancy, built as a headless Next.js front end. Services, blog and case content are CMS-driven, so the team can publish without touching code.",
+    tech: ["Next.js", "Headless CMS", "Tailwind CSS", "Vercel"],
+    liveUrl: "https://ayla-solutions-headless.vercel.app/",
+    image: "/projects/aylasolution.jpeg",
+    result: "A headless front end the marketing team updates on their own, with no developer in the loop.",
+    featured: true,
+    bullets: [
+      "Developed a headless Next.js front end for a data analytics consultancy, with server-rendered pages and CMS-driven services and blog content.",
+      "Tuned images, fonts and rendering for Core Web Vitals, and structured the pages so every service is indexable.",
+    ],
   },
   {
     title: "Art Tech Institute",
@@ -160,6 +140,79 @@ export const projects = [
     liveUrl: "https://www.arttechbsp.com/",
     image: "/projects/arttech.jpg",
     result: "Turned a broad training catalogue into a focused path from learning to career readiness.",
+    featured: true,
+    bullets: [
+      "Built a Next.js course platform organised around career outcomes, covering course discovery, student results, testimonials and enquiry journeys.",
+      "Optimised rendering and images so the site stays fast on low-end phones, with an indexable page for every course.",
+    ],
+  },
+  {
+    title: "BNPS International",
+    subtitle: "Education Consultancy Platform",
+    description:
+      "Responsive website for an education consultancy, built for lead generation. Customized the WordPress theme with custom animations and layouts, integrated LeadSquared CRM with automated email workflows, and optimized for performance and SEO.",
+    tech: ["WordPress", "Elementor", "LeadSquared", "Email Automation"],
+    liveUrl: "https://bnpsinternational.com/",
+    image: "/projects/bnps.jpg",
+    result: "CRM-connected forms that turn visitors into a steady stream of qualified leads.",
+    featured: true,
+    bullets: [
+      "Customised a WordPress theme for an education consultancy and placed enquiry forms at each decision point on the page.",
+      "Integrated LeadSquared CRM with automated email workflows, so every lead is captured with context and answered immediately.",
+    ],
+  },
+  {
+    title: "SUYOG Foundation",
+    subtitle: "Non-Profit, Education & Outreach",
+    description:
+      "Website for a rural-education non-profit working across nine states: mission and programmes, leadership profiles, photo gallery, and the annual convention. Volunteer registration and donation journeys are built into the page.",
+    tech: ["WordPress", "Elementor", "Registration Forms", "Donation Flow"],
+    liveUrl: "https://suyogworld.org/",
+    image: "/projects/suyog.jpeg",
+    result: "One place for supporters to register, volunteer and donate, instead of phone calls and paper forms.",
+    bullets: [
+      "Delivered the website for a rural-education non-profit, covering programmes, gallery, leadership profiles and an annual convention.",
+      "Built volunteer registration and donation journeys so supporters convert in one place.",
+    ],
+  },
+  {
+    title: "Pride and Justice",
+    subtitle: "Legal Services Website",
+    description:
+      "Professional website for a law firm focused on establishing credibility and client trust. Implemented responsive layouts, custom Elementor sections, and a structured blog, with performance optimizations for a smooth experience across devices.",
+    tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
+    liveUrl: "https://prideandjustice.in/",
+    image: "/projects/pride-justice.jpg",
+    result: "A credibility-first design that wins client trust before the first call.",
+    bullets: [
+      "Built a credibility-first WordPress site for a law firm, with custom Elementor sections, practice-area pages, appointment booking and a structured blog.",
+    ],
+  },
+  {
+    title: "Vivekanand Vidya Niketan",
+    subtitle: "School Website, Assandh",
+    description:
+      "Full-featured school website with academics, admissions, and achievements sections. Implemented custom multimedia sections — video banners, achievement galleries, and social media feeds — optimized for a smooth, mobile-friendly experience.",
+    tech: ["WordPress", "Elementor", "Custom CSS", "Responsive Design"],
+    liveUrl: "https://vvnassandh.com/",
+    image: "/projects/vvn.jpg",
+    result: "Gave a small-town school a digital presence parents actually use for admissions.",
+    bullets: [
+      "Developed a school website covering academics, admissions and achievements, with video banners, galleries and social feeds.",
+    ],
+  },
+  {
+    title: "Enviro Guru Consultancy",
+    subtitle: "Environmental Consultancy",
+    description:
+      "WordPress website for an environmental consultancy firm showcasing services and compliance expertise, with a clean, professional layout that highlights client success stories to build credibility and trust.",
+    tech: ["WordPress", "Elementor", "Custom CSS"],
+    liveUrl: "https://enviroguru.in/",
+    image: "/projects/enviro.jpg",
+    result: "A clean B2B presence that backs up the firm's compliance expertise.",
+    bullets: [
+      "Built a B2B WordPress site for an environmental consultancy, presenting services, compliance expertise and client success stories.",
+    ],
   },
 ];
 

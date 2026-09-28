@@ -18,6 +18,11 @@ const additional = [
 
 const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
+// Four projects carry bullets; the rest are named on one line, so the resume
+// shows range without spilling onto a second page.
+const featuredProjects = projects.filter((p) => p.featured);
+const otherProjects = projects.filter((p) => !p.featured);
+
 function Heading({ children }: { children: ReactNode }) {
   return (
     <h2 className="mb-3.5 flex items-center gap-3 border-b border-border pb-2 font-serif text-[18px] font-medium italic text-foreground">
@@ -82,7 +87,7 @@ export default function ResumePage() {
                 WordPress and Shopify development with strong proficiency in HTML5, CSS3,
                 JavaScript, PHP, and React.js/Next.js. Proven track record of delivering
                 eCommerce platforms, corporate websites, and CMS-driven solutions across the
-                legal, retail, education, and consultancy sectors — translating mockups into
+                retail, legal, education, consultancy, and non-profit sectors — translating mockups into
                 pixel-perfect interfaces, integrating third-party tools, and optimizing
                 performance and SEO.
               </p>
@@ -118,8 +123,8 @@ export default function ResumePage() {
 
             <section>
               <Heading>Key Projects</Heading>
-              <div className="space-y-3.5">
-                {projects.map((project) => (
+              <div className="space-y-4">
+                {featuredProjects.map((project) => (
                   <div key={project.title}>
                     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
                       <h3 className="text-[14.5px] font-semibold text-foreground">
@@ -133,12 +138,37 @@ export default function ResumePage() {
                         {domain(project.liveUrl)}
                       </a>
                     </div>
-                    <p className="mt-0.5 text-[13px] leading-relaxed text-foreground/90">
-                      {project.result}{" "}
-                      <span className="text-muted">Stack: {project.tech.join(", ")}.</span>
-                    </p>
+                    <ul className="mt-1.5 space-y-1">
+                      {project.bullets?.map((point) => (
+                        <li
+                          key={point.slice(0, 32)}
+                          className="flex gap-2.5 text-[13px] leading-relaxed text-foreground/90"
+                        >
+                          <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-accent" />
+                          {point}
+                        </li>
+                      ))}
+                      <li className="flex gap-2.5 text-[12.5px] leading-relaxed text-muted">
+                        <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-accent/50" />
+                        Stack: {project.tech.join(", ")}.
+                      </li>
+                    </ul>
                   </div>
                 ))}
+
+                {/* The rest stay as one scannable line so the page holds to one side of A4 */}
+                <div>
+                  <h3 className="text-[14.5px] font-semibold text-foreground">Also delivered</h3>
+                  <p className="mt-1 text-[13px] leading-relaxed text-foreground/90">
+                    {otherProjects.map((project, i) => (
+                      <span key={project.title}>
+                        {i > 0 && " · "}
+                        {project.title}
+                        <span className="text-muted"> ({domain(project.liveUrl)})</span>
+                      </span>
+                    ))}
+                  </p>
+                </div>
               </div>
             </section>
           </div>
