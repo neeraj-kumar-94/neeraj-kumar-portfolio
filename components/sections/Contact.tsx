@@ -9,9 +9,6 @@ import SectionTitle from "@/components/ui/SectionTitle";
 type Status = "idle" | "sending" | "sent" | "error";
 
 const microLabel = "meta meta-sm text-muted";
-const labelCls = `mb-2 block ${microLabel}`;
-const fieldCls =
-  "w-full rounded-xl border border-border bg-background/50 px-4 text-[15px] text-foreground outline-none transition placeholder:text-muted/50 focus:border-accent/60 focus:bg-background/80 focus:ring-4 focus:ring-signal/10";
 
 const contacts: { label: string; value: string; href?: string; icon: ReactNode }[] = [
   {
@@ -53,6 +50,96 @@ const contacts: { label: string; value: string; href?: string; icon: ReactNode }
     ),
   },
 ];
+
+/** A field that reacts: it lifts on hover, draws a brass line as you focus it,
+ *  nudges its label across, and ticks once there is something in it. */
+function Field({
+  id,
+  name,
+  label,
+  placeholder,
+  type = "text",
+  required = false,
+  autoComplete,
+  rows,
+}: {
+  id: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  type?: string;
+  required?: boolean;
+  autoComplete?: string;
+  rows?: number;
+}) {
+  const [focused, setFocused] = useState(false);
+  const [filled, setFilled] = useState(false);
+
+  const shared = {
+    id,
+    name,
+    required,
+    placeholder,
+    autoComplete,
+    onFocus: () => setFocused(true),
+    onBlur: () => setFocused(false),
+    onChange: (e: { target: { value: string } }) => setFilled(e.target.value.trim().length > 0),
+    className:
+      "peer w-full bg-transparent px-4 text-[15px] text-foreground outline-none transition-colors duration-300 placeholder:text-muted/45",
+  };
+
+  return (
+    <div className="group relative">
+      <label
+        htmlFor={id}
+        className={`meta meta-sm mb-2 block transition-all duration-300 ${
+          focused ? "translate-x-[3px] text-signal" : "translate-x-0 text-muted"
+        }`}
+      >
+        {label}
+      </label>
+
+      {/* The box: brightens on hover, settles on focus. Colours come from
+          classes, not motion values — a CSS variable passed to animate() never
+          resolves, which leaves the border at the browser's default. */}
+      <div
+        className={`relative overflow-hidden rounded-xl border transition-all duration-300 ${
+          focused
+            ? "border-signal bg-background/80 shadow-[0_0_0_4px_color-mix(in_srgb,var(--signal)_14%,transparent)]"
+            : "border-border bg-background/50 group-hover:border-accent/50 group-hover:bg-surface-2/70"
+        }`}
+      >
+        {rows ? (
+          <textarea {...shared} rows={rows} className={`${shared.className} resize-none py-3`} />
+        ) : (
+          <input {...shared} type={type} className={`${shared.className} h-12`} />
+        )}
+
+        {/* A line draws across the bottom while the field is active */}
+        <span
+          aria-hidden="true"
+          className={`absolute inset-x-0 bottom-0 h-[2px] origin-left bg-signal transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            focused ? "scale-x-100" : "scale-x-0"
+          }`}
+        />
+      </div>
+
+      {/* Quiet confirmation that the field has something in it. Everything here
+          runs on CSS transitions rather than mount animations, so the states
+          still resolve if the tab was in the background while you typed. */}
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute right-3 top-[2.4rem] text-signal transition-all duration-300 ${
+          filled ? "scale-100 opacity-100" : "scale-50 opacity-0"
+        }`}
+      >
+        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.4}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </span>
+    </div>
+  );
+}
 
 /** Copies the email and confirms it in place, so nobody has to select text. */
 function CopyEmail() {
@@ -187,56 +274,33 @@ export default function Contact() {
             {/* Form pane */}
             <form onSubmit={onSubmit} className="min-w-0 p-6 sm:p-10">
               <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="pc-name" className={labelCls}>
-                    Name
-                  </label>
-                  <input
-                    id="pc-name"
-                    name="name"
-                    required
-                    autoComplete="name"
-                    placeholder="Your name"
-                    className={`${fieldCls} h-12`}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pc-email" className={labelCls}>
-                    Email
-                  </label>
-                  <input
-                    id="pc-email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    placeholder="you@example.com"
-                    className={`${fieldCls} h-12`}
-                  />
-                </div>
-              </div>
-              <div className="mt-5">
-                <label htmlFor="pc-subject" className={labelCls}>
-                  Subject
-                </label>
-                <input
-                  id="pc-subject"
-                  name="subject"
-                  placeholder="Project inquiry / Job opportunity"
-                  className={`${fieldCls} h-12`}
+                <Field id="pc-name" name="name" label="Name" placeholder="Your name" required autoComplete="name" />
+                <Field
+                  id="pc-email"
+                  name="email"
+                  type="email"
+                  label="Email"
+                  placeholder="you@example.com"
+                  required
+                  autoComplete="email"
                 />
               </div>
               <div className="mt-5">
-                <label htmlFor="pc-message" className={labelCls}>
-                  Message
-                </label>
-                <textarea
+                <Field
+                  id="pc-subject"
+                  name="subject"
+                  label="Subject"
+                  placeholder="Project inquiry / Job opportunity"
+                />
+              </div>
+              <div className="mt-5">
+                <Field
                   id="pc-message"
                   name="message"
+                  label="Message"
+                  placeholder="Tell me a little about your project…"
                   required
                   rows={5}
-                  placeholder="Tell me a little about your project…"
-                  className={`${fieldCls} resize-none py-3`}
                 />
               </div>
 
