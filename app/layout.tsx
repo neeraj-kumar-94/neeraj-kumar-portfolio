@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
+import Starfield from "@/components/effects/Starfield";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -51,6 +52,7 @@ export default function RootLayout({
         <a href="#main" className="skip-link rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent">
           Skip to content
         </a>
+        <Starfield />
         {children}
       </body>
     </html>

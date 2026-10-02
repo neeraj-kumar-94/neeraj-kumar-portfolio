@@ -69,6 +69,7 @@ components/
     ├── TextReveal.tsx    → Heading ke words mask ke peeche se upar aate hain
     ├── SmoothScroll.tsx  → Lenis setup
     ├── ScrollProgress.tsx→ Top progress bar + back-to-top
+    ├── Starfield.tsx     → Background: stars, shooting stars (dark), dust (light)
     ├── CursorFx.tsx      → Custom cursor (sirf desktop)
     └── MagneticFx.tsx    → Magnetic buttons (spring)
 
@@ -122,6 +123,7 @@ saath entry add karo — page apne aap ban jayega.
 | Journey timeline draw | `useScroll` → `scaleY`, nodes `useInView` | `sections/Experience.tsx` |
 | Work index preview | Hover state + CSS cross-fade (no mount/unmount) | `sections/Projects.tsx` |
 | Live local clock | `useSyncExternalStore` on a one-minute tick | `ui/LocalTime.tsx` |
+| Starfield + shooting stars | Single canvas, rAF, paused when tab hidden | `effects/Starfield.tsx` |
 | Navbar | Scroll-direction hide/show + `layoutId` pill | `layout/Navbar.tsx` |
 | Custom cursor / magnetic buttons | Motion values + springs | `effects/CursorFx.tsx`, `effects/MagneticFx.tsx` |
 | Count-up stats | `useInView` + `animate()` | `ui/CountUp.tsx` |
@@ -133,7 +135,7 @@ saath entry add karo — page apne aap ban jayega.
 
 ## 5. Resume
 
-- **`/resume`** — screen par site ki navy theme, print/PDF mein plain black & white A4.
+- **`/resume`** — classic single-column resume, hamesha paper sheet (dono themes mein), scan hone wale keywords par highlight. Screen aur PDF ek jaise.
 - **PDF** — `public/Neeraj-Kumar-Resume.pdf`. Content change ke baad dev server chala kar
   dobara banao:
 

@@ -95,8 +95,13 @@
 
 html {
   scroll-behavior: smooth;
-  /* Also paints the overscroll bounce on phones */
-  background: var(--background);
+  /* The page ground lives on html, not body, so the starfield canvas can sit
+     behind the content at a negative z-index and still be visible. */
+  background:
+    radial-gradient(1200px 620px at 50% -10%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%),
+    radial-gradient(900px 500px at 100% 30%, color-mix(in srgb, var(--surface-3) 60%, transparent), transparent 65%),
+    var(--background);
+  background-attachment: fixed;
 }
 
 html.lenis {
@@ -114,10 +119,7 @@ body {
 }
 
 body {
-  background:
-    radial-gradient(1200px 620px at 50% -10%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%),
-    radial-gradient(900px 500px at 100% 30%, color-mix(in srgb, var(--surface-3) 60%, transparent), transparent 65%),
-    var(--background);
+  background: transparent;
   color: var(--foreground);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -297,7 +299,8 @@ html.cursor-fx button {
   }
 
   .no-print,
-  .skip-link {
+  .skip-link,
+  canvas {
     display: none !important;
   }
   html,

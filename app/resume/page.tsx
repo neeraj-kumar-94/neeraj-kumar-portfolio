@@ -10,25 +10,123 @@ export const metadata: Metadata = {
     "Resume of Neeraj Kumar — Frontend Developer specializing in WordPress, Shopify, React.js, and Next.js.",
 };
 
-const additional = [
-  "Available for full-time & remote roles",
-  "Passionate about UI/UX design",
-  "Continuously exploring modern frontend frameworks",
-];
-
 const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
-// Four projects carry bullets; the rest are named on one line, so the resume
-// shows range without spilling onto a second page.
 const featuredProjects = projects.filter((p) => p.featured);
 const otherProjects = projects.filter((p) => !p.featured);
 
-function Heading({ children }: { children: ReactNode }) {
+/** The terms a recruiter scans for. Marking them is what the reference resume
+ *  does, and it is the whole reason that layout reads fast. Keep the list tight:
+ *  highlighting everything is the same as highlighting nothing. */
+const TERMS = [
+  "WordPress",
+  "Shopify",
+  "React.js",
+  "Next.js",
+  "Liquid",
+  "Elementor",
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "TypeScript",
+  "PHP",
+  "Tailwind CSS",
+  "headless",
+  "subscription plans",
+  "subscriptions",
+  "custom theme",
+  "custom themes",
+  "payment gateways",
+  "HubSpot",
+  "LeadSquared",
+  "CRM",
+  "automated email workflows",
+  "Core Web Vitals",
+  "SEO",
+  "performance",
+  "server-rendered",
+  "CMS-driven",
+  "responsive",
+  "cross-browser",
+  "reusable UI components",
+  "pixel-accurate",
+  "eCommerce",
+  "20+ production websites",
+  "4+ years",
+];
+
+const PATTERN = new RegExp(
+  `(${TERMS.sort((a, b) => b.length - a.length)
+    .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|")})`,
+  "gi"
+);
+
+/** Splits a line and wraps the scannable terms in a highlight. */
+function Marked({ children }: { children: string }) {
+  const parts = children.split(PATTERN);
   return (
-    <h2 className="mb-3.5 flex items-center gap-3 border-b border-border pb-2 font-serif text-[18px] font-medium italic text-foreground">
-      <span className="h-px w-5 bg-accent" />
+    <>
+      {parts.map((part, i) =>
+        PATTERN.test(part) && i % 2 === 1 ? (
+          <mark key={i} className="hl">
+            {part}
+          </mark>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
+  );
+}
+
+function Section({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="mt-4 first:mt-0">
+      <h2 className="resume-heading">{title}</h2>
       {children}
-    </h2>
+    </section>
+  );
+}
+
+/** Two-line entry: bold title and right-aligned dates, then italic detail
+ *  and right-aligned place. The layout the reference resume uses. */
+function EntryHead({
+  left,
+  right,
+  subLeft,
+  subRight,
+}: {
+  left: ReactNode;
+  right: ReactNode;
+  subLeft?: ReactNode;
+  subRight?: ReactNode;
+}) {
+  return (
+    <>
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="text-[14px] font-bold">{left}</h3>
+        <span className="shrink-0 text-[13px] font-bold">{right}</span>
+      </div>
+      {(subLeft || subRight) && (
+        <div className="flex items-baseline justify-between gap-4 italic">
+          <p className="text-[13px]">{subLeft}</p>
+          <span className="shrink-0 text-[12.5px]">{subRight}</span>
+        </div>
+      )}
+    </>
+  );
+}
+
+function Bullets({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-1 space-y-[3px] pl-[18px]">
+      {items.map((point) => (
+        <li key={point.slice(0, 36)} className="resume-bullet text-[12.8px] leading-[1.42]">
+          <Marked>{point}</Marked>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -38,184 +136,124 @@ export default function ResumePage() {
   return (
     <div className="resume-page min-h-screen py-10 print:py-0">
       {/* Toolbar — hidden in print/PDF */}
-      <div className="no-print mx-auto mb-6 flex max-w-[880px] items-center justify-between px-6">
-        <Link href="/" className="text-sm font-medium text-muted transition-colors hover:text-signal">
-          ← Back to Portfolio
+      <div className="no-print mx-auto mb-6 flex max-w-[900px] items-center justify-between px-6">
+        <Link href="/" className="meta meta-sm text-muted transition-colors hover:text-signal">
+          ← Back to portfolio
         </Link>
         <a
           href="/Neeraj-Kumar-Resume.pdf"
           download
-          className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-on-accent transition hover:brightness-110"
+          className="meta meta-sm rounded-full bg-accent px-6 py-2.5 text-on-accent transition hover:brightness-110"
         >
           Download PDF
         </a>
       </div>
 
-      {/* A4 sheet — navy card on screen, plain paper in print */}
-      <div className="resume-sheet mx-auto max-w-[880px] border-border bg-card px-6 py-8 sm:rounded-[1.75rem] sm:border sm:px-11 sm:py-10 print:max-w-none print:rounded-none print:border-0">
-        {/* Header */}
-        <header className="border-b border-border pb-6">
-          <h1 className="font-serif text-4xl font-medium tracking-tight text-foreground sm:text-5xl">
-            {first} <span className="p-gold pr-2 italic">{last}</span>
+      {/* The sheet is always paper, whichever theme the site is in: a resume
+          should read like a document, not like the website around it. */}
+      <article className="resume-sheet mx-auto max-w-[900px] px-8 py-9 sm:px-12 sm:py-11 print:max-w-none">
+        <header className="text-center">
+          <h1 className="resume-name">
+            {first} {last}
           </h1>
-          <p className="mt-2 text-[11.5px] font-semibold uppercase tracking-[0.26em] text-accent">
-            Frontend Developer · WordPress · Shopify · React.js / Next.js
-          </p>
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-[13.5px] text-muted">
-            <span>{profile.location}</span>
+          <p className="mt-1 text-[13px]">{profile.location}</p>
+          <p className="mt-1.5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[12.5px]">
             <span>{profile.phone}</span>
-            <a href={`mailto:${profile.email}`} className="transition-colors hover:text-signal">
+            <a className="resume-link" href={`mailto:${profile.email}`}>
               {profile.email}
             </a>
-            <a href={profile.socials.linkedin} className="transition-colors hover:text-signal">
-              {domain(profile.socials.linkedin)}
+            <a className="resume-link" href={profile.socials.linkedin}>
+              LinkedIn
             </a>
-            <a href={profile.socials.github} className="transition-colors hover:text-signal">
-              {domain(profile.socials.github)}
+            <a className="resume-link" href={profile.socials.github}>
+              GitHub
             </a>
-          </div>
+            <a className="resume-link" href="https://neeraj-kumar-portfolio-eight.vercel.app/">
+              Portfolio
+            </a>
+          </p>
         </header>
 
-        <div className="mt-7 grid grid-cols-1 gap-9 md:grid-cols-[1fr_15.5rem] print:grid-cols-[1fr_14.5rem]">
-          {/* Main column */}
-          <div className="space-y-7">
-            <section>
-              <Heading>Professional Summary</Heading>
-              <p className="text-[14px] leading-relaxed text-foreground/90">
-                Frontend Developer with 4+ years of experience designing and building
-                responsive, performance-driven, and visually engaging websites. Specialized in
-                WordPress and Shopify development with strong proficiency in HTML5, CSS3,
-                JavaScript, PHP, and React.js/Next.js. Proven track record of delivering
-                eCommerce platforms, corporate websites, and CMS-driven solutions across the
-                retail, legal, education, consultancy, and non-profit sectors — translating mockups into
-                pixel-perfect interfaces, integrating third-party tools, and optimizing
-                performance and SEO.
-              </p>
-            </section>
+        <Section title="Summary">
+          <p className="text-[12.8px] leading-[1.45]">
+            <Marked>
+              Frontend Developer with 4+ years building responsive, performance-driven websites and eCommerce storefronts. Specialized in WordPress and Shopify, with production work in React.js and Next.js. Delivered 20+ production websites across retail, legal, education, consultancy and non-profit clients.
+            </Marked>
+          </p>
+        </Section>
 
-            <section>
-              <Heading>Experience</Heading>
-              <div className="space-y-5">
-                {experience.map((job) => (
-                  <div key={job.company}>
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-                      <h3 className="text-[15.5px] font-semibold text-foreground">{job.role}</h3>
-                      <span className="shrink-0 text-[13px] font-medium text-accent">{job.period}</span>
-                    </div>
-                    <p className="text-[13.5px] text-muted">
-                      {job.company} · {job.location}
-                    </p>
-                    <ul className="mt-2 space-y-1.5">
-                      {job.points.map((point) => (
-                        <li
-                          key={point.slice(0, 32)}
-                          className="flex gap-2.5 text-[13.5px] leading-relaxed text-foreground/90"
-                        >
-                          <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+        <Section title="Experience">
+          <div className="space-y-2.5">
+            {experience.map((job) => (
+              <div key={job.company}>
+                <EntryHead
+                  left={job.company}
+                  right={job.period}
+                  subLeft={job.role}
+                  subRight={job.location}
+                />
+                {/* Four bullets per role keeps the page to one side of A4 */}
+                <Bullets items={job.points.slice(0, 4)} />
               </div>
-            </section>
-
-            <section>
-              <Heading>Key Projects</Heading>
-              <div className="space-y-4">
-                {featuredProjects.map((project) => (
-                  <div key={project.title}>
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-                      <h3 className="text-[14.5px] font-semibold text-foreground">
-                        {project.title}
-                        <span className="font-normal text-muted"> — {project.subtitle}</span>
-                      </h3>
-                      <a
-                        href={project.liveUrl}
-                        className="shrink-0 text-[12.5px] font-medium text-accent hover:underline"
-                      >
-                        {domain(project.liveUrl)}
-                      </a>
-                    </div>
-                    <ul className="mt-1.5 space-y-1">
-                      {project.bullets?.map((point) => (
-                        <li
-                          key={point.slice(0, 32)}
-                          className="flex gap-2.5 text-[13px] leading-relaxed text-foreground/90"
-                        >
-                          <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-accent" />
-                          {point}
-                        </li>
-                      ))}
-                      <li className="flex gap-2.5 text-[12.5px] leading-relaxed text-muted">
-                        <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-accent/50" />
-                        Stack: {project.tech.join(", ")}.
-                      </li>
-                    </ul>
-                  </div>
-                ))}
-
-                {/* The rest stay as one scannable line so the page holds to one side of A4 */}
-                <div>
-                  <h3 className="text-[14.5px] font-semibold text-foreground">Also delivered</h3>
-                  <p className="mt-1 text-[13px] leading-relaxed text-foreground/90">
-                    {otherProjects.map((project, i) => (
-                      <span key={project.title}>
-                        {i > 0 && " · "}
-                        {project.title}
-                        <span className="text-muted"> ({domain(project.liveUrl)})</span>
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              </div>
-            </section>
+            ))}
           </div>
+        </Section>
 
-          {/* Sidebar */}
-          <aside className="space-y-7">
-            <section>
-              <Heading>Core Skills</Heading>
-              <div className="space-y-3.5">
-                {skillGroups.map((group) => (
-                  <div key={group.title}>
-                    <h3 className="mb-1 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-foreground">
-                      {group.title}
-                    </h3>
-                    <p className="text-[13px] leading-relaxed text-foreground/90">{group.skills.join(" · ")}</p>
-                  </div>
-                ))}
+        <Section title="Projects">
+          <div className="space-y-2.5">
+            {featuredProjects.map((project) => (
+              <div key={project.title}>
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="text-[13.5px] font-bold">
+                    {project.title}
+                    <span className="font-normal italic"> | {project.tech.join(", ")}</span>
+                  </h3>
+                  <a href={project.liveUrl} className="resume-link shrink-0 text-[12.5px] font-bold">
+                    Live Site
+                  </a>
+                </div>
+                <Bullets items={project.bullets ?? []} />
               </div>
-            </section>
+            ))}
 
-            <section>
-              <Heading>Education</Heading>
-              <div className="space-y-3">
-                {education.map((item) => (
-                  <div key={item.degree}>
-                    <h3 className="text-[14px] font-semibold text-foreground">{item.degree}</h3>
-                    <p className="text-[13px] text-muted">{item.institution}</p>
-                    <p className="text-[12.5px] font-medium text-accent">{item.period}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+            <p className="text-[12.8px] leading-[1.45]">
+              <span className="font-bold">Also delivered: </span>
+              {otherProjects.map((project, i) => (
+                <span key={project.title}>
+                  {i > 0 && " · "}
+                  {project.title}
+                  <span className="italic"> ({domain(project.liveUrl)})</span>
+                </span>
+              ))}
+            </p>
+          </div>
+        </Section>
 
-            <section>
-              <Heading>Additional</Heading>
-              <ul className="space-y-1.5">
-                {additional.map((item) => (
-                  <li key={item} className="flex gap-2.5 text-[13px] leading-relaxed text-foreground/90">
-                    <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-accent" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </aside>
-        </div>
-      </div>
+        <Section title="Technical Skills">
+          <div className="space-y-[3px]">
+            {skillGroups.map((group) => (
+              <p key={group.title} className="text-[12.8px] leading-[1.45]">
+                <span className="font-bold">{group.title}: </span>
+                <Marked>{group.skills.join(", ")}</Marked>
+              </p>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Education">
+          <div className="space-y-1.5">
+            {education.map((item) => (
+              <EntryHead
+                key={item.degree}
+                left={item.institution}
+                right={item.period}
+                subLeft={item.degree}
+                subRight={item.institution.includes("Meerut") ? "Meerut, India" : "Shamli, India"}
+              />
+            ))}
+          </div>
+        </Section>
+      </article>
     </div>
   );
 }

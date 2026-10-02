@@ -1,27 +1,102 @@
-/* Screen: the site's own theme. Print: plain black and white, set in
-   globals.css so the overrides sit after the theme tokens and win. */
+/* The resume is a document, not a page of the site: the sheet stays paper in
+   both themes, so the screen version and the PDF are the same artefact. */
 
 .resume-page {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
+.resume-sheet {
+  --paper: #ffffff;
+  --ink: #111111;
+  --ink-soft: #333333;
+  --rule: #111111;
+  --mark: #fdf0c4;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.65);
+  border-radius: 6px;
+}
+
+/* Name: large, letterspaced, in the serif — the one piece of display type */
+.resume-name {
+  font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  font-size: 31px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* Section heading with the full-width rule under it */
+.resume-heading {
+  font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding-bottom: 2px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.resume-sheet p,
+.resume-sheet li,
+.resume-sheet span {
+  color: var(--ink);
+}
+
+.resume-sheet .italic {
+  color: var(--ink-soft);
+}
+
+/* Bullets: a small dash rather than a heavy dot, which keeps dense text calm */
+.resume-bullet {
+  position: relative;
+  list-style: none;
+}
+
+.resume-bullet::before {
+  content: "";
+  position: absolute;
+  left: -13px;
+  top: 0.62em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.resume-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* The highlighter. Soft amber reads as a marker on screen and prints cleanly;
+   swap --mark to #ededed for a plain grey-on-white version. */
+.resume-sheet .hl {
+  background: var(--mark);
+  color: var(--ink);
+  padding: 0 1px;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 @media print {
-  /* Text is set a little larger for the screen; scale the sheet down so the
-     PDF still fits on one A4 page. */
-  .resume-page .resume-sheet {
+  .resume-page {
+    padding: 0;
+  }
+
+  .resume-sheet {
     box-shadow: none;
-    zoom: 0.7;
-  }
-
-  /* Gradient text and gradient fills don't belong on paper */
-  .resume-page .p-gold {
-    background: none;
-    -webkit-text-fill-color: currentColor;
-    color: var(--foreground);
-  }
-
-  .resume-page .bg-accent {
-    background-image: none;
+    border-radius: 0;
+    max-width: none;
+    /* Screen type is set a touch larger for reading; scale the sheet so the
+       PDF still lands on one A4 page. */
+    zoom: 0.85;
   }
 }
