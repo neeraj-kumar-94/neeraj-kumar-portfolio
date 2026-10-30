@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import Starfield from "@/components/effects/Starfield";
+import CloneNotice from "@/components/effects/CloneNotice";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -23,10 +25,33 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
+const DESCRIPTION =
+  "Portfolio of Neeraj Kumar, a frontend developer with 4+ years of experience building responsive, performance-driven websites and eCommerce platforms with WordPress, Shopify, React.js, and Next.js.";
+
 export const metadata: Metadata = {
+  // metadataBase plus a canonical on every page means a copy of this site that
+  // keeps the markup points search engines back here, not at itself.
+  metadataBase: new URL(SITE_URL),
   title: "Neeraj Kumar — Frontend Developer | WordPress, Shopify & React",
-  description:
-    "Portfolio of Neeraj Kumar, a frontend developer with 4+ years of experience building responsive, performance-driven websites and eCommerce platforms with WordPress, Shopify, React.js, and Next.js.",
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  authors: [{ name: "Neeraj Kumar", url: SITE_URL }],
+  creator: "Neeraj Kumar",
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "Neeraj Kumar",
+    title: "Neeraj Kumar — Frontend Developer",
+    description: DESCRIPTION,
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Neeraj Kumar, Frontend Developer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Neeraj Kumar — Frontend Developer",
+    description: DESCRIPTION,
+    images: ["/og.jpg"],
+  },
+  robots: { index: true, follow: true },
 };
 
 // Applies the stored theme before first paint, so switching never flashes.
@@ -54,6 +79,7 @@ export default function RootLayout({
         </a>
         <Starfield />
         {children}
+        <CloneNotice />
       </body>
     </html>
   );

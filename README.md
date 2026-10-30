@@ -181,3 +181,22 @@ progress. Baaki sab platinum/neutral rehta hai.
 Har text/surface pair WCAG AA (4.5:1) se upar hai, dono themes mein. Theme toggle
 navbar mein hai aur choice `localStorage` mein save hoti hai; `layout.tsx` ka inline
 script paint se pehle apply kar deta hai, isliye flash nahi hota.
+
+---
+
+## 8. Chori se bachav
+
+Frontend code chhupaya nahi ja sakta, par lazy copy pakdi ja sakti hai aur
+attribution bachayi ja sakti hai. Site mein chaar cheezein lagi hain:
+
+| Cheez | Kya karta hai | File |
+|---|---|---|
+| Canonical + Open Graph | Clone agar markup nahi badalta, to Google original tumhari site ko maanta hai | `app/layout.tsx`, har page ka `alternates` |
+| Hotlink watermark | Doosri site se load hui image ki jagah watermark serve hota hai | `middleware.ts`, `public/hotlinked.jpg` |
+| Clone notice | Site tumhare domain par nahi chal rahi to neeche patti aati hai | `components/effects/CloneNotice.tsx` |
+| LICENSE | Code MIT, par content, photos aur case studies reserved | `LICENSE` |
+
+Domain badlo to sirf **`lib/site.ts`** edit karna hai, baaki sab wahi se padhta hai.
+
+> Right click band karna ya devtools block karna jaan-bujhkar nahi kiya. Usse
+> recruiter pareshan hota hai aur copy karne wala rukta nahi.

@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: `${found.project.title} — Case study | Neeraj Kumar`,
     description: found.study.context.slice(0, 155),
+    alternates: { canonical: `/work/${slug}` },
   };
 }
 

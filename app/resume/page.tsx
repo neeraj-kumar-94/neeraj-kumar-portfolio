@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Resume — Neeraj Kumar | Frontend Developer",
   description:
     "Resume of Neeraj Kumar — Frontend Developer specializing in WordPress, Shopify, React.js, and Next.js.",
+  alternates: { canonical: "/resume" },
 };
 
 const domain = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
