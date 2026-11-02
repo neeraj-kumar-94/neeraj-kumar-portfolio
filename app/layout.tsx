@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono } from "next/font/google";
 import Starfield from "@/components/effects/Starfield";
 import CloneNotice from "@/components/effects/CloneNotice";
+import StructuredData from "@/components/seo/StructuredData";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -77,9 +79,12 @@ export default function RootLayout({
         <a href="#main" className="skip-link rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent">
           Skip to content
         </a>
+        <StructuredData />
         <Starfield />
         {children}
         <CloneNotice />
+        {/* Cookieless, no personal data, about 1 KB. Only reports on Vercel. */}
+        <Analytics />
       </body>
     </html>
   );

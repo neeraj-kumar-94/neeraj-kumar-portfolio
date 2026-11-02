@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { caseStudies, projects, slugify } from "@/lib/data";
+import { SITE_URL } from "@/lib/site";
 import Reveal from "@/components/effects/Reveal";
 import TextReveal from "@/components/effects/TextReveal";
 import SmoothScroll from "@/components/effects/SmoothScroll";
@@ -53,8 +54,26 @@ export default async function CaseStudyPage({ params }: Params) {
   const { study, project } = found;
   const others = caseStudies.filter((c) => c.slug !== slug);
 
+  // Each case study is an article in its own right, so it gets its own record
+  const caseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: `${project.title} — ${project.subtitle}`,
+    description: study.context,
+    about: project.title,
+    author: { "@type": "Person", name: "Neeraj Kumar", url: SITE_URL },
+    publisher: { "@type": "Person", name: "Neeraj Kumar", url: SITE_URL },
+    mainEntityOfPage: `${SITE_URL}/work/${slug}`,
+    image: `${SITE_URL}${project.image}`,
+    keywords: project.tech.join(", "),
+  };
+
   return (
     <div className="p-grain min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(caseSchema) }}
+      />
       <SmoothScroll />
       <ScrollProgress />
       <CursorFx />

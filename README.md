@@ -200,3 +200,17 @@ Domain badlo to sirf **`lib/site.ts`** edit karna hai, baaki sab wahi se padhta 
 
 > Right click band karna ya devtools block karna jaan-bujhkar nahi kiya. Usse
 > recruiter pareshan hota hai aur copy karne wala rukta nahi.
+
+---
+
+## 9. SEO aur analytics
+
+| Cheez | Kahan | Kya karta hai |
+|---|---|---|
+| `sitemap.xml` | `app/sitemap.ts` | Home, resume aur teeno case studies ka naksha |
+| `robots.txt` | `app/robots.ts` | Sab crawlers allowed, sitemap ka pata |
+| JSON-LD | `components/seo/StructuredData.tsx` | Person, WebSite aur work list; case study pages par Article |
+| Analytics | `@vercel/analytics` in `app/layout.tsx` | Cookieless, ~1 KB, sirf Vercel par report karta hai |
+
+Local par `/_vercel/insights/script.js` ka 404 normal hai, wo file sirf Vercel
+par hoti hai.
